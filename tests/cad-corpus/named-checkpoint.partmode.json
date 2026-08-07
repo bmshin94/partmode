@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-named-checkpoint",
+  "name": "CAD corpus named checkpoint",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-named-height", "name": "named_height", "value": 10 },
+    { "id": "param-named-radius", "name": "named_radius", "value": 1.5 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-named-checkpoint",
+      "name": "Named checkpoint",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-named-checkpoint",
+          "name": "Named filleted stock",
+          "kind": "solid",
+          "createdByFeatureId": "feature-named-stock",
+          "featureIds": ["feature-named-stock", "feature-named-fillet"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-named-stock",
+          "name": "Exact named stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-named-stock",
+            "name": "Named stock profile",
+            "entities": [
+              { "id": "profile-line-1", "kind": "line", "a": [-10, -5], "b": [10, -5] },
+              { "id": "profile-line-2", "kind": "line", "a": [10, -5], "b": [10, 5] },
+              { "id": "profile-line-3", "kind": "line", "a": [10, 5], "b": [-10, 5] },
+              { "id": "profile-line-4", "kind": "line", "a": [-10, 5], "b": [-10, -5] }
+            ],
+            "groups": [],
+            "shapes": [
+              { "kind": "rect", "x": 0, "y": 0, "w": 20, "h": 10 }
+            ],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "named_height",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Named filleted stock" },
+          "createdBodyId": "body-named-checkpoint",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-named-fillet",
+          "name": "Persistent-name fillet",
+          "type": "fillet",
+          "r": "named_radius",
+          "edges": [
+            {
+              "name": "E(Ffeature-named-stock:cap:end|Ffeature-named-stock:side:profile-line-2)",
+              "sig": { "p": [10, 0, 10], "l": 10, "curveType": "LINE" }
+            }
+          ],
+          "resultPolicy": { "kind": "add", "targetBodyIds": ["body-named-checkpoint"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-named-checkpoint",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": ["feature-named-stock", "feature-named-fillet"],
+      "metadata": { "activeBodyId": "body-named-checkpoint" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-named-checkpoint" },
+  "resources": [],
+  "metadata": { "corpus": "named-checkpoint" }
+}

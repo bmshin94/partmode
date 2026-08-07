@@ -1,0 +1,1470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Create parametric multi-body parts and structured assemblies in your browser with lofts, sweeps, mates, section views, and STEP, STL, AMF, and 3MF export. No account required." />
+    <title>PartMode: CLI-native agentic browser CAD</title>
+    <link rel="canonical" href="https://partmode.com/" />
+
+    <meta property="og:site_name" content="PartMode" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PartMode: CLI-native agentic browser CAD" />
+    <meta property="og:description" content="Create parametric multi-body parts and structured assemblies in your browser with lofts, sweeps, mates, section views, and STEP, STL, AMF, and 3MF export. No account required." />
+    <meta property="og:url" content="https://partmode.com/" />
+    <meta property="og:image" content="https://partmode.com/og/page/cad-studio.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PartMode: CLI-native agentic browser CAD" />
+    <meta name="twitter:description" content="Create parametric multi-body parts and structured assemblies in your browser with lofts, sweeps, mates, section views, and STEP, STL, AMF, and 3MF export. No account required." />
+    <meta name="twitter:image" content="https://partmode.com/og/page/cad-studio.png" />
+    <link rel="icon" href="/static/partmode-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/base.css?v=426d8997f177" />
+    <link rel="stylesheet" href="/static/edit.css?v=426d8997f177" />
+    <link rel="stylesheet" href="/static/model.css?v=426d8997f177" />
+    <link rel="stylesheet" href="/static/studio.css?v=426d8997f177" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PartMode","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://partmode.com/"}</script>
+  </head>
+  <body class="cadstudio-route">
+
+    <main>
+<div class="cadstudio-app" id="studio">
+      <header class="ws-appbar" aria-label="Application bar">
+        <a class="ws-brand" href="/" aria-label="PartMode home">
+          <span class="ws-brand-mark" aria-hidden="true">PM</span>
+          <span><b>PartMode</b><small>V8 · CLI-native agentic CAD</small></span>
+        </a>
+        <div class="ws-document" aria-label="Current document">
+          <span class="ws-document-kind">PartMode</span>
+          <span class="ws-document-separator" aria-hidden="true">—</span>
+          <span class="ws-project-name" id="bw-project-name">Untitled part</span>
+          <span class="ws-document-suffix" id="bw-document-suffix">— Part Design</span>
+          <span class="ws-local" id="bw-storage-state" data-state="saving" role="status"><i aria-hidden="true"></i><span>Saving…</span></span>
+        </div>
+        <div class="ws-app-actions">
+          <div class="ws-edit-actions" aria-label="Edit history">
+            <button type="button" class="ws-quick-btn" id="bw-undo" title="Undo (Ctrl+Z)" aria-label="Undo"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 7 5 11l4 4"/><path d="M5.5 11H14a5 5 0 0 1 5 5v2"/></svg></span></button>
+            <button type="button" class="ws-quick-btn" id="bw-redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m15 7 4 4-4 4"/><path d="M18.5 11H10a5 5 0 0 0-5 5v2"/></svg></span></button>
+          </div>
+          <div class="ws-file-actions" id="bw-project-actions" aria-label="Project and export">
+            <button type="button" class="ws-quick-btn ws-quick-labeled ws-template-open" id="bw-templates-open" title="Open the Template library"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5.5h6v6H4zM14 5.5h6v6h-6zM4 15.5h6v4H4zM14 15.5h6v4h-6z"/><path d="M7 8.5h.01M17 8.5h.01M7 17.5h.01M17 17.5h.01"/></svg></span><span>Template library</span></button>
+            <button type="button" class="ws-quick-btn ws-quick-labeled ws-configurations-open" id="bw-configurations-open" title="Manage part configurations and design table"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="configurations" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><path d="M3.5 9h17M9 4.5v15M15 4.5v15"/></svg></span><span>Configurations</span><small id="bw-configuration-active-short">CFG · None</small></button>
+            <span id="bw-configurations-reason" class="ws-visually-hidden">Manage part configurations and design table.</span>
+            <button type="button" class="ws-quick-btn ws-quick-labeled" id="bw-save-file" title="Download project file"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h9l3 3V20H6z"/><path d="M9 3.5v5h6v-4M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3"/></svg></span><span>Save</span></button>
+            <button type="button" class="ws-quick-btn ws-quick-labeled" id="bw-open-btn" title="Open project file"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 7.5h6l2-2h9v12.8H3.5z"/><path d="M3.5 10h17M12 12v5m0-5-2 2m2-2 2 2"/></svg></span><span>Open</span></button>
+            <input type="file" id="bw-open-file" accept=".json,.step,.stp,.dxf" hidden />
+            <button type="button" class="ws-quick-btn ws-quick-labeled" id="bw-recover-open" title="Recover a local project state"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="recover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 6v5h5"/><path d="M6.3 10.2A7 7 0 1 1 5.7 16"/><path d="M12 8v4l2.8 1.8"/></svg></span><span>Recover</span></button>
+            <button type="button" class="ws-quick-btn" id="bw-clear" title="Clear part" aria-label="Clear part"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 5h12M9 5V3.5h6V5M7.5 8v11.5h9V8"/><path d="m10 11 4 4m0-4-4 4"/></svg></span><span class="ws-clear-label">Clear</span></button>
+            <span class="ws-action-divider" aria-hidden="true"></span>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-step" title="Export STEP"><span>STEP</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="step" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-stl" title="Export STL"><span>STL</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="stl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 18 8-14 8 14z"/><path d="m8 11 8 7m0-7-8 7M12 4v14"/><path d="M19 4v5m0 0-2-2m2 2 2-2"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-amf" title="Export named AMF in millimetres"><span>AMF</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="amf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-3mf" title="Export named 3MF package in millimetres"><span>3MF</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="3mf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-drawing" title="Export SVG drawing sheet"><span>SVG</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="drawing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><rect x="6.5" y="7" width="4.5" height="4.5"/><rect x="6.5" y="14" width="4.5" height="3"/><path d="M14 8h4M14 10h4M14 15h4"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-dxf" title="Export DXF drawing sheet (R12, millimetres)"><span>DXF</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="dxf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><path d="M6.5 16.5v-9l5 4.5 5-4.5v9"/></svg></span></button>
+            <button type="button" class="ws-quick-btn ws-export-btn" id="bw-export-pdf-open" title="Print or download a scaled PDF drawing"><span>PDF</span><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 16v-4h1.2a1.2 1.2 0 0 1 0 2.4H8.5m4.2 1.6v-4h1a2 2 0 0 1 0 4zm4.2 0v-4h2.6m-2.6 1.7h2"/></svg></span></button>
+          </div>
+          <a class="ws-quick-btn ws-quick-labeled" id="pm-agent-access" href="/account" aria-label="Sign in or create account" title="Sign in or create account"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="8" cy="12" r="4"/><path d="M12 12h8M17 12v3M20 12v2"/></svg></span><span class="pm-account-link-label">Sign in</span></a>
+          <button type="button" class="ws-quick-btn" id="bw-help-open" aria-label="Help" title="Help"><span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 0 1 4.5 1c0 1.7-2.3 2-2.3 3.7"/><path d="M12 17.2h.01"/></svg></span></button>
+          <button type="button" class="ws-quick-btn" id="bw-fullscreen" aria-pressed="false" title="Full screen">
+            <span class="ws-quick-icon" aria-hidden="true"><svg class="ws-icon" data-icon="fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 4H4v5M15 4h5v5M20 15v5h-5M4 15v5h5"/></svg></span><span class="ws-visually-hidden" id="bw-fullscreen-label">Full screen</span>
+          </button>
+        </div>
+      </header>
+      <section class="ws-ribbon" aria-label="CAD ribbon">
+        <div class="ws-workspace-bar">
+          <nav class="ws-workspaces" role="tablist" aria-label="Ribbon tabs">
+            <button type="button" role="tab" data-workspace="home" aria-selected="false" aria-controls="ws-panel-home">Home</button>
+            <button type="button" role="tab" data-workspace="sketch" aria-selected="false" aria-controls="ws-panel-sketch">Sketch</button>
+            <button type="button" role="tab" data-workspace="solid" aria-selected="true" aria-controls="ws-panel-solid">3D Tools</button>
+            <button type="button" role="tab" data-workspace="assembly" aria-selected="false" aria-controls="ws-panel-assembly">Assembly</button>
+            <button type="button" role="tab" data-workspace="view" aria-selected="false" aria-controls="ws-panel-view">View</button>
+            <button type="button" role="tab" data-workspace="manage" aria-selected="false" aria-controls="ws-panel-manage">Manage</button>
+            <button type="button" role="tab" data-workspace="output" aria-selected="false" aria-controls="ws-panel-output">Output</button>
+          </nav>
+          <span id="bw-sketch-entry-reason" class="ws-visually-hidden"></span>
+          <div class="ws-workspace-state"><span aria-hidden="true"></span><b id="bw-workspace-name">3D modeling</b><small id="bw-workspace-hint">Create and refine solid bodies</small></div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-home" role="tabpanel" data-workspace-panel="home" hidden>
+          <div class="ws-group">
+            <span class="wsg-title">Create</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large wsr-accent" data-command-feat="extrude" title="Extrude a closed profile"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="extrude" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 13.5h10v6H4z"/><path d="m4 13.5 4-3h10v6l-4 3"/><path d="M14 13.5v6M8 10.5V4m0 0L5.8 6.2M8 4l2.2 2.2"/></svg></span><span class="wsr-label">Extrude</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-feat="cut" title="Remove material with a profile"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8.5 8-4 8 4-8 4z"/><path d="M4 8.5v8l8 4 8-4v-8M12 12.5v8"/><path d="M12 4.5v8m0 0-2.2-2.2m2.2 2.2 2.2-2.2"/></svg></span><span class="wsr-label">Cut</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-feat="revolve" title="Revolve a profile around its axis"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="revolve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4v16"/><path d="M9 7H6v10h3"/><path d="M14.5 6.2c3.1.8 5 2.8 5 5.8 0 2.5-1.4 4.4-3.8 5.4"/><path d="m15.4 14.7.3 2.7 2.6-.8"/></svg></span><span class="wsr-label">Revolve</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Modify</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-feat="fillet"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fillet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7a7 7 0 0 1 7-7h7"/><path d="M8.5 19v-6.5a4 4 0 0 1 4-4H19"/></svg></span><span class="wsr-label">Fillet edge</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-feat="chamfer"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="chamfer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7l7-7h7"/><path d="M8.5 19v-5.5l5-5H19"/></svg></span><span class="wsr-label">Chamfer edge</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-feat="shell"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Shell body</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Project</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-templates-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5.5h6v6H4zM14 5.5h6v6h-6zM4 15.5h6v4H4zM14 15.5h6v4h-6z"/><path d="M7 8.5h.01M17 8.5h.01M7 17.5h.01M17 17.5h.01"/></svg></span><span class="wsr-label">Template library</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-save-file"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h9l3 3V20H6z"/><path d="M9 3.5v5h6v-4M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3"/></svg></span><span class="wsr-label">Save project</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-open-btn"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 7.5h6l2-2h9v12.8H3.5z"/><path d="M3.5 10h17M12 12v5m0-5-2 2m2-2 2 2"/></svg></span><span class="wsr-label">Open project</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-solid" role="tabpanel" data-workspace-panel="solid">
+          <div class="ws-group">
+            <span class="wsg-title">Modeling</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large wsr-accent" data-feat="extrude" aria-pressed="false" title="Extrude a closed profile"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="extrude" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 13.5h10v6H4z"/><path d="m4 13.5 4-3h10v6l-4 3"/><path d="M14 13.5v6M8 10.5V4m0 0L5.8 6.2M8 4l2.2 2.2"/></svg></span><span class="wsr-label">Extrude</span></button>
+              <button type="button" class="wsr-btn is-large" data-feat="cut" aria-pressed="false" title="Remove material with a profile"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8.5 8-4 8 4-8 4z"/><path d="M4 8.5v8l8 4 8-4v-8M12 12.5v8"/><path d="M12 4.5v8m0 0-2.2-2.2m2.2 2.2 2.2-2.2"/></svg></span><span class="wsr-label">Cut</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-hole-wizard-open" title="Create a standards-aware clearance, tapped, counterbore, or countersink hole"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="hole-wizard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span class="wsr-label">Hole Wizard</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-thread-open" title="Create an internal or external cosmetic or exact modeled metric reference thread"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="thread" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 3v18M17 3v18"/><path d="m7 5 10 3-10 3 10 3-10 3 10 3"/></svg></span><span class="wsr-label">Thread</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-structural-member-open" title="Sweep a catalog structural profile along one exact straight Path segment"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="structural-member" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 3h14v4h-5v10h5v4H5v-4h5V7H5z"/><path d="M3 21 21 3"/></svg></span><span class="wsr-label">Structural member</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-structural-treatment-open" title="Trim, join, reinforce, or cap catalog structural members"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="structural-treatment" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 19 19 4M4 12l7 7M12 4l7 7"/><path d="m13.5 13.5 5 5M16 16l3-3"/></svg></span><span class="wsr-label">Structural treatment</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-weld-bead-open" title="Model an exact continuous fillet weld on two structural-member supports"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="weld-bead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5v15h15"/><path d="M4 20 14 10v10z"/><path d="M8 5h12M10 3v4m4-4v4m4-4v4"/></svg></span><span class="wsr-label">Weld bead</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-sheet-metal-open" title="Create an exact sheet-metal base flange or a 90-degree edge flange with K-factor bend allowance"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="sheet-metal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 17h11"/><path d="M3 20h11a4 4 0 0 0 4-4V6"/><path d="M14 17a1 1 0 0 0 1-1V6h3"/></svg></span><span class="wsr-label">Sheet metal</span></button>
+              <button type="button" class="wsr-btn is-large" data-feat="revolve" aria-pressed="false" title="Revolve a profile around its axis"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="revolve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4v16"/><path d="M9 7H6v10h3"/><path d="M14.5 6.2c3.1.8 5 2.8 5 5.8 0 2.5-1.4 4.4-3.8 5.4"/><path d="m15.4 14.7.3 2.7 2.6-.8"/></svg></span><span class="wsr-label">Revolve</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Solid editing</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-feat="fillet" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fillet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7a7 7 0 0 1 7-7h7"/><path d="M8.5 19v-6.5a4 4 0 0 1 4-4H19"/></svg></span><span class="wsr-label">Fillet edge</span></button>
+              <button type="button" class="wsr-btn is-compact" data-feat="chamfer" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="chamfer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7l7-7h7"/><path d="M8.5 19v-5.5l5-5H19"/></svg></span><span class="wsr-label">Chamfer edge</span></button>
+              <button type="button" class="wsr-btn is-compact" data-feat="shell" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Shell body</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="split"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8.5 8-4 8 4-8 4z"/><path d="M4 8.5v8l8 4 8-4v-8M12 12.5v8"/><path d="M12 4.5v8m0 0-2.2-2.2m2.2 2.2 2.2-2.2"/></svg></span><span class="wsr-label">Split body</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-direct-push-pull-open" data-direct-edit-command="push-pull" title="Move one persistent planar face by an exact signed distance"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="direct-push-pull" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 8h14v9H5z"/><path d="M12 3v10m0-10L9.5 5.5M12 3l2.5 2.5"/></svg></span><span class="wsr-label">Direct Push/Pull</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-replace-face-open" data-direct-edit-command="replace-face" title="Replace one persistent planar face with a parallel face from another body"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="replace-face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 7h7v10H4zM13 7h7v10h-7z"/><path d="m8 4 3 3-3 3m8 10-3-3 3-3"/></svg></span><span class="wsr-label">Replace Face</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-delete-face-open" data-direct-edit-command="delete-face" title="Delete one persistent planar face and patch to a parallel face on the same body"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="delete-face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 7h12l-1 13H7zM4 7h16M9 7V4h6v3"/><path d="m9.5 11 5 5m0-5-5 5"/></svg></span><span class="wsr-label">Delete Face</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Reference</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-v5-command="plane"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3 14 11-8 7 4-11 8z"/><path d="M7 6v12M4.5 8.5 7 6l2.5 1.5"/></svg></span><span class="wsr-label">Plane</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="coordinate-system"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="coordinates" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="7" cy="17" r="1.5"/><path d="M7 17V5m0 12h12m-12 0 8-8"/><path d="m7 5-2 3m2-3 2 3m10 9-3-2m3 2-3 2m-1-10-1 4m1-4-4 1"/></svg></span><span class="wsr-label">Coordinates</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="curve-point"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="curve-point" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 17c4-11 9 2 18-10"/><circle cx="12" cy="12" r="2.2"/></svg></span><span class="wsr-label">Curve point</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="reference-curve"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="reference-curve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18c4-12 8 0 16-12"/><path d="m14 5 6 1-1 6"/><path d="M5 5v5h5"/></svg></span><span class="wsr-label">Reference curve</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-sketch-reuse-open" title="Promote, reuse, and derive constraint-native sketches"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="sketch-reuse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 17V7h10v10z"/><path d="M9 13V3h10v10"/><path d="m15 16 3 3m0 0 3-3m-3 3v-7"/></svg></span><span class="wsr-label">Sketch reuse</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="align"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h16M7 10h10M5 14h14M9 18h6"/><path d="M12 3v18"/></svg></span><span class="wsr-label">Align</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="profile"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="profile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 15c3-8 7-10 16-5-4 1-6 4-8 8-3-1-5-2-8-3z"/><circle cx="4" cy="15" r="1"/><circle cx="12" cy="18" r="1"/><circle cx="20" cy="10" r="1"/></svg></span><span class="wsr-label">Profile</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="path"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="path3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18c2-10 7-3 9-10s5-4 7-2"/><circle cx="4" cy="18" r="1.4"/><circle cx="13" cy="8" r="1.4"/><circle cx="20" cy="6" r="1.4"/></svg></span><span class="wsr-label">Path</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Advanced shape</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-v5-command="loft"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="loft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 18c3 2 11 2 14 0M7 12c2 1 8 1 10 0M9 6c1 .6 5 .6 6 0"/><path d="m5 18 4-12M19 18 15 6"/></svg></span><span class="wsr-label">Loft</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="sweep"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="sweep3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 18c2-9 6-3 8-10 1-3 4-4 6-2"/><path d="m2.5 16 5 4M10.5 6l5 4"/></svg></span><span class="wsr-label">Sweep</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="revolve-advanced"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="revolve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4v16"/><path d="M9 7H6v10h3"/><path d="M14.5 6.2c3.1.8 5 2.8 5 5.8 0 2.5-1.4 4.4-3.8 5.4"/><path d="m15.4 14.7.3 2.7 2.6-.8"/></svg></span><span class="wsr-label">Partial revolve</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="draft"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Draft</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="thicken"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="extrude" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 13.5h10v6H4z"/><path d="m4 13.5 4-3h10v6l-4 3"/><path d="M14 13.5v6M8 10.5V4m0 0L5.8 6.2M8 4l2.2 2.2"/></svg></span><span class="wsr-label">Thicken</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="variable-fillet"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fillet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7a7 7 0 0 1 7-7h7"/><path d="M8.5 19v-6.5a4 4 0 0 1 4-4H19"/></svg></span><span class="wsr-label">Variable fillet</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="face-fillet"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fillet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19v-7a7 7 0 0 1 7-7h7"/><path d="M8.5 19v-6.5a4 4 0 0 1 4-4H19"/></svg></span><span class="wsr-label">Face fillet</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="pattern"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pattern3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="4.5" r="1.5"/><circle cx="18.5" cy="8.3" r="1.5"/><circle cx="18.5" cy="15.7" r="1.5"/><circle cx="12" cy="19.5" r="1.5"/><circle cx="5.5" cy="15.7" r="1.5"/><circle cx="5.5" cy="8.3" r="1.5"/><path d="M12 7V5.8M16.2 9.5l1-.6M16.2 14.5l1 .6M12 17v1.2M7.8 14.5l-1 .6M7.8 9.5l-1-.6"/></svg></span><span class="wsr-label">Pattern</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Transform</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-v5-command="move"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5"/></svg></span><span class="wsr-label">Move</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="copy"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="scale3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19 19 5M11 5h8v8M5 11v8h8"/></svg></span><span class="wsr-label">Copy</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="rotate"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="rotate3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 8a8 8 0 1 1-1 7"/><path d="M5 3v5h5"/><path d="m9 11 3-2 3 2v4l-3 2-3-2z"/></svg></span><span class="wsr-label">Rotate</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="mirror"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="mirror" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18" stroke-dasharray="2 2"/><path d="m4 7 5-3v16l-5-3zM20 7l-5-3v16l5-3z"/></svg></span><span class="wsr-label">Mirror</span></button>
+              <button type="button" class="wsr-btn is-compact" data-v5-command="scale"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="scale3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19 19 5M11 5h8v8M5 11v8h8"/></svg></span><span class="wsr-label">Scale</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Navigation</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-view="top"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span class="wsr-label">Top view</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-view="iso"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Isometric</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-view="fit"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="m8 10 4-2 4 2-4 2zM8 10v4l4 2 4-2v-4M12 12v4"/></svg></span><span class="wsr-label">Fit model</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Project</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-templates-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5.5h6v6H4zM14 5.5h6v6h-6zM4 15.5h6v4H4zM14 15.5h6v4h-6z"/><path d="M7 8.5h.01M17 8.5h.01M7 17.5h.01M17 17.5h.01"/></svg></span><span class="wsr-label">Template library</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-save-file"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h9l3 3V20H6z"/><path d="M9 3.5v5h6v-4M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3"/></svg></span><span class="wsr-label">Save project</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-open-btn"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 7.5h6l2-2h9v12.8H3.5z"/><path d="M3.5 10h17M12 12v5m0-5-2 2m2-2 2 2"/></svg></span><span class="wsr-label">Open project</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Output</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-step"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="step" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span><span class="wsr-label">STEP</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-stl"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="stl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 18 8-14 8 14z"/><path d="m8 11 8 7m0-7-8 7M12 4v14"/><path d="M19 4v5m0 0-2-2m2 2 2-2"/></svg></span><span class="wsr-label">STL</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-drawing"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="drawing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><rect x="6.5" y="7" width="4.5" height="4.5"/><rect x="6.5" y="14" width="4.5" height="3"/><path d="M14 8h4M14 10h4M14 15h4"/></svg></span><span class="wsr-label">Drawing</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-dxf"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="dxf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><path d="M6.5 16.5v-9l5 4.5 5-4.5v9"/></svg></span><span class="wsr-label">DXF</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-pdf-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 16v-4h1.2a1.2 1.2 0 0 1 0 2.4H8.5m4.2 1.6v-4h1a2 2 0 0 1 0 4zm4.2 0v-4h2.6m-2.6 1.7h2"/></svg></span><span class="wsr-label">PDF / Print</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-sketch" role="tabpanel" data-workspace-panel="sketch" hidden>
+          <div class="ws-group" id="rib-sketch" hidden>
+            <span class="wsg-title">Draw and constrain</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large wsr-accent" data-sktool="line" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 18 6-11 10 7"/><circle cx="4" cy="18" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7" r="1.3" fill="currentColor" stroke="none"/><circle cx="20" cy="14" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Line</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="arc" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="arc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18a14 14 0 0 1 16-12"/><circle cx="4" cy="18" r="1.3" fill="currentColor" stroke="none"/><circle cx="20" cy="6" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Arc</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="spline" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="spline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18c5-9 7 4 10-3 1.8-4.2 4-6 6-6.5"/><circle cx="4" cy="18" r="1.3" fill="currentColor" stroke="none"/><circle cx="12.3" cy="13.2" r="1.3" fill="currentColor" stroke="none"/><circle cx="20" cy="8.5" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Spline</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="rect" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="rect" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="6" width="16" height="12" rx="1"/></svg></span><span class="wsr-label">Rectangle</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="circle" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="7.5"/></svg></span><span class="wsr-label">Circle</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="poly" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="polygon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3.8 8 6.2-3 9.2H7L4 10z"/></svg></span><span class="wsr-label">Polygon</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="mirror" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="mirror" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18" stroke-dasharray="2 2"/><path d="m4 7 5-3v16l-5-3zM20 7l-5-3v16l5-3z"/></svg></span><span class="wsr-label">Mirror</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="offset" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="offset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 19V8a3 3 0 0 1 3-3h13"/><path d="M9.5 19v-8a1.5 1.5 0 0 1 1.5-1.5h9"/></svg></span><span class="wsr-label">Offset</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="trim" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="trim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m7.8 8.5 9.2 11"/><path d="m16.2 8.5-9.2 11"/><circle cx="6" cy="5.5" r="2.1"/><circle cx="18" cy="5.5" r="2.1"/></svg></span><span class="wsr-label">Trim</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-sk-project"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="projectEdges" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 9 8-4.5L20 9l-8 4.5z"/><path d="M4 14v5.5M12 18v2.5M20 14v5.5" stroke-dasharray="2.4 2"/></svg></span><span class="wsr-label">Project</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="select" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5.5 3.5 11.2 9.8-5.3.8-2.8 5z"/><path d="m12.1 14 3 5.2"/></svg></span><span class="wsr-label">Select</span></button>
+              <button type="button" class="wsr-btn is-large" data-sktool="pan" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.2 11V6.8a1.35 1.35 0 0 1 2.7 0V10m0-4.9a1.35 1.35 0 0 1 2.7 0V10m0-3.9a1.35 1.35 0 0 1 2.7 0v5m0-2.5a1.35 1.35 0 0 1 2.7 0v4.1c0 4.3-2.5 7.3-6.6 7.3h-.7c-2.1 0-3.3-.8-4.7-2.5L4.6 15a1.45 1.45 0 0 1 2.1-2z"/></svg></span><span class="wsr-label">Pan</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-assembly" role="tabpanel" data-workspace-panel="assembly" hidden>
+          <div class="ws-group">
+            <span class="wsg-title">Structure</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="create"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Create assembly</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="insert"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 7.5h6l2-2h9v12.8H3.5z"/><path d="M3.5 10h17M12 12v5m0-5-2 2m2-2 2 2"/></svg></span><span class="wsr-label">Insert component</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-smart-fastener-open" data-assembly-command="smart-fastener"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="thread" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 3h6l1 4-2 2v10H10V9L8 7z"/><path d="M7 7h10M9.5 12h5m-5 3h5"/></svg></span><span class="wsr-label">Smart Fastener</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-assembly-feature-open" data-assembly-command="feature"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8.5 8-4 8 4-8 4z"/><path d="M4 8.5v8l8 4 8-4v-8M12 12.5v8"/><circle cx="12" cy="11" r="2.2"/><path d="M12 3v5.8"/></svg></span><span class="wsr-label">Assembly Cut / Hole</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="linked"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="scale3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19 19 5M11 5h8v8M5 11v8h8"/></svg></span><span class="wsr-label">Linked duplicate</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="independent"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="extrude" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 13.5h10v6H4z"/><path d="m4 13.5 4-3h10v6l-4 3"/><path d="M14 13.5v6M8 10.5V4m0 0L5.8 6.2M8 4l2.2 2.2"/></svg></span><span class="wsr-label">Make independent</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="replace"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="recover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 6v5h5"/><path d="M6.3 10.2A7 7 0 1 1 5.7 16"/><path d="M12 8v4l2.8 1.8"/></svg></span><span class="wsr-label">Replace</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="variant"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="scale3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 19 19 5M11 5h8v8M5 11v8h8"/></svg></span><span class="wsr-label">Component variant</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="transform"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5"/></svg></span><span class="wsr-label">Drag with mates</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Rigid mates</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="fixed"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Fixed</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="coincident"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h16M7 10h10M5 14h14M9 18h6"/><path d="M12 3v18"/></svg></span><span class="wsr-label">Coincident</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="concentric"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="7.5"/></svg></span><span class="wsr-label">Concentric</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="distance"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5"/></svg></span><span class="wsr-label">Distance</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="angle"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="rotate3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 8a8 8 0 1 1-1 7"/><path d="M5 3v5h5"/><path d="m9 11 3-2 3 2v4l-3 2-3-2z"/></svg></span><span class="wsr-label">Angle</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="parallel"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3 14 11-8 7 4-11 8z"/><path d="M7 6v12M4.5 8.5 7 6l2.5 1.5"/></svg></span><span class="wsr-label">Parallel</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="perpendicular"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 12.5 8.5-4.5v8L12 20.5z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span class="wsr-label">Perpendicular</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="tangent"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="path3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18c2-10 7-3 9-10s5-4 7-2"/><circle cx="4" cy="18" r="1.4"/><circle cx="13" cy="8" r="1.4"/><circle cx="20" cy="6" r="1.4"/></svg></span><span class="wsr-label">Tangent</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="revolute"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="revolve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4v16"/><path d="M9 7H6v10h3"/><path d="M14.5 6.2c3.1.8 5 2.8 5 5.8 0 2.5-1.4 4.4-3.8 5.4"/><path d="m15.4 14.7.3 2.7 2.6-.8"/></svg></span><span class="wsr-label">Revolute</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="slider"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.2 11V6.8a1.35 1.35 0 0 1 2.7 0V10m0-4.9a1.35 1.35 0 0 1 2.7 0V10m0-3.9a1.35 1.35 0 0 1 2.7 0v5m0-2.5a1.35 1.35 0 0 1 2.7 0v4.1c0 4.3-2.5 7.3-6.6 7.3h-.7c-2.1 0-3.3-.8-4.7-2.5L4.6 15a1.45 1.45 0 0 1 2.1-2z"/></svg></span><span class="wsr-label">Slider</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Advanced mates</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="width"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h16M7 10h10M5 14h14M9 18h6"/><path d="M12 3v18"/></svg></span><span class="wsr-label">Width</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="symmetry"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3 14 11-8 7 4-11 8z"/><path d="M12 4v16M7 8l-3 4 3 4m10-8 3 4-3 4"/></svg></span><span class="wsr-label">Symmetry</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="path"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="path3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 18c2-10 7-3 9-10s5-4 7-2"/><circle cx="4" cy="18" r="1.4"/><circle cx="13" cy="8" r="1.4"/><circle cx="20" cy="6" r="1.4"/></svg></span><span class="wsr-label">Path</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="linear-coupler"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 8h16M4 16h16M8 5v6m8 2v6"/><path d="m10 12 4-4m-4 8 4-4"/></svg></span><span class="wsr-label">Linear coupler</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="limit-distance"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v14M19 5v14M8 12h8m-8 0 2-2m-2 2 2 2m6-2-2-2m2 2-2 2"/></svg></span><span class="wsr-label">Limit distance</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="limit-angle"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="rotate3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 18V6m0 12h12"/><path d="M9 16a7 7 0 0 1 7-7"/><path d="m14 6 2 3-3 2"/></svg></span><span class="wsr-label">Limit angle</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Mechanical mates</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="gear"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="9" cy="9" r="4.2"/><circle cx="17.5" cy="16.5" r="3"/><path d="M9 2.6v2M9 13.4v2M2.6 9h2M13.4 9h2M4.5 4.5l1.4 1.4M12.1 12.1l1.4 1.4M13.5 4.5l-1.4 1.4M4.5 13.5l1.4-1.4"/></svg></span><span class="wsr-label">Gear</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-mate="hinge"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="hinge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 4v16"/><path d="M8 5h-4v14h4z"/><path d="M16 5h4v14h-4z"/><circle cx="12" cy="8" r="1"/><circle cx="12" cy="16" r="1"/></svg></span><span class="wsr-label">Hinge</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Context</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="edit-context"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5.5 3.5 11.2 9.8-5.3.8-2.8 5z"/><path d="m12.1 14 3 5.2"/></svg></span><span class="wsr-label">Edit component</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="exit-context"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Return to assembly</span></button>
+              <button type="button" class="wsr-btn is-compact" data-assembly-command="pattern"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pattern3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="4.5" r="1.5"/><circle cx="18.5" cy="8.3" r="1.5"/><circle cx="18.5" cy="15.7" r="1.5"/><circle cx="12" cy="19.5" r="1.5"/><circle cx="5.5" cy="15.7" r="1.5"/><circle cx="5.5" cy="8.3" r="1.5"/><path d="M12 7V5.8M16.2 9.5l1-.6M16.2 14.5l1 .6M12 17v1.2M7.8 14.5l-1 .6M7.8 9.5l-1-.6"/></svg></span><span class="wsr-label">Component pattern</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Inspect</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="section"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3 14 11-8 7 4-11 8z"/><path d="M7 6v12M4.5 8.5 7 6l2.5 1.5"/></svg></span><span class="wsr-label">Section</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="explode"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="move" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5"/></svg></span><span class="wsr-label">Explode</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="stage"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pattern3d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="2.4"/><circle cx="12" cy="4.5" r="1.5"/><circle cx="18.5" cy="8.3" r="1.5"/><circle cx="18.5" cy="15.7" r="1.5"/><circle cx="12" cy="19.5" r="1.5"/><circle cx="5.5" cy="15.7" r="1.5"/><circle cx="5.5" cy="8.3" r="1.5"/><path d="M12 7V5.8M16.2 9.5l1-.6M16.2 14.5l1 .6M12 17v1.2M7.8 14.5l-1 .6M7.8 9.5l-1-.6"/></svg></span><span class="wsr-label">Axial stages</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="material"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Material</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="properties"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5.5 3.5 11.2 9.8-5.3.8-2.8 5z"/><path d="m12.1 14 3 5.2"/></svg></span><span class="wsr-label">Mass &amp; health</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="measure"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h16M7 10h10M5 14h14M9 18h6"/><path d="M12 3v18"/></svg></span><span class="wsr-label">Save measure</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="measurements"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5.5 3.5 11.2 9.8-5.3.8-2.8 5z"/><path d="m12.1 14 3 5.2"/></svg></span><span class="wsr-label">Measurements</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="clearance"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h16M7 10h10M5 14h14M9 18h6"/><path d="M12 3v18"/></svg></span><span class="wsr-label">Clearance</span></button>
+              <button type="button" class="wsr-btn is-compact" data-inspection-command="interference"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8.5 8-4 8 4-8 4z"/><path d="M4 8.5v8l8 4 8-4v-8M12 12.5v8"/><path d="M12 4.5v8m0 0-2.2-2.2m2.2 2.2 2.2-2.2"/></svg></span><span class="wsr-label">Interference</span></button>
+              <button type="button" class="wsr-btn is-compact" data-display-mode="shaded-edges"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Shaded + edges</span></button>
+              <button type="button" class="wsr-btn is-compact" data-display-mode="wireframe"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="profile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 15c3-8 7-10 16-5-4 1-6 4-8 8-3-1-5-2-8-3z"/><circle cx="4" cy="15" r="1"/><circle cx="12" cy="18" r="1"/><circle cx="20" cy="10" r="1"/></svg></span><span class="wsr-label">Wireframe</span></button>
+              <button type="button" class="wsr-btn is-compact" data-display-mode="hidden-line"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 18 6-11 10 7"/><circle cx="4" cy="18" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7" r="1.3" fill="currentColor" stroke="none"/><circle cx="20" cy="14" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Hidden line</span></button>
+              <button type="button" class="wsr-btn is-compact" data-display-mode="ghost"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="shell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 5v11l7 4 7-4V5"/><path d="M8.5 7v7l3.5 2 3.5-2V7"/><path d="m5 5 7 4 7-4M8.5 7l3.5 2 3.5-2"/></svg></span><span class="wsr-label">Ghost</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Output</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-view="fit"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="m8 10 4-2 4 2-4 2zM8 10v4l4 2 4-2v-4M12 12v4"/></svg></span><span class="wsr-label">Fit assembly</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-export-step"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="step" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span><span class="wsr-label">Assembly STEP</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-view" role="tabpanel" data-workspace-panel="view" hidden>
+          <div class="ws-group">
+            <span class="wsg-title">Named views</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large" data-view="top" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span class="wsr-label">Top</span></button>
+              <button type="button" class="wsr-btn is-large" data-view="front" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="front" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5 4.5v8L3.5 16z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span class="wsr-label">Front</span></button>
+              <button type="button" class="wsr-btn is-large" data-view="right" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 12.5 8.5-4.5v8L12 20.5z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span class="wsr-label">Right</span></button>
+              <button type="button" class="wsr-btn is-large" data-view="iso" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span><span class="wsr-label">Isometric</span></button>
+            </div>
+          </div>
+          <div class="ws-group ws-view-state-manager">
+            <span class="wsg-title">Saved view state</span>
+            <div class="ws-view-state-create">
+              <label>Name <input type="text" id="bw-view-state-name" value="Inspection" maxlength="200" /></label>
+              <span><button type="button" id="bw-orientation-save">Save orientation</button><button type="button" id="bw-display-state-save">Save display</button></span>
+            </div>
+            <div class="ws-view-state-lists">
+              <section><b>Orientations</b><ol id="bw-orientation-list" aria-label="Saved view orientations"></ol></section>
+              <section><b>Display states</b><ol id="bw-display-state-list" aria-label="Saved display states"></ol></section>
+            </div>
+          </div>
+          <div class="ws-group ws-scene-controls">
+            <span class="wsg-title">Scene and lighting</span>
+            <label>Preset <select id="bw-scene-preset"><option value="studio">CAD studio</option><option value="softbox">Softbox</option><option value="daylight">Daylight</option><option value="darkroom">Dark room</option></select></label>
+            <label>Exposure <input type="range" id="bw-scene-exposure" min="0.4" max="2.5" step="0.05" value="1" /><output id="bw-scene-exposure-value">1.00</output></label>
+            <span><label><input type="checkbox" id="bw-scene-realview" /> RealView-style</label><label><input type="checkbox" id="bw-scene-shadows" /> Contact shadows</label></span>
+            <button type="button" id="bw-scene-apply">Apply scene</button>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">Viewport</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-view="fit" aria-pressed="false"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="m8 10 4-2 4 2-4 2zM8 10v4l4 2 4-2v-4M12 12v4"/></svg></span><span class="wsr-label">Fit model</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-fullscreen"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 4H4v5M15 4h5v5M20 15v5h-5M4 15v5h5"/></svg></span><span class="wsr-label">Full screen</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-help-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 0 1 4.5 1c0 1.7-2.3 2-2.3 3.7"/><path d="M12 17.2h.01"/></svg></span><span class="wsr-label">Navigation help</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-manage" role="tabpanel" data-workspace-panel="manage" hidden>
+          <div class="ws-group">
+            <span class="wsg-title">Project</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-templates-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 5.5h6v6H4zM14 5.5h6v6h-6zM4 15.5h6v4H4zM14 15.5h6v4h-6z"/><path d="M7 8.5h.01M17 8.5h.01M7 17.5h.01M17 17.5h.01"/></svg></span><span class="wsr-label">Template library</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-configurations-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="configurations" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><path d="M3.5 9h17M9 4.5v15M15 4.5v15"/></svg></span><span class="wsr-label">Configurations</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-save-file"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h9l3 3V20H6z"/><path d="M9 3.5v5h6v-4M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3"/></svg></span><span class="wsr-label">Save</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-open-btn"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 7.5h6l2-2h9v12.8H3.5z"/><path d="M3.5 10h17M12 12v5m0-5-2 2m2-2 2 2"/></svg></span><span class="wsr-label">Open</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-recover-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="recover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 6v5h5"/><path d="M6.3 10.2A7 7 0 1 1 5.7 16"/><path d="M12 8v4l2.8 1.8"/></svg></span><span class="wsr-label">Recover</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-addins-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="addins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 3.5v4M16 3.5v4M6 7.5h12v4a6 6 0 0 1-12 0zM12 17.5v3"/><path d="M9.5 11h5"/></svg></span><span class="wsr-label">Add-ins</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-pdm-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pdm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.5 6.2 15.5 6.8M7.3 8.2l3.6 7.5m5.8-6.5-3.6 6.6"/></svg></span><span class="wsr-label">PDM</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-clear"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 5h12M9 5V3.5h6V5M7.5 8v11.5h9V8"/><path d="m10 11 4 4m0-4-4 4"/></svg></span><span class="wsr-label">Clear</span></button>
+            </div>
+          </div>
+          <div class="ws-group">
+            <span class="wsg-title">History</span>
+            <div class="wsg-tools wsg-stack">
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-undo"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 7 5 11l4 4"/><path d="M5.5 11H14a5 5 0 0 1 5 5v2"/></svg></span><span class="wsr-label">Undo</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-redo"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m15 7 4 4-4 4"/><path d="M18.5 11H10a5 5 0 0 0-5 5v2"/></svg></span><span class="wsr-label">Redo</span></button>
+              <button type="button" class="wsr-btn is-compact" id="bw-design-check"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="design-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="10" cy="10" r="6"/><path d="m14.5 14.5 5 5M7.5 10l1.7 1.7L12.8 8"/></svg></span><span class="wsr-label">Design check</span></button>
+              <button type="button" class="wsr-btn is-compact" data-command-target="bw-help-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.35 2.35 0 0 1 4.5 1c0 1.7-2.3 2-2.3 3.7"/><path d="M12 17.2h.01"/></svg></span><span class="wsr-label">Help</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="ws-ribbon-panel" id="ws-panel-output" role="tabpanel" data-workspace-panel="output" hidden>
+          <div class="ws-group">
+            <span class="wsg-title">Export model</span>
+            <div class="wsg-tools">
+              <button type="button" class="wsr-btn is-large wsr-accent" data-command-target="bw-export-step"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="step" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/><path d="M17 12v5m0 0-2-2m2 2 2-2"/></svg></span><span class="wsr-label">STEP</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-stl"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="stl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 18 8-14 8 14z"/><path d="m8 11 8 7m0-7-8 7M12 4v14"/><path d="M19 4v5m0 0-2-2m2 2 2-2"/></svg></span><span class="wsr-label">STL</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-amf"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="amf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/></svg></span><span class="wsr-label">AMF</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-3mf"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="3mf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 8 8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8"/></svg></span><span class="wsr-label">3MF</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-drawing"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="drawing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><rect x="6.5" y="7" width="4.5" height="4.5"/><rect x="6.5" y="14" width="4.5" height="3"/><path d="M14 8h4M14 10h4M14 15h4"/></svg></span><span class="wsr-label">Drawing</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-dxf"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="dxf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><path d="M6.5 16.5v-9l5 4.5 5-4.5v9"/></svg></span><span class="wsr-label">DXF</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-export-pdf-open"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 16v-4h1.2a1.2 1.2 0 0 1 0 2.4H8.5m4.2 1.6v-4h1a2 2 0 0 1 0 4zm4.2 0v-4h2.6m-2.6 1.7h2"/></svg></span><span class="wsr-label">PDF / Print</span></button>
+              <button type="button" class="wsr-btn is-large" id="bw-drawing-cut-list-open" title="Author an associative structural-member or body-axis cut list"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="cut-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3.5" y="4" width="17" height="16" rx="1"/><path d="M3.5 9h17M3.5 14.5h17M9 4v16M15 4v16"/></svg></span><span class="wsr-label">Cut list</span></button>
+              <button type="button" class="wsr-btn is-large" data-command-target="bw-save-file"><span class="wsr-i" aria-hidden="true"><svg class="ws-icon" data-icon="save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3.5h9l3 3V20H6z"/><path d="M9 3.5v5h6v-4M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3"/></svg></span><span class="wsr-label">Project file</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="ws-document-tabs" role="navigation" aria-label="Open documents">
+        <a class="ws-doc-menu" href="/" aria-label="Open PartMode start page">☰</a>
+        <a class="ws-doc-start" href="/">Start</a>
+        <div class="ws-doc-tab is-active" aria-current="page"><span class="ws-doc-cube" aria-hidden="true">◇</span><span id="bw-tab-project-name">Untitled part</span><i aria-hidden="true"></i></div>
+        <button type="button" class="ws-doc-new" data-command-target="bw-templates-open" aria-label="Open Template library">＋</button>
+        <span class="ws-doc-spacer"></span>
+        <span class="ws-visual-style">Perspective&nbsp;&nbsp;|&nbsp;&nbsp;Shaded</span>
+      </div>
+      <div class="ws-main">
+        <aside class="ws-tree" id="bw-tree" aria-label="Model tree">
+          <div class="ws-panel-cap"><span>MODEL</span><small id="bw-tree-summary">2 features</small></div>
+          <div class="ws-tree-document">
+            <span class="ws-tree-icon" aria-hidden="true"><svg class="ws-icon" data-icon="iso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <span><b id="bw-tree-project-name">Untitled part</b><small id="bw-tree-document-kind">Parametric body</small></span>
+          </div>
+          <details class="ws-origin" id="bw-part-origin" data-tree-section="origin" open>
+            <summary data-v6-control-id="tree.section.origin"><span>Origin</span><small>Reference geometry</small></summary>
+            <button type="button" id="bw-tree-base" title="Look normal to the base plane">
+              <span class="ws-tree-icon" aria-hidden="true"><svg class="ws-icon" data-icon="top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5z" fill="currentColor" opacity=".22"/><path d="m3.5 8 8.5-4.5L20.5 8 12 12.5zM3.5 8v8L12 20.5l8.5-4.5V8M12 12.5v8"/></svg></span><span>Base plane</span><kbd>XY</kbd>
+            </button>
+          </details>
+          <details class="ws-origin ws-datums" id="bw-tree-section-datums" data-tree-section="datums" open>
+            <summary data-v6-control-id="tree.section.datums"><span>Datums</span><small id="bw-datum-summary">0 references</small></summary>
+            <div id="bw-datum-tree" class="datum-tree" role="tree" aria-label="Reference geometry"></div>
+          </details>
+          <details class="ws-origin ws-sketches" id="bw-tree-section-sketches" data-tree-section="sketches" open>
+            <summary data-v6-control-id="tree.section.sketches"><span>Sketches</span><small id="bw-sketch-summary">0 sketches</small></summary>
+            <div id="bw-sketch-tree" class="datum-tree" role="tree" aria-label="Part sketches"></div>
+          </details>
+          <details class="ws-origin ws-patterns" id="bw-tree-section-patterns" data-tree-section="patterns" open>
+            <summary data-v6-control-id="tree.section.patterns"><span>Body patterns</span><small id="bw-pattern-summary">0 patterns</small></summary>
+            <div id="bw-pattern-tree" class="datum-tree pattern-tree" role="tree" aria-label="Editable body patterns"></div>
+          </details>
+          <details class="ws-origin ws-assemblies" id="bw-assembly-components" data-tree-section="components" open hidden>
+            <summary data-v6-control-id="tree.section.components"><span>Components</span><small id="bw-assembly-summary">0 occurrences</small></summary>
+            <div id="bw-assembly-tree" class="datum-tree assembly-tree" role="tree" aria-label="Assembly occurrence hierarchy"></div>
+          </details>
+          <details class="ws-origin ws-mates" id="bw-assembly-mates" data-tree-section="mates" open hidden>
+            <summary data-v6-control-id="tree.section.mates"><span>Mates</span><small id="bw-mate-summary">0 mates</small></summary>
+            <div id="bw-mate-tree" class="datum-tree mate-tree" role="tree" aria-label="Assembly mates and solver state"></div>
+          </details>
+          <details class="ws-origin ws-inspection" id="bw-assembly-inspection" data-tree-section="inspection" open hidden>
+            <summary data-v6-control-id="tree.section.inspection"><span>Views &amp; stages</span><small id="bw-inspection-summary">0 saved</small></summary>
+            <div id="bw-inspection-tree" class="datum-tree inspection-tree" role="tree" aria-label="Saved sections, exploded views, and axial stage groups"></div>
+          </details>
+          <div class="wsp wsp-grow wsp-history">
+            <div class="ws-bodies-panel">
+              <div class="wsp-head"><span><b>Bodies</b><small id="bw-active-body-label">No active body</small></span><button type="button" id="bw-body-new" title="Create a body with Extrude">＋</button></div>
+              <div class="wsp-body">
+                <ol id="bw-bodies" class="body-tree" role="tree" aria-label="Bodies"></ol>
+                <p id="bw-bodies-empty" class="sk-note">The first solid feature creates a body.</p>
+              </div>
+            </div>
+            <div class="wsp-head"><b>Feature history</b><span class="ws-tree-rule"></span></div>
+            <div class="wsp-body">
+              <ol id="bw-v6-revision-history" class="v6-revision-list" aria-label="Project revisions"></ol>
+              <ol id="bw-history" class="hist"></ol>
+              <p id="bw-hist-empty" class="sk-note">No features yet. Start with Extrude.</p>
+            </div>
+          </div>
+        </aside>
+        <div id="bw-studio">
+          <p id="bw-mode" class="mode-label" role="status" aria-live="polite"><span aria-hidden="true"></span>Ready</p>
+          <div id="bw-edit-context-banner" class="ws-edit-context-banner" role="status" hidden>
+            <span><b>Editing in assembly context</b><small id="bw-edit-context-name"></small></span>
+            <button type="button" data-assembly-command="exit-context">Return to assembly</button>
+          </div>
+          <div class="ws-viewcube" aria-label="View cube">
+            <div class="ws-viewcube-shape">
+              <button type="button" class="vc-face vc-top" data-cube-view="top" aria-label="Top view">TOP</button>
+              <button type="button" class="vc-face vc-front" data-cube-view="front" aria-label="Front view">FRONT</button>
+              <button type="button" class="vc-face vc-right" data-cube-view="right" aria-label="Right view">RIGHT</button>
+            </div>
+            <button type="button" class="vc-iso" data-cube-view="iso">ISO</button>
+          </div>
+          <div class="ws-nav-rail" role="toolbar" aria-label="Canvas navigation">
+            <button type="button" data-nav-mode="orbit" aria-pressed="true" title="Orbit with left drag"><span class="ws-hud-icon" aria-hidden="true"><svg class="ws-icon" data-icon="revolve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4v16"/><path d="M9 7H6v10h3"/><path d="M14.5 6.2c3.1.8 5 2.8 5 5.8 0 2.5-1.4 4.4-3.8 5.4"/><path d="m15.4 14.7.3 2.7 2.6-.8"/></svg></span><span>Orbit</span></button>
+            <button type="button" data-nav-mode="pan" aria-pressed="false" title="Pan with left drag"><span class="ws-hud-icon" aria-hidden="true"><svg class="ws-icon" data-icon="pan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.2 11V6.8a1.35 1.35 0 0 1 2.7 0V10m0-4.9a1.35 1.35 0 0 1 2.7 0V10m0-3.9a1.35 1.35 0 0 1 2.7 0v5m0-2.5a1.35 1.35 0 0 1 2.7 0v4.1c0 4.3-2.5 7.3-6.6 7.3h-.7c-2.1 0-3.3-.8-4.7-2.5L4.6 15a1.45 1.45 0 0 1 2.1-2z"/></svg></span><span>Pan</span></button>
+            <button type="button" data-cube-view="fit" title="Fit part (F)"><span class="ws-hud-icon" aria-hidden="true"><svg class="ws-icon" data-icon="fit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"/><path d="m8 10 4-2 4 2-4 2zM8 10v4l4 2 4-2v-4M12 12v4"/></svg></span><span>Fit</span></button>
+          </div>
+          <div class="ws-selection-tools" role="toolbar" aria-label="Selection tools">
+            <label>Filter
+              <select id="bw-selection-filter" title="Selection filter (F6)">
+                <option value="auto">Auto</option>
+                <option value="component">Components</option>
+                <option value="body">Bodies</option>
+                <option value="face">Faces</option>
+                <option value="edge">Edges</option>
+                <option value="vertex">Vertices</option>
+              </select>
+            </label>
+            <button type="button" id="bw-select-other" disabled>Select other</button>
+            <button type="button" id="bw-box-select" aria-pressed="false">Box select</button>
+          </div>
+          <div id="bw-selection-marquee" aria-hidden="true" hidden></div>
+          <div id="bw-context-toolbar" class="ws-context-toolbar" role="toolbar" aria-label="Selection context actions" hidden>
+            <button type="button" data-context-action="edit">Edit</button>
+            <button type="button" data-context-action="suppress">Suppress / restore</button>
+            <button type="button" data-context-action="hide">Hide</button>
+            <button type="button" data-context-action="isolate">Isolate</button>
+            <button type="button" data-context-action="show-all">Show all</button>
+            <button type="button" data-context-action="fit-view">Fit</button>
+          </div>
+          <div id="bw-mouse-gesture" class="ws-mouse-gesture" role="menu" aria-label="Mouse gesture actions" hidden>
+            <span data-gesture-direction="north">Isolate</span>
+            <span data-gesture-direction="east">Edit</span>
+            <span data-gesture-direction="south">Suppress</span>
+            <span data-gesture-direction="west">Hide</span>
+            <i aria-hidden="true"></i>
+          </div>
+          <div class="ws-axis-triad" aria-label="World axes: X red, Y green, Z blue">
+            <span class="axis-x">X</span><span class="axis-y">Y</span><span class="axis-z">Z</span><i aria-hidden="true"></i>
+          </div>
+          <section id="bw-welcome" class="ws-welcome" aria-labelledby="bw-welcome-title" aria-busy="true">
+            <div class="ws-welcome-card">
+              <div class="ws-welcome-heading">
+                <div><p class="ws-welcome-kicker">New part</p><h1 id="bw-welcome-title">Choose a starting point</h1></div>
+                <span class="ws-welcome-count">30 editable templates</span>
+              </div>
+              <p class="ws-welcome-lede">Open a proven feature recipe, change its dimensions, and make it yours. Every starter is normal editable CAD — never a locked mesh.</p>
+              <div class="ws-welcome-popular" aria-label="Popular starter parts">
+                <button type="button" data-welcome-template="jet-engine-exploded-assembly" data-welcome-boot-disabled disabled><span class="ws-template-mini" data-shape="engine" aria-hidden="true"></span><b>Exploded turbofan</b><small>6 mated modules · 394 exact bodies</small></button>
+                <button type="button" data-welcome-template="starter-plate" data-welcome-boot-disabled disabled><span class="ws-template-mini" data-shape="plate" aria-hidden="true"></span><b>Starter plate</b><small>2 features · 3 parameters</small></button>
+                <button type="button" data-welcome-template="electronics-tray" data-welcome-boot-disabled disabled><span class="ws-template-mini" data-shape="tray" aria-hidden="true"></span><b>Electronics tray</b><small>2 features · 5 parameters</small></button>
+                <button type="button" data-welcome-template="four-hole-plate" data-welcome-boot-disabled disabled><span class="ws-template-mini" data-shape="mount" aria-hidden="true"></span><b>Mounting plate</b><small>2 features · 4 parameters</small></button>
+              </div>
+              <div class="ws-welcome-actions">
+                <button type="button" class="ws-primary" id="bw-welcome-templates" data-welcome-boot-disabled disabled>Browse all templates <span aria-hidden="true">→</span></button>
+                <button type="button" id="bw-welcome-start" data-welcome-boot-disabled disabled>Blank sketch</button>
+                <button type="button" id="bw-welcome-open" data-welcome-boot-disabled disabled>Open a project</button>
+              </div>
+              <p id="bw-welcome-status" class="ws-welcome-status" role="status">Preparing Studio tools…</p>
+              <button type="button" class="ws-help-link" id="bw-welcome-help" data-welcome-boot-disabled disabled>Help and keyboard reference</button>
+            </div>
+          </section>
+          <script>
+            (() => {
+              const welcome = document.getElementById('bw-welcome');
+              if (!welcome) return;
+              let firstRun = true;
+              try {
+                firstRun = !localStorage.getItem('bw-studio-welcome-v1') &&
+                  !localStorage.getItem('bw-studio-v2-seeded');
+              } catch {}
+              // First-visit overlays are sequenced: while the cookie choice is
+              // still pending the cookie banner owns the first paint, and the
+              // template chooser is revealed only after its dismissal.
+              let consentPending = false;
+              try {
+                consentPending = !document.cookie.split(';')
+                  .some((entry) => entry.trim().startsWith('partmode_cookie_consent='));
+              } catch {}
+              const visibleNow = firstRun && !consentPending;
+              welcome.hidden = !visibleNow;
+              window.__bwStudioShell = {
+                firstRun,
+                welcomeDeferredForConsent: firstRun && consentPending,
+                welcomeVisibleAt: visibleNow ? performance.now() : null,
+                welcomeReadyAt: null,
+              };
+              if (visibleNow) performance.mark?.('bw-studio-welcome-visible');
+            })();
+          </script>
+          <div id="bw-face" class="pick-bar" hidden>
+            <b id="bw-face-title"></b>
+            <span class="sk-note">Click a flat face of the part, or step through them</span>
+            <button type="button" id="bw-face-next">Next face</button>
+            <button type="button" class="sr-accent" id="bw-face-use" hidden>✓ Use this face</button>
+            <button type="button" id="bw-face-base">Use the base plane</button>
+            <button type="button" id="bw-face-cancel">Cancel</button>
+          </div>
+          <div id="bw-shell" class="pick-bar" hidden>
+            <b id="bw-shell-title"></b>
+            <span class="sk-note">Click the faces to open up (or step through them)</span>
+            <span id="bw-shell-count" class="sk-note">0 openings</span>
+            <button type="button" id="bw-shell-next">Next face</button>
+            <button type="button" id="bw-shell-toggle">Toggle this face</button>
+            <label>Walls <input type="text" inputmode="decimal" id="bw-shell-t" value="2" /> mm</label>
+            <button type="button" class="sr-accent" id="bw-shell-apply">✓ Apply</button>
+            <button type="button" id="bw-shell-cancel">Cancel</button>
+          </div>
+          <div id="bw-pick" class="pick-bar" hidden>
+            <b id="bw-pick-title"></b>
+            <span class="sk-note">Click edges on the part to pick them</span>
+            <span id="bw-pick-count" class="sk-note">0 picked</span>
+            <label>Radius <input type="text" inputmode="decimal" id="bw-pick-r" value="2" /> mm</label>
+            <label id="bw-pick-tangent-label"><input type="checkbox" id="bw-pick-tangent" name="tangentPropagation" /> Propagate exact tangent chain</label>
+            <button type="button" class="sr-accent" id="bw-pick-apply">✓ Apply</button>
+            <button type="button" id="bw-pick-cancel">Cancel</button>
+          </div>
+          <div id="bw-agent-narration" class="ws-agent-narration" data-kind="action" aria-hidden="true" hidden>
+            <span id="bw-agent-narration-text"></span>
+          </div>
+          <p id="bw-agent-narration-live" class="ws-visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p id="bw-studio-msg" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+          <div id="bw-sketch" hidden>
+            <div class="sk-top">
+              <b id="bw-sk-title"></b>
+              <span class="sk-op">
+                <label id="bw-sk-h-row">Height <input type="text" inputmode="decimal" id="bw-sk-op-h" value="20" /> mm</label>
+                <label id="bw-sk-through-row"><input type="checkbox" id="bw-sk-through" /> through all</label>
+                <button type="button" id="bw-sk-options" aria-expanded="false" aria-controls="bw-sk-pat-row bw-sk-result-row">More options</button>
+                <span id="bw-sk-pat-row" hidden>
+                  <label>Pattern <select id="bw-sk-pat">
+                    <option value="none">none</option>
+                    <option value="linear">linear</option>
+                    <option value="circular">circular</option>
+                  </select></label>
+                  <span id="bw-sk-pat-nums" hidden>
+                    <label>× <input type="number" id="bw-sk-pat-n" value="4" min="2" max="100" step="1" /></label>
+                    <label><span id="bw-sk-pat-la">ΔX</span> <input type="text" inputmode="decimal" id="bw-sk-pat-a" value="10" /></label>
+                    <label><span id="bw-sk-pat-lb">ΔY</span> <input type="text" inputmode="decimal" id="bw-sk-pat-b" value="0" /></label>
+                  </span>
+                </span>
+                <span id="bw-sk-result-row" hidden>
+                  <label>Result <select id="bw-sk-result">
+                    <option value="new-body">new body</option>
+                    <option value="add">add</option>
+                    <option value="subtract">subtract</option>
+                    <option value="intersect">intersect</option>
+                  </select></label>
+                  <label id="bw-sk-body-name-row">Body <input type="text" id="bw-sk-body-name" value="Body 1" maxlength="200" /></label>
+                  <label id="bw-sk-target-row" hidden>Target <select id="bw-sk-target"></select></label>
+                </span>
+              </span>
+              <span class="sk-actions">
+                <button type="button" class="sr-accent" id="bw-sk-apply">✓ Apply</button>
+                <button type="button" id="bw-sk-cancel">Cancel</button>
+              </span>
+            </div>
+            <canvas id="bw-sketch-canvas" tabindex="0" aria-label="2D sketch canvas"></canvas>
+            <div class="sk-bottom">
+              <span id="bw-sk-dof" class="sk-dof" hidden></span>
+              <span id="bw-sk-hint" class="sk-note"></span>
+              <span id="bw-sk-dims"></span>
+            </div>
+          </div>
+          <section id="bw-presspull" class="ws-presspull" aria-labelledby="bw-presspull-title" hidden>
+            <div class="pp-card">
+              <span class="pp-kicker">Closed profile recognised</span>
+              <b id="bw-presspull-title">Press / Pull</b>
+              <p>Drag on the shaded solid, or type an exact distance.</p>
+              <label>Distance <input type="number" inputmode="decimal" id="bw-presspull-h" value="20" min="0.5" max="10000" step="0.5" /> mm</label>
+              <div class="pp-actions">
+                <button type="button" class="sr-accent" id="bw-presspull-apply">Finish solid</button>
+                <button type="button" id="bw-presspull-back">Back to sketch</button>
+              </div>
+            </div>
+            <div class="pp-drag-cue" aria-hidden="true"><i></i><b id="bw-presspull-readout">20 mm</b><span>DRAG</span></div>
+          </section>
+          <noscript><p class="mv-error">The studio needs JavaScript.</p></noscript>
+        </div>
+        <aside class="ws-side" id="bw-side" aria-label="Properties inspector">
+          <div class="ws-panel-cap"><span>INSPECTOR</span><small>Selection properties</small></div>
+          <section class="wsp ws-agent-flight-recorder" id="bw-agent-flight-recorder" aria-labelledby="bw-agent-flight-recorder-title" hidden>
+            <div class="wsp-head">
+              <span><b id="bw-agent-flight-recorder-title">Agent flight recorder</b><small id="bw-agent-flight-recorder-status">Standby</small></span>
+              <button type="button" id="bw-agent-flight-recorder-toggle" aria-expanded="true" title="Collapse agent flight recorder">−</button>
+            </div>
+            <div class="ws-agent-flight-recorder-body">
+              <div class="ws-agent-flight-recorder-rail" aria-hidden="true"><i></i><span>LIVE CAD EVENTS</span></div>
+              <ol id="bw-agent-flight-recorder-log" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Structured agent and CAD runtime activity"></ol>
+            </div>
+          </section>
+          <div class="ws-inspector-empty" id="bw-inspector-empty">
+            <span class="ws-inspector-empty-icon" aria-hidden="true"><svg class="ws-icon" data-icon="select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5.5 3.5 11.2 9.8-5.3.8-2.8 5z"/><path d="m12.1 14 3 5.2"/></svg></span>
+            <b>No feature or body selected</b>
+            <p>Choose a body or feature in the model tree to inspect ownership, dimensions, and rebuild state.</p>
+          </div>
+          <div class="wsp" id="bw-context-wrap" hidden>
+            <div class="wsp-head"><b id="bw-inspector-kind">Feature properties</b><span class="ws-selection-live">LIVE</span></div>
+            <div id="bw-context" class="wsp-body"></div>
+          </div>
+          <section class="wsp ws-v6-diagnostics" id="bw-v6-diagnostics" aria-labelledby="bw-v6-diagnostics-title" hidden>
+            <div class="wsp-head"><b id="bw-v6-diagnostics-title">Design check</b><span class="ws-selection-live">EXACT</span></div>
+            <div class="wsp-body" id="bw-v6-diagnostics-body" role="status"></div>
+          </section>
+          <div class="wsp wsp-params wsp-grow">
+            <div class="wsp-head"><span><b>Parameters</b><small>Reusable dimensions</small></span><button type="button" id="bw-param-add" title="Add parameter">＋</button></div>
+            <div class="wsp-body"><div id="bw-params"></div></div>
+          </div>
+        </aside>
+      </div>
+      <div class="ws-mtabs" id="bw-mtabs">
+        <button type="button" id="bw-mtab-history" aria-pressed="false">Model</button>
+        <button type="button" id="bw-mtab-params" aria-pressed="false">Parameters</button>
+        <button type="button" id="bw-mtab-project" aria-pressed="false">Project</button>
+      </div>
+      <div class="ws-cmd">
+        <span class="ws-command-prompt" aria-hidden="true">›</span>
+        <span id="bw-cmd-mode">Ready</span>
+        <span id="bw-cmd-err" class="ws-cmd-err"></span>
+        <span class="ws-command-help" id="bw-command-help">Enter to apply · Esc to cancel</span>
+        <span class="ws-cmd-actions" id="bw-cmd-actions" hidden>
+          <button type="button" id="bw-cmd-apply">✓ Apply</button>
+          <button type="button" id="bw-cmd-cancel">Cancel</button>
+        </span>
+      </div>
+      <div class="ws-status">
+        <span class="ws-status-mode" id="bw-status-mode">PART DESIGN</span>
+        <span>mm</span>
+        <span>Grid 1 mm · Angle 15°</span>
+        <span id="bw-status-feat">0 features</span>
+        <span class="ws-status-right"><span class="ws-kernel-state"><i aria-hidden="true"></i> Local kernel</span><button type="button" id="bw-help-status">Help</button><a href="/">PartMode</a></span>
+      </div>
+      <dialog id="bw-help" class="ws-help" aria-labelledby="bw-help-title">
+        <div class="ws-help-shell">
+          <header class="ws-help-head">
+            <div><span>Help</span><h2 id="bw-help-title">PartMode V8</h2></div>
+            <button type="button" id="bw-help-close" aria-label="Close Help">×</button>
+          </header>
+          <div class="ws-help-body">
+      <section class="cs-learn" data-help-audience="human">
+        <h3>For people</h3>
+        <div class="cs-help-actions"><button type="button" id="bw-help-tour">Show guided walkthrough</button><button type="button" id="bw-help-templates">Open Template library</button><a id="bw-help-full" href="/help">Open full Help</a><a id="bw-help-about" href="/about">About PartMode</a></div>
+        <ol class="cs-steps" id="bw-help-part-steps">
+          <li><b>Start a sketch.</b> Choose <i>Sketch</i> for the base plane, or choose <i>Extrude</i> to select a supported flat face.</li>
+          <li><b>Draw a closed profile.</b> Place a rectangle, circle, or polygon. Select it to type exact dimensions.</li>
+          <li><b>Make it solid.</b> Enter the height and choose <i>Apply</i>. Every later feature appears in History.</li>
+          <li><b>Configure it.</b> Use <i>CFG</i> when a design table defines named part variants.</li>
+          <li><b>Export it.</b> Open <i>Output</i> for STEP, STL, AMF, 3MF, project, or SVG drawing output from the active settled configuration.</li>
+        </ol>
+        <ol class="cs-steps" id="bw-help-assembly-steps" hidden>
+          <li><b>Insert a component.</b> Choose an embedded definition or another part saved in this browser. The new occurrence becomes selected.</li>
+          <li><b>Place the component.</b> Use its starting X, Y, and Z values for a rough position; mates own the final exact placement.</li>
+          <li><b>Add a mate.</b> Choose Anchor or Moving reference, then click the intended flat face in the viewport. The active face highlights blue.</li>
+          <li><b>Check freedom.</b> The component tree reports each occurrence's remaining degrees of freedom and the Mates group reports solver state.</li>
+          <li><b>Inspect and export.</b> Use exact interference, clearance, section, exploded-view, STEP, and drawing outputs only after the assembly has settled.</li>
+        </ol>
+      </section>
+      <section class="cs-learn" data-help-audience="agent">
+        <h3>For agents</h3>
+        <div class="cs-help-actions"><a id="bw-help-agent-setup" href="/account">Set up hosted MCP</a><button type="button" id="bw-help-agent">Pair local agent</button><a id="bw-help-agent-guide" href="/help#agents">Open agent reference</a></div>
+        <p class="cs-agent-note"><b>Typed access, visible authority:</b> an agent key identifies a client but grants no project access. A person approves one visible, project-scoped session. The agent reads live <code>cad_capabilities</code>, inspects exact state, previews a typed transaction, and commits only the matching approved revision. Pointer or screen control is not required.</p>
+      </section>
+      <section class="cs-help">
+        <h3>Reference</h3>
+        <div class="cs-cols">
+          <div>
+            <b>Sketching</b>
+            <p>Rect and Circle: click two corners / centre then edge. Polygon: click each point, double-click to close. Select a shape to type exact X, Y, W, H or Ø in millimetres. Scroll to zoom the grid, Pan tool to move around.</p>
+          </div>
+          <div>
+            <b>Features</b>
+            <p>Extrude raises your sketch by a height. Cut removes material downward — "through all" drills the whole part. Revolve treats the sketch as a lathe profile: x is the radius from the axis, y is height, spun around the vertical. Fillet and Chamfer round or bevel edges; Shell hollows the part with picked opening faces. Patterns repeat a sketch as rows or rings. Define parameters (<code>wall = 2.5</code>) and type <code>wall*2</code> in any dimension — change the parameter and the whole part rebuilds.</p>
+          </div>
+          <div>
+            <b>Your files</b>
+            <p>The project autosaves in this browser. "Save" downloads editable schema-5 project data; "Open" restores supported project JSON or STEP geometry. STEP preserves the tested names, bodies, placements, units, and assembly hierarchy. AMF and 3MF preserve named mesh objects and millimetre units, while STL exports selected mesh geometry without names or units.</p>
+          </div>
+          <div>
+            <b>Configurations and drawings</b>
+            <p>The active configuration drives rebuild, inspection, STEP, STL, AMF, 3MF, and drawing generation. Drawings combine exact OpenCascade HLR views with document-owned dimensions, tables, notes, and symbols. Standards-oriented sheets remain subject to engineering review.</p>
+          </div>
+        </div>
+      </section>
+      <section class="cs-shortcuts">
+        <h3>Keyboard and pointer</h3>
+        <p>Right-click a selection for its context toolbar. Right-drag to choose Isolate, Edit, Suppress, or Hide with a four-way mouse gesture.</p>
+        <dl>
+          <div><dt>Esc</dt><dd>Cancel the current operation</dd></div>
+          <div><dt>Enter</dt><dd>Apply the current operation</dd></div>
+          <div><dt>Ctrl / ⌘ Z</dt><dd>Undo</dd></div>
+          <div><dt>Shift + Ctrl / ⌘ Z</dt><dd>Redo</dd></div>
+          <div><dt data-shortcut-display="fit-view">F</dt><dd>Fit the part to the view</dd></div>
+          <div><dt data-shortcut-display="selection-filter">F6</dt><dd>Cycle component, body, face, edge, and vertex selection filters</dd></div>
+          <div><dt data-shortcut-display="box-select">B</dt><dd>Arm Window or Crossing box selection</dd></div>
+          <div><dt>Delete</dt><dd>Delete the selected feature</dd></div>
+        </dl>
+        <div id="bw-shortcut-editor" class="cs-shortcut-editor" aria-label="Keyboard shortcut customization"></div>
+        <button type="button" id="bw-shortcut-reset">Reset keyboard shortcuts</button>
+      </section>
+      <section class="cs-faq">
+        <h3>Straight answers</h3>
+        <p><b>Is it really free?</b> Yes. PartMode is free to use and is intended to remain free. Its source is available under the repository license.</p>
+        <p><b>Who makes PartMode?</b> PartMode is made by <a href="https://x.com/protosphinx" rel="me noopener">Sphinx</a>.</p>
+        <p><b>Where does my design go?</b> Project files, geometry, and recovery history stay on this device. If you opt into agent access and approve a session, PartMode relays only that session's typed commands and results transiently; it does not store the project.</p>
+        <p><b>Privacy and cookies?</b> PartMode uses essential browser storage for local CAD, a cookie for your cookie choice, an account-session cookie only if you sign in for agent access, and a short-lived security cookie only while connecting Google. It does not use analytics, advertising, or third-party tracking. Read the <a href="/privacy">privacy notice</a> or review <a href="/cookies">cookie settings</a>.</p>
+        <p><b>Will it replace Fusion or SolidWorks?</b> PartMode V8 adds persistent typed agent control to parametric parts, multiple bodies, advanced shapes, reusable components, mates, section and exploded views, inspection, configurations, structured STEP interchange, compact SVG drawings, and persisted A3 part-specific drawing recipes. It does not provide engineering simulation, manufacturing certification, CAM, native DWG output, or a full general drafting workbench. Large assemblies and software-rendered browsers use adaptive interaction quality, and imported STEP does not reconstruct vendor-native feature history, mates, or PMI.</p>
+        <p><b>What runs underneath?</b> OpenCascade, a 25-year-old industrial B-rep kernel compiled to WebAssembly, plus <a href="https://replicad.xyz" rel="noopener">replicad</a> and three.js. The <a href="https://github.com/BOMWiki/partmode" rel="noopener">PartMode source</a> is public.</p>
+        <p><b>Need the complete workflow?</b> Open <a href="/help">PartMode Help</a>. Agents can read the same release-versioned corpus through MCP resources.</p>
+        <p><b>Made something worth keeping?</b> Save the editable project or export STEP, STL, AMF, 3MF, and SVG files directly to your device.</p>
+      </section>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="bw-templates" class="ws-templates" aria-labelledby="bw-templates-title">
+        <div class="ws-template-shell">
+          <header class="ws-template-head">
+            <div><span>New part</span><h2 id="bw-templates-title">Template library</h2></div>
+            <button type="button" id="bw-templates-close" aria-label="Close template library">×</button>
+          </header>
+          <div class="ws-template-workbench">
+            <aside class="ws-template-filter" aria-label="Template categories">
+              <p>PARTS CABINET</p>
+              <nav id="bw-template-categories"></nav>
+              <div class="ws-template-note"><b>Editable by design</b><span>Each part opens with named dimensions and a normal feature history.</span></div>
+            </aside>
+            <main class="ws-template-browser">
+              <label class="ws-template-search"><span>Search components</span><input type="search" id="bw-template-search" placeholder="plate, mount, enclosure…" autocomplete="off" /></label>
+              <div class="ws-template-results"><span id="bw-template-count">30 templates</span><span>Click a card to inspect its recipe</span></div>
+              <div id="bw-template-list" class="ws-template-list" role="listbox" aria-label="Editable component templates"></div>
+            </main>
+            <aside class="ws-template-detail" id="bw-template-detail" aria-live="polite">
+              <div id="bw-template-preview" class="ws-template-preview" aria-hidden="true"></div>
+              <p class="ws-template-eyebrow" id="bw-template-category">Template</p>
+              <h3 id="bw-template-name">Choose a part</h3>
+              <p id="bw-template-description">Select a component to see its parameters and feature recipe.</p>
+              <dl class="ws-template-facts"><div><dt>Envelope</dt><dd id="bw-template-size">—</dd></div><div><dt>Level</dt><dd id="bw-template-level">—</dd></div></dl>
+              <div class="ws-template-recipe"><b>FEATURE RECIPE</b><ol id="bw-template-recipe"></ol></div>
+              <button type="button" class="ws-primary" id="bw-template-use" disabled>Open editable template <span aria-hidden="true">→</span></button>
+            </aside>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="bw-draft-decision" class="ws-decision" aria-labelledby="bw-draft-decision-title" aria-describedby="bw-draft-decision-copy">
+        <section class="ws-decision-card">
+          <header>
+            <span>Unfinished edit</span>
+            <h2 id="bw-draft-decision-title">Finish this edit?</h2>
+          </header>
+          <p id="bw-draft-decision-copy">Apply the unfinished edit before continuing, discard only the draft, or keep editing.</p>
+          <footer>
+            <button type="button" id="bw-draft-keep">Keep editing</button>
+            <button type="button" id="bw-draft-discard" class="ws-decision-discard">Discard draft</button>
+            <button type="button" id="bw-draft-apply" class="ws-primary">Apply and continue</button>
+          </footer>
+        </section>
+      </dialog>
+      <dialog id="bw-clear-decision" class="ws-decision ws-decision-danger" aria-labelledby="bw-clear-decision-title" aria-describedby="bw-clear-decision-copy">
+        <section class="ws-decision-card">
+          <header>
+            <span>Project</span>
+            <h2 id="bw-clear-decision-title">Clear this part?</h2>
+          </header>
+          <p id="bw-clear-decision-copy">The feature history and parameters will be removed. Undo can restore the cleared part.</p>
+          <footer>
+            <button type="button" id="bw-clear-cancel">Cancel</button>
+            <button type="button" id="bw-clear-confirm" class="ws-danger">Clear part</button>
+          </footer>
+        </section>
+      </dialog>
+      <dialog id="bw-v5-command" class="ws-v5-command" aria-labelledby="bw-v5-command-title">
+        <form method="dialog" id="bw-v5-command-form">
+          <header><span id="bw-v5-command-kind">Reference</span><h2 id="bw-v5-command-title">Construction plane</h2></header>
+          <div id="bw-v5-command-fields" class="ws-v5-command-fields"></div>
+          <section id="bw-v6-command-preview" class="ws-v6-command-preview" aria-labelledby="bw-v6-command-preview-title" hidden>
+            <div><span>EXACT PREVIEW</span><b id="bw-v6-command-preview-title">Ready to preview</b></div>
+            <p id="bw-v6-command-preview-summary"></p>
+            <dl id="bw-v6-command-preview-evidence"></dl>
+          </section>
+          <p id="bw-v5-command-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-v5-command-cancel">Cancel</button><button type="button" id="bw-v5-command-preview" hidden>Run exact preview</button><button type="submit" class="ws-primary" id="bw-v5-command-apply">Apply</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-direct-edit" class="ws-v5-command ws-direct-edit" aria-labelledby="bw-direct-edit-title" aria-describedby="bw-direct-edit-description">
+        <form method="dialog" id="bw-direct-edit-form">
+          <header><span>Persistent topology direct edit</span><h2 id="bw-direct-edit-title">Direct Push/Pull</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Feature name<input id="bw-direct-edit-name" name="name" maxlength="200" autocomplete="off" data-direct-edit-field="name" /></label>
+            <label class="is-wide">Target body<select id="bw-direct-edit-target-body" name="targetBodyId" data-direct-edit-field="target-body"></select></label>
+            <label class="is-wide">Target planar face<select id="bw-direct-edit-target-face" name="targetFace" data-direct-edit-field="target-face"></select></label>
+            <label class="is-wide" id="bw-direct-edit-distance-row">Signed distance (mm)<input id="bw-direct-edit-distance" name="distance" type="number" step="any" value="10" data-direct-edit-field="distance" /></label>
+            <label class="is-wide" id="bw-direct-edit-replacement-body-row" hidden>Replacement body<select id="bw-direct-edit-replacement-body" name="replacementBodyId" data-direct-edit-field="replacement-body"></select></label>
+            <label class="is-wide" id="bw-direct-edit-replacement-face-row" hidden>Replacement planar face<select id="bw-direct-edit-replacement-face" name="replacementFace" data-direct-edit-field="replacement-face"></select></label>
+            <label class="is-wide" id="bw-direct-edit-patch-face-row" hidden>Patch-to planar face<select id="bw-direct-edit-patch-face" name="patchFace" data-direct-edit-field="patch-face"></select></label>
+            <p class="is-wide" id="bw-direct-edit-description">Choose a persistently named planar face. The document remains unchanged until Apply succeeds.</p>
+          </div>
+          <p id="bw-direct-edit-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-direct-edit-delete" class="is-danger" hidden>Delete feature</button><button type="button" id="bw-direct-edit-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-direct-edit-apply">Apply direct edit</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-sketch-reuse" class="ws-sketch-reuse" aria-labelledby="bw-sketch-reuse-title" aria-describedby="bw-sketch-reuse-description">
+        <section class="ws-sketch-reuse-shell">
+          <header>
+            <div>
+              <span>Constraint-native references</span>
+              <h2 id="bw-sketch-reuse-title">Sketch reuse</h2>
+              <p id="bw-sketch-reuse-description">Promote inline sketches, make reusable blocks, place exact instances, or create linked derived sketches.</p>
+            </div>
+          </header>
+          <div class="ws-sketch-reuse-target">
+            <label>Working sketch<select id="bw-sketch-reuse-sketch"></select></label>
+            <label>Linked state<input id="bw-sketch-reuse-linked" value="No constrained sketch selected" readonly /></label>
+          </div>
+          <div class="ws-sketch-reuse-grid">
+            <fieldset>
+              <legend>Promote inline sketch</legend>
+              <label>Feature sketch<select id="bw-sketch-reuse-feature"></select></label>
+              <label>Sketch name<input id="bw-sketch-reuse-promote-name" maxlength="200" /></label>
+              <label>Support plane<select id="bw-sketch-reuse-promote-plane"><option value="XY">XY</option><option value="YZ">YZ</option><option value="ZX">ZX</option></select></label>
+              <div class="ws-sketch-reuse-actions">
+                <button type="button" id="bw-sketch-reuse-create">New sketch</button>
+                <button type="button" id="bw-sketch-reuse-promote">Promote</button>
+                <button type="button" id="bw-sketch-reuse-edit-members">Edit sketch members</button>
+                <button type="button" id="bw-sketch-reuse-delete-sketch" class="is-danger">Delete working</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Block definition</legend>
+              <label>Definition<select id="bw-sketch-reuse-definition"></select></label>
+              <label>Definition name<input id="bw-sketch-reuse-definition-name" maxlength="200" /></label>
+              <label>Insertion X (mm)<input id="bw-sketch-reuse-insertion-x" type="number" step="any" value="0" /></label>
+              <label>Insertion Y (mm)<input id="bw-sketch-reuse-insertion-y" type="number" step="any" value="0" /></label>
+              <label class="is-wide">Members from working sketch<select id="bw-sketch-reuse-members" multiple size="6"></select></label>
+              <div class="ws-sketch-reuse-actions is-wide">
+                <button type="button" id="bw-sketch-reuse-make">Make block</button>
+                <button type="button" id="bw-sketch-reuse-edit-definition">Edit block members</button>
+                <button type="button" id="bw-sketch-reuse-delete-definition" class="is-danger">Delete definition</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Block instance</legend>
+              <label>Instance<select id="bw-sketch-reuse-instance"></select></label>
+              <label>Definition to place<select id="bw-sketch-reuse-instance-definition"></select></label>
+              <label>Translation X (mm)<input id="bw-sketch-reuse-translation-x" type="number" step="any" value="0" /></label>
+              <label>Translation Y (mm)<input id="bw-sketch-reuse-translation-y" type="number" step="any" value="0" /></label>
+              <label>Angle (deg)<input id="bw-sketch-reuse-angle" type="number" step="any" value="0" /></label>
+              <label>Scale (&gt; 0)<input id="bw-sketch-reuse-scale" type="number" min="0.000001" step="any" value="1" /></label>
+              <label class="ws-sketch-reuse-check"><input id="bw-sketch-reuse-fixed" type="checkbox" /> Fix instance transform</label>
+              <div class="ws-sketch-reuse-actions is-wide">
+                <button type="button" id="bw-sketch-reuse-insert">Insert block</button>
+                <button type="button" id="bw-sketch-reuse-edit-instance">Edit instance</button>
+                <button type="button" id="bw-sketch-reuse-delete-instance" class="is-danger">Delete instance</button>
+                <button type="button" id="bw-sketch-reuse-explode">Explode instance</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Placement relations</legend>
+              <label>Relation<select id="bw-sketch-reuse-relation"></select></label>
+              <label class="is-wide">Relation JSON<textarea id="bw-sketch-reuse-relation-json" rows="7" spellcheck="false" aria-describedby="bw-sketch-reuse-relation-help"></textarea></label>
+              <p id="bw-sketch-reuse-relation-help" class="is-wide">Use stable relation IDs and local IDs, or references such as <code>{"instanceId":"instance","memberId":"point"}</code>.</p>
+              <div class="ws-sketch-reuse-actions is-wide">
+                <button type="button" id="bw-sketch-reuse-create-relation">Create relation</button>
+                <button type="button" id="bw-sketch-reuse-edit-relation">Update relation</button>
+                <button type="button" id="bw-sketch-reuse-delete-relation" class="is-danger">Delete relation</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Derived sketch</legend>
+              <label>Source sketch<select id="bw-sketch-reuse-source"></select></label>
+              <label>Derived name<input id="bw-sketch-reuse-derived-name" maxlength="200" /></label>
+              <label>Support plane<select id="bw-sketch-reuse-derived-plane"><option value="XY">XY</option><option value="YZ">YZ</option><option value="ZX">ZX</option></select></label>
+              <label>Plane offset (mm)<input id="bw-sketch-reuse-derived-z" type="number" step="any" value="0" /></label>
+              <label>Translation X (mm)<input id="bw-sketch-reuse-derived-x" type="number" step="any" value="0" /></label>
+              <label>Translation Y (mm)<input id="bw-sketch-reuse-derived-y" type="number" step="any" value="0" /></label>
+              <label>Angle (deg)<input id="bw-sketch-reuse-derived-angle" type="number" step="any" value="0" /></label>
+              <div class="ws-sketch-reuse-actions is-wide">
+                <button type="button" id="bw-sketch-reuse-derived">Create derived</button>
+                <button type="button" id="bw-sketch-reuse-edit-derived">Edit derived</button>
+                <button type="button" id="bw-sketch-reuse-underive">Underive</button>
+              </div>
+            </fieldset>
+          </div>
+          <p id="bw-sketch-reuse-error" class="ws-sketch-reuse-error" role="alert"></p>
+          <footer><button type="button" id="bw-sketch-reuse-close">Close</button></footer>
+        </section>
+      </dialog>
+      <dialog id="bw-structural-member" class="ws-v5-command" aria-labelledby="bw-structural-member-title">
+        <form method="dialog" id="bw-structural-member-form">
+          <header><span>Path-associative weldment profile</span><h2 id="bw-structural-member-title">Structural member</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Name<input name="name" maxlength="200" value="Structural member" required /></label>
+            <label class="is-wide">Straight Path segment<select name="pathSketchId" id="bw-structural-member-path" required></select></label>
+            <label>Profile family<select name="familyId" id="bw-structural-member-family" required></select></label>
+            <label>Profile preset<select name="presetId" id="bw-structural-member-preset" required></select></label>
+            <label>Insertion point<select name="anchor" id="bw-structural-member-anchor" required><option value="top-left">Top left</option><option value="top-center">Top center</option><option value="top-right">Top right</option><option value="middle-left">Middle left</option><option value="center" selected>Center</option><option value="middle-right">Middle right</option><option value="bottom-left">Bottom left</option><option value="bottom-center">Bottom center</option><option value="bottom-right">Bottom right</option></select></label>
+            <label>Rotation (deg)<input name="rotationDegrees" type="number" inputmode="decimal" step="any" value="0" required /></label>
+            <label>Offset X (mm)<input name="offsetX" type="number" inputmode="decimal" step="any" value="0" required /></label>
+            <label>Offset Y (mm)<input name="offsetY" type="number" inputmode="decimal" step="any" value="0" required /></label>
+            <p class="is-wide" id="bw-structural-member-summary"></p>
+            <p class="is-wide" id="bw-structural-member-source"></p>
+            <p class="is-wide">Generic metric profile design aid. Each member is an exact new-body sweep on one direct two-point polyline Path. Multi-segment paths, trim/corner treatments, welds, cut lists, hollow/custom multi-contour profiles, and manufacturing certification remain separate capabilities.</p>
+          </div>
+          <p id="bw-structural-member-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-structural-member-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-structural-member-apply">Create member</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-sheet-metal" class="ws-v5-command" aria-labelledby="bw-sheet-metal-title">
+        <form method="dialog" id="bw-sheet-metal-form">
+          <header><span>Exact K-factor sheet metal</span><h2 id="bw-sheet-metal-title">Sheet metal flange</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Name<input name="name" maxlength="200" value="Base flange" required /></label>
+            <label class="is-wide">Flange kind<select name="kind" id="bw-sheet-metal-kind" required><option value="base-flange">Base flange</option><option value="edge-flange">Edge flange</option></select></label>
+            <fieldset class="is-wide" data-sheet-metal-fields="base-flange">
+              <legend>Flat sheet from one closed profile</legend>
+              <div class="ws-v5-command-fields">
+                <label class="is-wide">Closed profile sketch<select name="profileSketchId" id="bw-sheet-metal-profile"></select></label>
+                <label>Thickness (mm)<input name="thickness" type="number" inputmode="decimal" min="0.05" max="100" step="any" value="2" /></label>
+                <label>K-factor<input name="kFactor" type="number" inputmode="decimal" min="0.01" max="1" step="any" value="0.44" /></label>
+                <label>Default bend radius (mm)<input name="bendRadius" type="number" inputmode="decimal" min="0.05" max="1000" step="any" value="2" /></label>
+              </div>
+            </fieldset>
+            <fieldset class="is-wide" data-sheet-metal-fields="edge-flange" hidden disabled>
+              <legend>90-degree bend along one persistent base edge</legend>
+              <div class="ws-v5-command-fields">
+                <label class="is-wide">Base flange<select name="baseFeatureId" id="bw-sheet-metal-base"></select></label>
+                <label class="is-wide">Profile segment<select name="segmentIndex" id="bw-sheet-metal-segment"></select></label>
+                <label>Bend side<select name="side"><option value="up">Up (top face)</option><option value="down">Down (bottom face)</option></select></label>
+                <label>Bend radius (mm)<input name="edgeBendRadius" type="number" inputmode="decimal" min="0.05" max="1000" step="any" value="2" /></label>
+                <label>K-factor<input name="edgeKFactor" type="number" inputmode="decimal" min="0.01" max="1" step="any" value="0.44" /></label>
+                <label>Flange length (mm)<input name="flangeLength" type="number" inputmode="decimal" min="0.05" max="10000" step="any" value="20" /></label>
+              </div>
+            </fieldset>
+            <p class="is-wide" id="bw-sheet-metal-summary"></p>
+            <p class="is-wide">Base flange extrudes one direct closed polyline profile by the sheet thickness as an exact new body. Edge flange fuses an exact 90-degree quarter-annulus bend plus flat wall along one selected persistent straight edge, with bend allowance computed exactly as (R + K·t)·θ. Miter flange, hem, jog, tab, partial-width and non-90-degree flanges, corner relief, bend and gauge tables, and flat patterns remain separate capabilities.</p>
+          </div>
+          <p id="bw-sheet-metal-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-sheet-metal-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-sheet-metal-apply">Create flange</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-structural-treatment" class="ws-v5-command" aria-labelledby="bw-structural-treatment-title">
+        <form method="dialog" id="bw-structural-treatment-form">
+          <header><span>Associative weldment finishing</span><h2 id="bw-structural-treatment-title">Structural treatment</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Name<input name="name" maxlength="200" value="Structural treatment" required /></label>
+            <label class="is-wide">Treatment<select name="kind" id="bw-structural-treatment-kind" required><option value="trim-extend">Trim / extend</option><option value="corner">Corner treatment</option><option value="gusset">Gusset</option><option value="end-cap">End cap</option></select></label>
+            <fieldset class="is-wide" data-structural-treatment-fields="trim-extend">
+              <legend>Trim or extend a member end</legend>
+              <div class="ws-v5-command-fields">
+                <label class="is-wide">Member<select name="trimMemberId" required></select></label>
+                <label>End<select name="trimEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label>Operation<select name="trimMode" required><option value="trim">Trim</option><option value="extend">Extend</option></select></label>
+                <label class="is-wide">Distance (mm)<input name="trimDistance" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="10" required /></label>
+              </div>
+            </fieldset>
+            <fieldset class="is-wide" data-structural-treatment-fields="corner" hidden disabled>
+              <legend>Treat a two-member corner</legend>
+              <div class="ws-v5-command-fields">
+                <label>Target member<select name="cornerTargetMemberId" required></select></label>
+                <label>Target end<select name="cornerTargetEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label>Other member<select name="cornerOtherMemberId" required></select></label>
+                <label>Other end<select name="cornerOtherEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label class="is-wide">Style<select name="cornerStyle" required><option value="miter">Miter</option><option value="cope">Cope</option></select></label>
+              </div>
+            </fieldset>
+            <fieldset class="is-wide" data-structural-treatment-fields="gusset" hidden disabled>
+              <legend>Add a triangular gusset plate</legend>
+              <div class="ws-v5-command-fields">
+                <label>Left member<select name="gussetLeftMemberId" required></select></label>
+                <label>Left end<select name="gussetLeftEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label>Right member<select name="gussetRightMemberId" required></select></label>
+                <label>Right end<select name="gussetRightEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label>Left leg (mm)<input name="gussetLeftLegLength" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="40" required /></label>
+                <label>Right leg (mm)<input name="gussetRightLegLength" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="40" required /></label>
+                <label class="is-wide">Thickness (mm)<input name="gussetThickness" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="6" required /></label>
+              </div>
+            </fieldset>
+            <fieldset class="is-wide" data-structural-treatment-fields="end-cap" hidden disabled>
+              <legend>Cap one structural-member end</legend>
+              <div class="ws-v5-command-fields">
+                <label>Member<select name="capMemberId" required></select></label>
+                <label>End<select name="capEnd" required><option value="start">Start</option><option value="end">End</option></select></label>
+                <label class="is-wide">Thickness (mm)<input name="capThickness" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="6" required /></label>
+              </div>
+            </fieldset>
+            <p class="is-wide" id="bw-structural-treatment-summary"></p>
+            <p class="is-wide">Treatments remain associative to exact structural-member features and named member ends. Weld beads, weld tables, and cut lists remain separate capabilities.</p>
+          </div>
+          <p id="bw-structural-treatment-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-structural-treatment-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-structural-treatment-apply">Create treatment</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-weld-bead" class="ws-v5-command" aria-labelledby="bw-weld-bead-title">
+        <form method="dialog" id="bw-weld-bead-form">
+          <header><span>Exact modeled weldment joint</span><h2 id="bw-weld-bead-title">Weld bead</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Name<input name="name" id="bw-weld-bead-name" maxlength="200" value="Fillet weld bead" required /></label>
+            <fieldset class="is-wide">
+              <legend>Persistent exact supports</legend>
+              <p>Before opening this dialog, select exactly one named planar face and one named straight edge on each of two distinct structural-member bodies. Use Shift, Command, or Control while selecting to retain all four subshapes.</p>
+              <button type="button" id="bw-weld-bead-capture">Capture current selection</button>
+              <p id="bw-weld-bead-supports">No supports captured.</p>
+            </fieldset>
+            <label>Equal leg size (mm)<input name="sizeMm" id="bw-weld-bead-size" type="number" inputmode="decimal" min="0.000001" max="10000" step="any" value="4" required /></label>
+            <label>Process<input name="process" id="bw-weld-bead-process" maxlength="80" value="unspecified" autocomplete="off" /></label>
+            <p class="is-wide">Creates one exact, continuous, equal-leg straight fillet bead body. The production kernel must prove a shared straight joint, perpendicular planar supports, contact with both members, and valid non-interfering B-rep geometry before commit.</p>
+          </div>
+          <p id="bw-weld-bead-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-weld-bead-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-weld-bead-apply">Create weld bead</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-hole-wizard" class="ws-v5-command" aria-labelledby="bw-hole-wizard-title">
+        <form method="dialog" id="bw-hole-wizard-form">
+          <header><span>Standards-aware cut</span><h2 id="bw-hole-wizard-title">Hole Wizard</h2></header>
+          <div class="ws-v5-command-fields">
+            <label>Hole type<select name="kind" id="bw-hole-wizard-kind"><option value="clearance">Clearance</option><option value="tapped">Tapped</option><option value="counterbore">Counterbore</option><option value="countersink">Countersink</option></select></label>
+            <label>Metric size<select name="designation" id="bw-hole-wizard-size"></select></label>
+            <label>Center X (mm)<input name="x" inputmode="decimal" value="0" /></label>
+            <label>Center Y (mm)<input name="y" inputmode="decimal" value="0" /></label>
+            <label class="is-wide">Support plane Z (mm)<input name="sketchZ" inputmode="decimal" value="0" /></label>
+            <p class="is-wide" id="bw-hole-wizard-summary"></p>
+            <p class="is-wide" id="bw-hole-wizard-source"></p>
+            <p class="is-wide">Nominal reference content only. Verify dimensions, fits, tolerances, and process requirements against licensed standards before manufacturing.</p>
+          </div>
+          <p id="bw-hole-wizard-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-hole-wizard-cancel">Cancel</button><button type="submit" class="ws-primary" id="bw-hole-wizard-apply">Create hole</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-thread" class="ws-v5-command" aria-labelledby="bw-thread-title">
+        <form method="dialog" id="bw-thread-form">
+          <header><span>Exact cylindrical-face thread</span><h2 id="bw-thread-title">Thread</h2></header>
+          <div class="ws-v5-command-fields">
+            <label class="is-wide">Name<input name="name" id="bw-thread-name" maxlength="200" value="Metric reference thread" required /></label>
+            <p class="is-wide" id="bw-thread-target">Select one exact named cylindrical face in the viewport before opening Thread.</p>
+            <button type="button" class="is-wide" id="bw-thread-capture">Use selected cylindrical face</button>
+            <label>Thread side<select name="threadKind" id="bw-thread-kind"><option value="external">External</option><option value="internal">Internal</option></select></label>
+            <label>Representation<select name="mode" id="bw-thread-mode"><option value="cosmetic">Cosmetic</option><option value="modeled">Modeled B-rep</option></select></label>
+            <label>Metric size<select name="designation" id="bw-thread-size"></select></label>
+            <label>Handedness<select name="handedness" id="bw-thread-handedness"><option value="right">Right hand</option><option value="left">Left hand</option></select></label>
+            <label>Maximum-material reference<select name="toleranceClass" id="bw-thread-tolerance"><option value="6g">6g external reference</option><option value="6H">6H internal reference</option></select></label>
+            <label>Axial span<select name="spanMode" id="bw-thread-span-mode"><option value="fraction">Face fractions</option><option value="offset">Face-axis offsets (mm)</option></select></label>
+            <label id="bw-thread-span-start-label">Start fraction<input name="spanStart" id="bw-thread-span-start" inputmode="decimal" value="0" /></label>
+            <label id="bw-thread-span-end-label">End fraction<input name="spanEnd" id="bw-thread-span-end" inputmode="decimal" value="1" /></label>
+            <label>Runout form<select name="runout" id="bw-thread-runout"><option value="one-pitch-taper">One-pitch taper</option><option value="full-profile">Full profile</option></select></label>
+            <p class="is-wide" id="bw-thread-summary"></p>
+            <p class="is-wide" id="bw-thread-source"></p>
+            <p class="is-wide" id="bw-thread-preview-status">Preview the exact typed transaction before applying it.</p>
+            <p class="is-wide">Bounded metric reference construction on one exact named cylindrical face. The 6g/6H choice supplies a maximum-material reference only; grade-6 widths, least-material limits, fit pairing, gauging, and standards certification are outside this feature. Verify released fits and process requirements against licensed standards.</p>
+          </div>
+          <p id="bw-thread-error" class="ws-v5-command-error" role="alert"></p>
+          <footer><button type="button" id="bw-thread-delete" class="is-danger" hidden>Preview delete</button><button type="button" id="bw-thread-cancel">Cancel</button><button type="button" id="bw-thread-preview">Run exact preview</button><button type="submit" class="ws-primary" id="bw-thread-apply" disabled>Apply exact preview</button></footer>
+        </form>
+      </dialog>
+      <dialog id="bw-configurations" class="ws-configurations" aria-labelledby="bw-configurations-title" aria-describedby="bw-configurations-description">
+        <div class="ws-configurations-shell">
+          <header class="ws-configurations-head">
+            <div>
+              <span>Part design table</span>
+              <h2 id="bw-configurations-title">Configurations</h2>
+              <p id="bw-configurations-description">Control named part variants through exact parameter overrides and feature suppression states.</p>
+            </div>
+            <div class="ws-configurations-active" aria-label="Active configuration">
+              <small>ACTIVE</small>
+              <strong id="bw-config-active-name">No configuration</strong>
+              <code id="bw-config-active-id">—</code>
+            </div>
+            <button type="button" id="bw-configurations-close" class="ws-configurations-close" aria-label="Close configurations">×</button>
+          </header>
+          <section id="bw-config-unavailable" class="ws-config-unavailable" hidden>
+            <b>Configurations require a part document</b>
+            <p>Assembly roots use component references and do not have one editable part parameter table. Open a part document to manage its configurations.</p>
+          </section>
+          <div id="bw-config-workbench" class="ws-config-workbench">
+            <aside class="ws-config-list-panel" aria-label="Part configurations">
+              <div class="ws-config-panel-head">
+                <span><b>Variants</b><small id="bw-config-count">0 rows</small></span>
+                <button type="button" id="bw-config-create" class="ws-config-icon-button" title="Create configuration" aria-label="Create configuration">＋</button>
+              </div>
+              <ol id="bw-config-list" class="ws-config-list" role="listbox" aria-label="Configuration rows"></ol>
+              <p id="bw-config-empty" class="ws-config-empty">No rows yet. Create a configuration from the part's current values.</p>
+            </aside>
+            <main class="ws-config-editor">
+              <section class="ws-config-detail" aria-labelledby="bw-config-selected-name">
+                <header class="ws-config-detail-head">
+                  <div><span>SELECTED ROW</span><h3 id="bw-config-selected-name">No configuration selected</h3><code id="bw-config-selected-id">—</code></div>
+                  <div class="ws-config-row-actions">
+                    <button type="button" id="bw-config-activate">Activate</button>
+                    <button type="button" id="bw-config-delete" class="ws-config-delete">Delete</button>
+                  </div>
+                </header>
+                <div id="bw-config-detail-body" class="ws-config-detail-body" hidden>
+                  <label class="ws-config-name-field">Configuration name<input type="text" id="bw-config-name" maxlength="200" autocomplete="off" spellcheck="false" /></label>
+                  <section class="ws-config-overrides" aria-labelledby="bw-config-parameters-title">
+                    <div class="ws-config-section-head"><span><b id="bw-config-parameters-title">Parameter overrides</b><small>Unchecked values inherit the part definition.</small></span></div>
+                    <div id="bw-config-parameters" class="ws-config-override-list"></div>
+                    <p id="bw-config-parameter-empty" class="ws-config-empty" hidden>This part has no local parameters. Add a part parameter before defining dimensional variants; feature suppression can still vary by row.</p>
+                  </section>
+                  <section class="ws-config-overrides" aria-labelledby="bw-config-features-title">
+                    <div class="ws-config-section-head"><span><b id="bw-config-features-title">Feature suppression</b><small>Inherit, include, or suppress each feature in this row.</small></span></div>
+                    <div id="bw-config-features" class="ws-config-feature-list"></div>
+                    <p id="bw-config-feature-empty" class="ws-config-empty" hidden>This part has no features to suppress.</p>
+                  </section>
+                  <div class="ws-config-save-row"><button type="button" id="bw-config-save" class="ws-primary">Save configuration</button></div>
+                </div>
+                <p id="bw-config-detail-empty" class="ws-config-detail-empty">Create or select a row to edit its exact variant state.</p>
+              </section>
+              <section class="ws-config-design-table" aria-labelledby="bw-config-design-table-title">
+                <header class="ws-config-section-head">
+                  <span><b id="bw-config-design-table-title">Design table CSV</b><small>Configuration, part parameter, and feature suppression columns use deterministic ordering.</small></span>
+                  <div>
+                    <button type="button" id="bw-config-export">Export current table</button>
+                    <button type="button" id="bw-config-import" class="ws-primary">Import edited table</button>
+                  </div>
+                </header>
+                <label for="bw-config-csv" class="ws-visually-hidden">Editable design table CSV</label>
+                <textarea id="bw-config-csv" aria-describedby="bw-config-csv-hint" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Configuration,width,feature:feature-id:suppressed&#10;Standard,40,false"></textarea>
+                <p id="bw-config-csv-hint">Export reads the canonical table from the document. The part is unchanged until Import edited table succeeds.</p>
+              </section>
+            </main>
+          </div>
+          <footer class="ws-configurations-foot">
+            <div id="bw-config-status" class="ws-config-status" role="status" aria-live="polite" aria-atomic="true" hidden><strong id="bw-config-status-code"></strong><span id="bw-config-status-message"></span><small id="bw-config-status-detail"></small></div>
+            <button type="button" id="bw-configurations-done">Done</button>
+          </footer>
+        </div>
+      </dialog>
+      <div id="bw-transition-toast" class="ws-transition-toast" hidden>
+        <span class="ws-transition-mark" aria-hidden="true"><span class="ws-transition-icon" aria-hidden="true"><svg class="ws-icon" data-icon="recover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 6v5h5"/><path d="M6.3 10.2A7 7 0 1 1 5.7 16"/><path d="M12 8v4l2.8 1.8"/></svg></span></span>
+        <div id="bw-transition-status" role="status" aria-live="polite" aria-atomic="true">
+          <strong id="bw-transition-title"></strong>
+          <small id="bw-transition-detail"></small>
+        </div>
+        <button type="button" id="bw-transition-undo" class="ws-transition-action">Undo</button>
+        <button type="button" id="bw-transition-close" class="ws-transition-close" aria-label="Dismiss notification">×</button>
+      </div>
+      <div id="bw-tour" class="ws-tour" hidden>
+        <section class="ws-tour-card" role="dialog" aria-modal="false" aria-labelledby="bw-tour-title">
+          <div class="ws-tour-progress"><span id="bw-tour-step">1 of 4</span><button type="button" id="bw-tour-skip">Skip tour</button></div>
+          <h2 id="bw-tour-title">Your feature recipe</h2>
+          <p id="bw-tour-copy"></p>
+          <div class="ws-tour-actions"><button type="button" id="bw-tour-back">Back</button><button type="button" class="ws-primary" id="bw-tour-next">Next</button></div>
+        </section>
+      </div>
+      <dialog id="bw-recover" class="ws-help ws-recover" aria-labelledby="bw-recover-title">
+        <div class="ws-help-shell">
+          <header class="ws-help-head">
+            <div><span>Project</span><h2 id="bw-recover-title">Recover local work</h2></div>
+            <button type="button" id="bw-recover-close" aria-label="Close recovery">×</button>
+          </header>
+          <div class="ws-recover-body">
+            <p>Committed states saved in this browser. This is crash recovery, not cloud version history.</p>
+            <ol id="bw-recovery-list" class="ws-recovery-list"></ol>
+            <p id="bw-recovery-empty" class="sk-note" hidden>No committed recovery states yet.</p>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="bw-addins" class="ws-help ws-recover" aria-labelledby="bw-addins-title">
+        <div class="ws-help-shell">
+          <header class="ws-help-head">
+            <div><span>Extensibility</span><h2 id="bw-addins-title">Third-party add-ins</h2></div>
+            <button type="button" id="bw-addins-close" aria-label="Close add-in manager">×</button>
+          </header>
+          <div class="ws-recover-body">
+            <p>Load a trusted local ES module that exports <code>manifest</code> and <code>activate</code>. Registered add-ins remain inactive until you explicitly grant their declared document and command permissions.</p>
+            <div class="ws-tour-actions"><button type="button" id="bw-addins-load">Load local add-in</button><input id="bw-addins-file" type="file" accept=".mjs,.js,text/javascript" hidden></div>
+            <ol id="bw-addins-list" class="ws-recovery-list"></ol>
+            <p id="bw-addins-empty" class="sk-note">No third-party add-ins are registered in this session.</p>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="bw-drawing-pdf" class="ws-help ws-recover" aria-labelledby="bw-drawing-pdf-title">
+        <div class="ws-help-shell">
+          <header class="ws-help-head">
+            <div><span>Drawing output</span><h2 id="bw-drawing-pdf-title">Print-ready PDF</h2></div>
+            <button type="button" id="bw-drawing-pdf-close" aria-label="Close PDF output">×</button>
+          </header>
+          <div class="ws-recover-body">
+            <p>Create a drawing set with reusable ISO, ANSI, or DIN profiles, controlled layers and line fonts, multiple ordered sheets, custom sizes, per-sheet scales, and exact hidden-line views. A project without a drawing set exports one A4 sheet.</p>
+            <p id="bw-drawing-book-status" class="sk-note"></p>
+            <fieldset><legend>Named projection views</legend>
+              <label>Saved view <select id="bw-drawing-view-select"><option value="">New named view</option></select></label>
+              <label>Name <input id="bw-drawing-view-name" value="Manufacturing view" maxlength="120" autocomplete="off"></label>
+              <label>Direction X,Y,Z <input id="bw-drawing-view-direction" value="-1,-2,-1" autocomplete="off"></label>
+              <label>Sheet X-axis X,Y,Z <input id="bw-drawing-view-xaxis" value="1,-0.5,0" autocomplete="off"></label>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-view-add">Add named view</button><button type="button" id="bw-drawing-view-update">Update</button><button type="button" id="bw-drawing-view-delete">Delete</button></div>
+            </fieldset>
+            <fieldset id="bw-drawing-derived-view-fieldset"><legend>Advanced · derived drawing views</legend>
+              <p id="bw-drawing-derived-view-scope" class="sk-note">Part documents can create persistent section, detail, auxiliary, crop, and break views from a standard or named projection. Cutting planes use one line per plane: <code>origin X,Y,Z | normal X,Y,Z | sheet X-axis X,Y,Z | positive or negative</code>.</p>
+              <label>Saved derived view <select id="bw-drawing-derived-view-select"><option value="">New derived view</option></select></label>
+              <label>Name <input id="bw-drawing-derived-view-name" value="Section A-A" maxlength="120" autocomplete="off"></label>
+              <div class="ws-tour-actions">
+                <label>Kind <select id="bw-drawing-derived-view-kind">
+                  <option value="full-section">Full section</option><option value="half-section">Half section</option>
+                  <option value="aligned-section">Aligned section</option><option value="broken-out-section">Broken-out section</option>
+                  <option value="detail">Detail</option><option value="auxiliary">Auxiliary</option>
+                  <option value="crop">Crop</option><option value="break">Break</option>
+                </select></label>
+                <label>Source projection <select id="bw-drawing-derived-view-source"></select></label>
+              </div>
+              <div data-drawing-derived-kinds="full-section half-section aligned-section">
+                <label>Cutting planes
+                  <textarea id="bw-drawing-derived-view-planes" rows="3" spellcheck="false">0,0,0 | 1,0,0 | 0,1,0 | positive</textarea>
+                </label>
+              </div>
+              <div data-drawing-derived-kinds="full-section half-section aligned-section broken-out-section">
+                <label>Hatch angle ° <input id="bw-drawing-derived-view-hatch" type="number" min="-89" max="89" step="1" value="45"></label>
+              </div>
+              <div data-drawing-derived-kinds="half-section" hidden>
+                <div class="ws-tour-actions">
+                  <label>Split axis <select id="bw-drawing-derived-view-half-axis"><option value="x">X</option><option value="y">Y</option></select></label>
+                  <label>Exterior side <select id="bw-drawing-derived-view-half-side"><option value="positive">Positive</option><option value="negative">Negative</option></select></label>
+                  <label>Split at <input id="bw-drawing-derived-view-half-at" type="number" step="0.1" value="0"></label>
+                </div>
+              </div>
+              <div data-drawing-derived-kinds="broken-out-section detail crop" hidden>
+                <div class="ws-tour-actions">
+                  <label>Boundary <select id="bw-drawing-derived-view-boundary-kind"><option value="rect">Rectangle</option><option value="circle">Circle</option></select></label>
+                  <label id="bw-drawing-derived-view-boundary-x-label">Minimum X <input id="bw-drawing-derived-view-boundary-x" type="number" step="0.1" value="-15"></label>
+                  <label id="bw-drawing-derived-view-boundary-y-label">Minimum Y <input id="bw-drawing-derived-view-boundary-y" type="number" step="0.1" value="-15"></label>
+                </div>
+                <div class="ws-tour-actions">
+                  <label id="bw-drawing-derived-view-boundary-width-label">Width <input id="bw-drawing-derived-view-boundary-width" type="number" min="0.001" step="0.1" value="30"></label>
+                  <label id="bw-drawing-derived-view-boundary-height-label">Height <input id="bw-drawing-derived-view-boundary-height" type="number" min="0.001" step="0.1" value="30"></label>
+                  <label id="bw-drawing-derived-view-boundary-radius-label" hidden>Radius <input id="bw-drawing-derived-view-boundary-radius" type="number" min="0.001" step="0.1" value="15"></label>
+                </div>
+              </div>
+              <div data-drawing-derived-kinds="detail" hidden>
+                <label>Magnification <input id="bw-drawing-derived-view-magnification" type="number" min="1.1" max="10" step="0.1" value="2"></label>
+              </div>
+              <div data-drawing-derived-kinds="broken-out-section" hidden>
+                <label>Cut depth mm <input id="bw-drawing-derived-view-depth" type="number" min="0.001" max="1000000" step="0.1" value="6"></label>
+              </div>
+              <div data-drawing-derived-kinds="auxiliary" hidden>
+                <label>Persistent body ID <input id="bw-drawing-derived-view-aux-body" autocomplete="off" placeholder="body-1"></label>
+                <label>Persistent planar face name <input id="bw-drawing-derived-view-aux-face" autocomplete="off" placeholder="face:…"></label>
+                <label>Sheet X-axis hint X,Y,Z <input id="bw-drawing-derived-view-aux-xaxis" value="1,0,0" autocomplete="off"></label>
+              </div>
+              <div data-drawing-derived-kinds="break" hidden>
+                <div class="ws-tour-actions">
+                  <label>Break axis <select id="bw-drawing-derived-view-break-axis"><option value="x">X</option><option value="y">Y</option></select></label>
+                  <label>Start <input id="bw-drawing-derived-view-break-start" type="number" step="0.1" value="-10"></label>
+                  <label>End <input id="bw-drawing-derived-view-break-end" type="number" step="0.1" value="10"></label>
+                  <label>Display gap mm <input id="bw-drawing-derived-view-break-gap" type="number" min="1" max="25" step="0.1" value="4"></label>
+                </div>
+              </div>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-derived-view-add">Add derived view</button><button type="button" id="bw-drawing-derived-view-update">Update</button><button type="button" id="bw-drawing-derived-view-delete">Delete</button></div>
+            </fieldset>
+            <div class="ws-tour-actions"><button type="button" id="bw-drawing-book-initialize">Initialize drawing set</button><button type="button" id="bw-drawing-sheet-add">Add sheet</button></div>
+            <label>Sheet <select id="bw-drawing-sheet"></select></label>
+            <label>Sheet name <input id="bw-drawing-sheet-name" value="Sheet 1" maxlength="120" autocomplete="off"></label>
+            <label>Format
+              <select id="bw-drawing-sheet-template">
+                <option value="iso-a4-landscape">ISO A4 landscape</option><option value="iso-a3-landscape">ISO A3 landscape</option>
+                <option value="iso-a2-landscape">ISO A2 landscape</option><option value="ansi-a-landscape">ANSI A landscape</option>
+                <option value="ansi-b-landscape">ANSI B landscape</option><option value="din-a4-landscape">DIN A4 landscape</option>
+                <option value="din-a3-landscape">DIN A3 landscape</option><option value="custom">Custom size</option>
+              </select>
+            </label>
+            <div class="ws-tour-actions"><label>Width mm <input id="bw-drawing-sheet-width" type="number" min="100" max="2000" step="0.1" value="297"></label><label>Height mm <input id="bw-drawing-sheet-height" type="number" min="100" max="2000" step="0.1" value="210"></label></div>
+            <label>Exact views
+              <select id="bw-drawing-sheet-views" multiple size="7">
+                <option value="front" selected>Front</option><option value="top" selected>Top</option><option value="right" selected>Right</option>
+                <option value="left">Left</option><option value="bottom">Bottom</option><option value="back">Back</option><option value="iso" selected>Isometric</option>
+              </select>
+            </label>
+            <label>Tangent edges <select id="bw-drawing-tangent-edges"><option value="visible">Visible</option><option value="removed">Removed</option><option value="phantom">Phantom line font</option></select></label>
+            <fieldset><legend>Drawing standard and layers</legend>
+              <div class="ws-tour-actions"><label>Profile <select id="bw-drawing-standard-profile"><option value="iso">ISO</option><option value="ansi">ANSI / ASME</option><option value="din">DIN</option></select></label><button type="button" id="bw-drawing-standard-apply">Apply profile defaults</button></div>
+              <label>Layer <select id="bw-drawing-layer"><option value="border">Border and title block</option><option value="visible">Visible geometry</option><option value="hidden">Hidden geometry</option><option value="tangent">Tangent edges</option><option value="dimensions">Dimensions</option><option value="annotations">Annotations and balloons</option><option value="tables">Tables and BOM</option></select></label>
+              <div class="ws-tour-actions"><label><input id="bw-drawing-layer-visible" type="checkbox" checked> Visible</label><label><input id="bw-drawing-layer-printable" type="checkbox" checked> Print</label></div>
+              <label>Line font <select id="bw-drawing-layer-line-font"></select></label>
+              <button type="button" id="bw-drawing-layer-apply">Apply layer</button>
+            </fieldset>
+            <fieldset><legend>Custom line fonts</legend>
+              <label>Saved line font <select id="bw-drawing-line-font"><option value="">New custom line font</option></select></label>
+              <label>Name <input id="bw-drawing-line-font-name" value="Shop phantom" maxlength="120" autocomplete="off"></label>
+              <div class="ws-tour-actions"><label>Width mm <input id="bw-drawing-line-font-width" type="number" min="0.05" max="2" step="0.01" value="0.25"></label><label>Dash mm <input id="bw-drawing-line-font-dash" value="6,1.5,1,1.5" autocomplete="off"></label></div>
+              <label>RGB 0–1 <input id="bw-drawing-line-font-color" value="0.1,0.2,0.35" autocomplete="off"></label>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-line-font-add">Add line font</button><button type="button" id="bw-drawing-line-font-update">Update</button><button type="button" id="bw-drawing-line-font-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>Notes, balloons, revision clouds, and blocks</legend>
+              <label>Authored annotation <select id="bw-drawing-annotation"><option value="">New annotation</option></select></label>
+              <div class="ws-tour-actions"><label>Kind <select id="bw-drawing-annotation-kind"><option value="note">Note</option><option value="balloon">Manual balloon</option><option value="revision-cloud">Revision cloud</option><option value="block">Block instance</option></select></label><label>Text / revision <input id="bw-drawing-annotation-text" value="INSPECT BEFORE RELEASE" maxlength="500" autocomplete="off"></label></div>
+              <label>Sheet position X,Y mm <input id="bw-drawing-annotation-position" value="20,20" autocomplete="off"></label>
+              <div class="ws-tour-actions"><label>Exact view <select id="bw-drawing-annotation-view"></select></label><label>Projection anchor X,Y <input id="bw-drawing-annotation-anchor" value="0,0" autocomplete="off"></label></div>
+              <div class="ws-tour-actions"><label>Cloud width,height mm <input id="bw-drawing-annotation-extent" value="40,20" autocomplete="off"></label><label>Text pt / block scale <input id="bw-drawing-annotation-scale" type="number" min="0.1" max="24" step="0.1" value="8"></label></div>
+              <label>Reusable block <select id="bw-drawing-annotation-block"><option value="">Choose a block</option></select></label>
+              <p class="sk-note">A manual balloon anchor uses exact projection coordinates; its label and all other annotations use sheet millimetres.</p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-annotation-add">Add annotation</button><button type="button" id="bw-drawing-annotation-update">Update</button><button type="button" id="bw-drawing-annotation-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>Associative placed dimensions</legend>
+              <label>Saved dimension <select id="bw-drawing-associative-dimension"><option value="">New placed dimension</option></select></label>
+              <div class="ws-tour-actions"><label>Type <select id="bw-drawing-associative-dimension-type"><option value="distance">Projected distance</option><option value="horizontal">Horizontal distance</option><option value="vertical">Vertical distance</option></select></label><label>Exact view <select id="bw-drawing-associative-dimension-view"></select></label><button type="button" id="bw-drawing-associative-dimension-capture">Use two selected subshapes</button></div>
+              <label>Persistent references <textarea id="bw-drawing-associative-dimension-references" rows="3" placeholder="body-id|vertex|persistent-topology-name"></textarea></label>
+              <label>Sheet label X,Y mm <input id="bw-drawing-associative-dimension-label" value="50,50" autocomplete="off"></label>
+              <p class="sk-note">Select exactly two persistently named faces, edges, or vertices in the model, then capture them here. Resolution uses names only and never falls back to proximity or traversal order.</p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-associative-dimension-add">Add placed dimension</button><button type="button" id="bw-drawing-associative-dimension-update">Update</button><button type="button" id="bw-drawing-associative-dimension-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>GD&amp;T and tolerance stacks</legend>
+              <label>Saved record <select id="bw-drawing-gdt"><option value="">New GD&amp;T record</option></select></label>
+              <div class="ws-tour-actions"><label>Kind <select id="bw-drawing-gdt-kind"><option value="datum-symbol">Datum symbol</option><option value="feature-control-frame">Feature-control frame</option><option value="tolerance-stack">Tolerance stack</option></select></label><label>Exact view <select id="bw-drawing-gdt-view"></select></label><button type="button" id="bw-drawing-gdt-capture">Use selected subshape</button></div>
+              <label>Persistent topology reference <textarea id="bw-drawing-gdt-reference" rows="2" placeholder="body-id|face|persistent-topology-name"></textarea></label>
+              <div class="ws-tour-actions"><label>Datum identifier / stack name <input id="bw-drawing-gdt-name" value="A" maxlength="120" autocomplete="off"></label><label>Sheet label/stack position X,Y mm <input id="bw-drawing-gdt-label" value="70,70" autocomplete="off"></label></div>
+              <div class="ws-tour-actions"><label>Characteristic <select id="bw-drawing-gdt-characteristic"><option value="position">Position</option><option value="straightness">Straightness</option><option value="flatness">Flatness</option><option value="circularity">Circularity</option><option value="cylindricity">Cylindricity</option><option value="profile-line">Profile of a line</option><option value="profile-surface">Profile of a surface</option><option value="parallelism">Parallelism</option><option value="perpendicularity">Perpendicularity</option><option value="angularity">Angularity</option><option value="circular-runout">Circular runout</option><option value="total-runout">Total runout</option></select></label><label>Tolerance mm <input id="bw-drawing-gdt-tolerance" type="number" min="0.000001" step="0.001" value="0.1"></label><label><input id="bw-drawing-gdt-diameter" type="checkbox" checked> Diameter zone</label><label>Material condition <select id="bw-drawing-gdt-material"><option value="none">Regardless of feature size</option><option value="maximum">Maximum material</option><option value="least">Least material</option></select></label></div>
+              <label>Datum-symbol record IDs, primary to tertiary <input id="bw-drawing-gdt-datums" autocomplete="off" placeholder="annotation-000001,annotation-000002"></label>
+              <label>Tolerance-stack terms <textarea id="bw-drawing-gdt-stack" rows="4" placeholder="Housing|100|0.2|0.1|1&#10;Spacer|20|0.05|0.05|-1"></textarea></label>
+              <p class="sk-note">Datum and frame anchors resolve persistent exact topology. Stack rows use LABEL|NOMINAL|PLUS|MINUS|DIRECTION and publish worst-case limits plus RSS. This is controlled reference content, not standards certification.</p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-gdt-add">Add GD&amp;T record</button><button type="button" id="bw-drawing-gdt-update">Update</button><button type="button" id="bw-drawing-gdt-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>Imported model dimensions</legend>
+              <label>Saved dimension <select id="bw-drawing-model-dimension"><option value="">New imported dimension</option></select></label>
+              <div class="ws-tour-actions"><label>Exact view <select id="bw-drawing-model-dimension-view"></select></label><label>Persistent feature ID <input id="bw-drawing-model-dimension-feature" autocomplete="off" placeholder="feature-extrude-1"></label><label>Driving field <select id="bw-drawing-model-dimension-field"><option value="h">Depth (h)</option><option value="r">Radius (r)</option><option value="t">Thickness (t)</option></select></label></div>
+              <div class="ws-tour-actions"><label>Projection endpoint A X,Y <input id="bw-drawing-model-dimension-anchor-a" value="0,0" autocomplete="off"></label><label>Projection endpoint B X,Y <input id="bw-drawing-model-dimension-anchor-b" value="20,0" autocomplete="off"></label><label>Sheet label X,Y mm <input id="bw-drawing-model-dimension-label" value="40,40" autocomplete="off"></label></div>
+              <p class="sk-note">The value and authored expression come from the selected unsuppressed model feature. Endpoints are explicit exact-view coordinates; this does not claim topology-associative placement.</p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-model-dimension-add">Import dimension</button><button type="button" id="bw-drawing-model-dimension-update">Update</button><button type="button" id="bw-drawing-model-dimension-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>Manufacturing callouts and symbols</legend>
+              <label>Saved symbol <select id="bw-drawing-symbol"><option value="">New manufacturing symbol</option></select></label>
+              <div class="ws-tour-actions"><label>Kind <select id="bw-drawing-symbol-kind"><option value="hole-callout">Hole callout</option><option value="center-mark">Center mark</option><option value="centerline">Centerline</option><option value="weld-symbol">Weld symbol</option><option value="surface-finish">Surface finish</option></select></label><label>Exact view <select id="bw-drawing-symbol-view"></select></label></div>
+              <label>Hole Wizard feature IDs <textarea id="bw-drawing-symbol-references" rows="2" placeholder="One ID per line; centerline requires two"></textarea></label>
+              <div class="ws-tour-actions"><label>Projection anchor X,Y <input id="bw-drawing-symbol-anchor" value="0,0" autocomplete="off"></label><label>Sheet label X,Y mm <input id="bw-drawing-symbol-label" value="20,20" autocomplete="off"></label><label>Size / Ra / extension <input id="bw-drawing-symbol-value" type="number" min="0" max="1000" step="0.1" value="3"></label></div>
+              <div class="ws-tour-actions"><label>Weld type <select id="bw-drawing-symbol-weld-type"><option value="fillet">Fillet</option><option value="square-groove">Square groove</option><option value="v-groove">V groove</option><option value="plug-slot">Plug or slot</option></select></label><label>Weld side <select id="bw-drawing-symbol-weld-side"><option value="arrow">Arrow side</option><option value="other">Other side</option><option value="both">Both sides</option></select></label></div>
+              <div class="ws-tour-actions"><label>Surface method <select id="bw-drawing-symbol-surface-method"><option value="unspecified">Unspecified</option><option value="material-removal-required">Material removal required</option><option value="material-removal-prohibited">Material removal prohibited</option></select></label><label>Surface lay <select id="bw-drawing-symbol-surface-lay"><option value="none">None</option><option value="parallel">Parallel</option><option value="perpendicular">Perpendicular</option><option value="crossed">Crossed</option><option value="multidirectional">Multidirectional</option><option value="circular">Circular</option><option value="radial">Radial</option></select></label></div>
+              <label>Weld tail / surface process <input id="bw-drawing-symbol-detail" maxlength="120" autocomplete="off"></label>
+              <p class="sk-note">Hole callouts and centers resolve persistent unsuppressed Hole Wizard features into the selected exact view. Weld and surface symbols retain authored exact-view anchors.</p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-symbol-add">Add symbol</button><button type="button" id="bw-drawing-symbol-update">Update</button><button type="button" id="bw-drawing-symbol-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>Reusable drawing blocks</legend>
+              <label>Saved block <select id="bw-drawing-block"><option value="">New reusable block</option></select></label>
+              <div class="ws-tour-actions"><label>Name <input id="bw-drawing-block-name" value="Inspection stamp" maxlength="120" autocomplete="off"></label><label>Text <input id="bw-drawing-block-text" value="QA HOLD" maxlength="200" autocomplete="off"></label></div>
+              <label>Width,height mm <input id="bw-drawing-block-size" value="36,12" autocomplete="off"></label>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-block-add">Add block</button><button type="button" id="bw-drawing-block-update">Update</button><button type="button" id="bw-drawing-block-delete">Delete</button></div>
+            </fieldset>
+            <fieldset id="bw-drawing-table-fieldset"><legend>Cut lists, hole tables, weld tables, and revision tables</legend>
+              <label>Saved table <select id="bw-drawing-table"><option value="">New drawing table</option></select></label>
+              <div class="ws-tour-actions"><label>Kind <select id="bw-drawing-table-kind"><option value="cut-list">Associative cut list</option><option value="hole">Associative hole table</option><option value="weld">Associative weld table</option><option value="revision">Revision table</option></select></label><label>Name <input id="bw-drawing-table-name" value="Structural cut list" maxlength="120" autocomplete="off"></label></div>
+              <div class="ws-tour-actions"><label>Position X,Y mm <input id="bw-drawing-table-position" value="12,12" autocomplete="off"></label><label>Width mm <input id="bw-drawing-table-width" type="number" min="40" max="250" step="1" value="240"></label></div>
+              <div id="bw-drawing-table-cut-list-fields" data-drawing-table-fields="cut-list">
+                <label>Cut-list source <select id="bw-drawing-table-source-type"><option value="structural-member">Structural members — exact length and end cuts</option><option value="body-axis">Body bounds — X/Y/Z length</option></select></label>
+              </div>
+              <div id="bw-drawing-table-structural-fields" data-drawing-table-source-fields="structural-member">
+                <label>Active structural members <select id="bw-drawing-table-members" multiple size="6" aria-describedby="bw-drawing-table-member-summary"></select></label>
+                <p id="bw-drawing-table-member-summary" class="sk-note" role="status">Select one or more active structural-member features. Length and start/end cuts resolve from current exact geometry.</p>
+              </div>
+              <div id="bw-drawing-table-body-fields" data-drawing-table-source-fields="body-axis" hidden>
+                <div class="ws-tour-actions"><label>Cut axis <select id="bw-drawing-table-axis"><option value="x">X</option><option value="y">Y</option><option value="z">Z</option></select></label></div>
+                <label>Persistent body IDs <textarea id="bw-drawing-table-body-references" rows="3" placeholder="One body ID per line"></textarea></label>
+                <p class="sk-note">Body-axis mode measures each exact body's world-axis bounds. It does not derive structural-member end treatments.</p>
+              </div>
+              <div id="bw-drawing-table-feature-fields" data-drawing-table-fields="feature" hidden>
+                <label><span id="bw-drawing-table-feature-reference-label">Persistent feature IDs</span> <textarea id="bw-drawing-table-references" rows="3" placeholder="One feature ID per line"></textarea></label>
+              </div>
+              <div id="bw-drawing-table-revision-fields" data-drawing-table-fields="revision" hidden>
+                <label>Revision rows <textarea id="bw-drawing-table-revisions" rows="4" placeholder="A|Released for production|2026-08-02|Approver"></textarea></label>
+              </div>
+              <p id="bw-drawing-table-help" class="sk-note">Structural-member cut lists derive exact axial length, profile, material, and start/end treatment evidence. No length or cut angle is authored here.</p>
+              <p id="bw-drawing-table-error" class="ws-v5-command-error" role="alert"></p>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-table-add">Add table</button><button type="button" id="bw-drawing-table-update">Update</button><button type="button" id="bw-drawing-table-delete">Delete</button></div>
+            </fieldset>
+            <fieldset><legend>View alignment</legend>
+              <label>Existing <select id="bw-drawing-alignment-list"><option value="">No authored alignment</option></select></label>
+              <div class="ws-tour-actions"><label>Parent <select id="bw-drawing-alignment-parent"></select></label><label>Child <select id="bw-drawing-alignment-child"></select></label></div>
+              <div class="ws-tour-actions"><label>Axis <select id="bw-drawing-alignment-axis"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label><label>Gap mm <input id="bw-drawing-alignment-gap" type="number" min="2" max="100" step="0.1" value="12"></label></div>
+              <div class="ws-tour-actions"><button type="button" id="bw-drawing-alignment-add">Add alignment</button><button type="button" id="bw-drawing-alignment-delete">Delete selected</button></div>
+            </fieldset>
+            <label>Sheet scale
+              <select id="bw-drawing-pdf-scale">
+                <option value="fit">Fit to sheet at standard scale</option>
+                <option value="10">10:1</option><option value="5">5:1</option><option value="2">2:1</option>
+                <option value="1">1:1</option><option value="0.5">1:2</option><option value="0.2">1:5</option>
+                <option value="0.1">1:10</option><option value="0.05">1:20</option><option value="0.02">1:50</option><option value="0.01">1:100</option>
+              </select>
+            </label>
+            <p class="sk-note">An explicit scale that cannot fit the current drawing is rejected instead of silently shrinking the model.</p>
+            <div class="ws-tour-actions"><button type="button" id="bw-drawing-sheet-apply">Apply sheet</button><button type="button" id="bw-drawing-sheet-up">Move up</button><button type="button" id="bw-drawing-sheet-down">Move down</button><button type="button" id="bw-drawing-sheet-delete">Delete sheet</button></div>
+            <p id="bw-drawing-pdf-output-status" class="sk-note" role="status" hidden></p>
+            <p id="bw-drawing-pdf-output-error" class="ws-v5-command-error" role="alert" hidden></p>
+            <div class="ws-tour-actions"><button type="button" class="ws-primary" id="bw-drawing-pdf-download">Download PDF</button><button type="button" id="bw-drawing-pdf-print">Print</button></div>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="bw-pdm" class="ws-help ws-recover" aria-labelledby="bw-pdm-title">
+        <div class="ws-help-shell">
+          <header class="ws-help-head">
+            <div><span>Lifecycle</span><h2 id="bw-pdm-title">Versions and releases</h2></div>
+            <button type="button" id="bw-pdm-close" aria-label="Close PDM manager">×</button>
+          </header>
+          <div class="ws-recover-body">
+            <p>Immutable version snapshots, named branches, review decisions, approvals, and controlled release states travel with this project file.</p>
+            <label>Actor ID <input id="bw-pdm-actor" value="local.author" autocomplete="off"></label>
+            <label>Version message <input id="bw-pdm-message" value="Controlled model checkpoint" autocomplete="off"></label>
+            <p id="bw-pdm-status" class="sk-note"></p>
+            <div class="ws-tour-actions">
+              <button type="button" id="bw-pdm-initialize">Initialize PDM</button>
+              <button type="button" id="bw-pdm-new-branch">New branch</button>
+              <button type="button" id="bw-pdm-create-version">Create version</button>
+            </div>
+            <label>Branch <select id="bw-pdm-branch"></select></label>
+            <button type="button" id="bw-pdm-checkout">Check out branch</button>
+            <label>Version <select id="bw-pdm-version"></select></label>
+            <div class="ws-tour-actions">
+              <button type="button" id="bw-pdm-submit">Submit review</button>
+              <button type="button" id="bw-pdm-approve">Approve</button>
+              <button type="button" id="bw-pdm-reject">Reject</button>
+              <button type="button" id="bw-pdm-return">Return for changes</button>
+              <button type="button" id="bw-pdm-release">Release</button>
+              <button type="button" id="bw-pdm-obsolete">Mark obsolete</button>
+            </div>
+            <ol id="bw-pdm-history" class="ws-recovery-list"></ol>
+          </div>
+        </div>
+      </dialog>
+    </div>
+    </main>
+
+    <script src="/static/studio.js?v=426d8997f177" defer></script>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-loft-sections",
+  "name": "CAD corpus loft sections",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-loft-height", "name": "loft_height", "value": 36 },
+    { "id": "param-mid-half-w", "name": "mid_half_w", "value": 12 },
+    { "id": "param-mid-half-d", "name": "mid_half_d", "value": 8 },
+    { "id": "param-tip-half-w", "name": "tip_half_w", "value": 7 },
+    { "id": "param-tip-half-d", "name": "tip_half_d", "value": 5 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-loft-sections",
+      "name": "Three-section loft",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-loft-base",
+          "name": "Loft base plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        },
+        {
+          "id": "datum-loft-mid",
+          "name": "Loft middle plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "mode": "offset",
+            "referenceDatumId": "datum-loft-base",
+            "offset": "loft_height / 2"
+          }
+        },
+        {
+          "id": "datum-loft-tip",
+          "name": "Loft tip plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "mode": "offset",
+            "referenceDatumId": "datum-loft-base",
+            "offset": "loft_height"
+          }
+        }
+      ],
+      "sketches": [
+        {
+          "id": "sketch-loft-base",
+          "name": "Loft base profile",
+          "support": {
+            "ownerKind": "datum",
+            "ownerId": "datum-loft-base",
+            "semanticPath": { "role": "support" },
+            "signature": { "role": "support" }
+          },
+          "entities": [
+            {
+              "id": "entity-loft-base",
+              "kind": "polyline",
+              "points": [[-10, -7], [10, -7], [10, 7], [-10, 7]]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "profile" }
+        },
+        {
+          "id": "sketch-loft-mid",
+          "name": "Loft middle profile",
+          "support": {
+            "ownerKind": "datum",
+            "ownerId": "datum-loft-mid",
+            "semanticPath": { "role": "support" },
+            "signature": { "role": "support" }
+          },
+          "entities": [
+            {
+              "id": "entity-loft-mid",
+              "kind": "polyline",
+              "points": [
+                ["-mid_half_w", "-mid_half_d"],
+                ["mid_half_w", "-mid_half_d"],
+                ["mid_half_w", "mid_half_d"],
+                ["-mid_half_w", "mid_half_d"]
+              ]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "profile" }
+        },
+        {
+          "id": "sketch-loft-tip",
+          "name": "Loft tip profile",
+          "support": {
+            "ownerKind": "datum",
+            "ownerId": "datum-loft-tip",
+            "semanticPath": { "role": "support" },
+            "signature": { "role": "support" }
+          },
+          "entities": [
+            {
+              "id": "entity-loft-tip",
+              "kind": "polyline",
+              "points": [
+                ["-tip_half_w", "-tip_half_d"],
+                ["tip_half_w", "-tip_half_d"],
+                ["tip_half_w", "tip_half_d"],
+                ["-tip_half_w", "tip_half_d"]
+              ]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "profile" }
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body-loft-sections",
+          "name": "Lofted body",
+          "kind": "solid",
+          "createdByFeatureId": "feature-loft-sections",
+          "featureIds": ["feature-loft-sections"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-loft-sections",
+          "name": "Three-section loft",
+          "type": "loft",
+          "sections": [
+            { "sketchId": "sketch-loft-base", "startIndex": 0, "reversed": false },
+            { "sketchId": "sketch-loft-mid", "startIndex": 0, "reversed": false },
+            { "sketchId": "sketch-loft-tip", "startIndex": 0, "reversed": false }
+          ],
+          "guideSketchIds": [],
+          "mapping": "explicit",
+          "continuity": { "start": "free", "end": "free" },
+          "ruled": false,
+          "closed": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Lofted body" },
+          "createdBodyId": "body-loft-sections",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-loft-base",
+              "semanticPath": { "role": "section", "index": 0 },
+              "signature": { "role": "section" }
+            },
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-loft-mid",
+              "semanticPath": { "role": "section", "index": 1 },
+              "signature": { "role": "section" }
+            },
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-loft-tip",
+              "semanticPath": { "role": "section", "index": 2 },
+              "signature": { "role": "section" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": ["feature-loft-sections"],
+      "metadata": { "activeBodyId": "body-loft-sections" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-loft-sections" },
+  "resources": [],
+  "metadata": { "corpus": "loft-sections" }
+}

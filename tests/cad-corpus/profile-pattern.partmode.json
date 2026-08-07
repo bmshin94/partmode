@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-profile-pattern",
+  "name": "CAD corpus exact profile pattern",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-pattern-height", "name": "pattern_height", "value": 10 },
+    { "id": "param-pattern-spacing", "name": "pattern_spacing", "value": 16 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-profile-pattern",
+      "name": "Exact profile pattern",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-profile-pattern",
+          "name": "Patterned plate",
+          "kind": "solid",
+          "createdByFeatureId": "feature-pattern-stock",
+          "featureIds": ["feature-pattern-stock", "feature-pattern-cut"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-pattern-stock",
+          "name": "Exact plate stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-pattern-stock",
+            "name": "Plate profile",
+            "entities": [
+              { "id": "stock-bottom", "kind": "line", "a": [-30, -15], "b": [30, -15] },
+              { "id": "stock-right", "kind": "line", "a": [30, -15], "b": [30, 15] },
+              { "id": "stock-top", "kind": "line", "a": [30, 15], "b": [-30, 15] },
+              { "id": "stock-left", "kind": "line", "a": [-30, 15], "b": [-30, -15] }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "stock-rect", "kind": "rect", "x": 0, "y": 0, "w": 60, "h": 30 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "pattern_height",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Patterned plate" },
+          "createdBodyId": "body-profile-pattern",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-pattern-cut",
+          "name": "Exact repeated slots",
+          "type": "cut",
+          "sketch": {
+            "id": "sketch-pattern-cut",
+            "name": "Slot seed",
+            "entities": [
+              { "id": "slot-bottom", "kind": "line", "a": [-18, -3], "b": [-14, -3] },
+              { "id": "slot-right", "kind": "line", "a": [-14, -3], "b": [-14, 3] },
+              { "id": "slot-top", "kind": "line", "a": [-14, 3], "b": [-18, 3] },
+              { "id": "slot-left", "kind": "line", "a": [-18, 3], "b": [-18, -3] }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "slot-rect", "kind": "rect", "x": -16, "y": 0, "w": 4, "h": 6 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "pattern_height",
+          "through": true,
+          "pattern": { "kind": "linear", "n": 3, "dx": "pattern_spacing", "dy": 0 },
+          "resultPolicy": { "kind": "subtract", "targetBodyIds": ["body-profile-pattern"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-profile-pattern",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ],
+          "extensions": { "exactSketchEntities": true }
+        }
+      ],
+      "featureOrder": ["feature-pattern-stock", "feature-pattern-cut"],
+      "metadata": { "activeBodyId": "body-profile-pattern" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-profile-pattern" },
+  "resources": [],
+  "metadata": { "corpus": "profile-pattern" }
+}

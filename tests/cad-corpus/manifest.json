@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "boolean-cut",
+      "file": "boolean-cut.partmode.json",
+      "mutations": [
+        {
+          "id": "wider-tool",
+          "set": [
+            { "scope": "project", "name": "tool_r", "value": 8 }
+          ],
+          "mustEvaluateBodyIds": ["body-boolean-target", "body-boolean-tool"],
+          "mustEvaluateFeatureIds": ["feature-tool-extrude", "feature-tool-subtract"],
+          "mustReuseFeatureIds": ["feature-target-extrude"]
+        },
+        {
+          "id": "taller-cut",
+          "set": [
+            { "scope": "project", "name": "base_h", "value": 26 }
+          ],
+          "mustEvaluateBodyIds": ["body-boolean-target", "body-boolean-tool"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 0,
+        "sketchCount": 0,
+        "featureTypes": ["extrude", "extrude", "boolean"],
+        "parameterNames": ["base_w", "base_d", "base_h", "tool_r"],
+        "bodyIds": ["body-boolean-target", "body-boolean-tool"],
+        "kernelBodies": [
+          { "bodyId": "body-boolean-target", "minTriangles": 12, "minFaces": 7, "minEdges": 15, "minVertices": 10, "minNamedFaces": 7, "minNamedEdges": 15, "minNamedVertices": 10, "maxTopologyDiagnostics": 0, "topologyDiagnosticCodes": [], "stableTopologyNames": true },
+          { "bodyId": "body-boolean-tool", "minTriangles": 12, "minFaces": 3, "minEdges": 3, "minVertices": 2, "minNamedFaces": 3, "minNamedEdges": 3, "minNamedVertices": 2, "maxTopologyDiagnostics": 0, "topologyDiagnosticCodes": [], "stableTopologyNames": true }
+        ]
+      }
+    },
+    {
+      "id": "fillet-shell",
+      "file": "fillet-shell.partmode.json",
+      "mutations": [
+        {
+          "id": "larger-fillet",
+          "set": [
+            { "scope": "project", "name": "fillet_r", "value": 3.25 }
+          ],
+          "mustEvaluateBodyIds": ["body-fillet-box"],
+          "mustEvaluateFeatureIds": ["feature-edge-fillet"],
+          "mustReuseFeatureIds": ["feature-fillet-box"]
+        },
+        {
+          "id": "thinner-shell",
+          "set": [
+            { "scope": "project", "name": "shell_t", "value": 1 }
+          ],
+          "mustEvaluateBodyIds": ["body-shell-box"],
+          "mustEvaluateFeatureIds": ["feature-open-shell"],
+          "mustReuseFeatureIds": ["feature-shell-box"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 0,
+        "sketchCount": 0,
+        "featureTypes": ["extrude", "fillet", "extrude", "shell"],
+        "parameterNames": ["fillet_r", "shell_t"],
+        "bodyIds": ["body-fillet-box", "body-shell-box"],
+        "kernelBodies": [
+          { "bodyId": "body-fillet-box", "minTriangles": 12, "minFaces": 7, "minEdges": 12, "topologyDiagnosticCodes": [], "stableTopologyNames": true },
+          { "bodyId": "body-shell-box", "minTriangles": 12, "minFaces": 8, "minEdges": 16, "topologyDiagnosticCodes": [], "stableTopologyNames": true }
+        ]
+      }
+    },
+    {
+      "id": "loft-sections",
+      "file": "loft-sections.partmode.json",
+      "mutations": [
+        {
+          "id": "taller-loft",
+          "set": [
+            { "scope": "project", "name": "loft_height", "value": 48 }
+          ],
+          "mustEvaluateBodyIds": ["body-loft-sections"]
+        },
+        {
+          "id": "wider-tip",
+          "set": [
+            { "scope": "project", "name": "tip_half_w", "value": 9 }
+          ],
+          "mustEvaluateBodyIds": ["body-loft-sections"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 3,
+        "sketchCount": 3,
+        "featureTypes": ["loft"],
+        "parameterNames": ["loft_height", "mid_half_w", "mid_half_d", "tip_half_w", "tip_half_d"],
+        "bodyIds": ["body-loft-sections"],
+        "kernelBodies": [
+          { "bodyId": "body-loft-sections", "minTriangles": 12, "minFaces": 6, "minEdges": 12, "minNamedFaces": 6, "minNamedEdges": 12, "minNamedVertices": 8, "maxTopologyDiagnostics": 0, "topologyDiagnosticCodes": [], "stableTopologyNames": true }
+        ]
+      }
+    },
+    {
+      "id": "sweep-path",
+      "file": "sweep-path.partmode.json",
+      "mutations": [
+        {
+          "id": "higher-bend",
+          "set": [
+            { "scope": "project", "name": "path_height", "value": 44 },
+            { "scope": "project", "name": "path_bend_height", "value": 22 }
+          ],
+          "mustEvaluateBodyIds": ["body-sweep-path"]
+        },
+        {
+          "id": "narrower-end",
+          "set": [
+            { "scope": "project", "name": "sweep_scale", "value": 0.65 }
+          ],
+          "mustEvaluateBodyIds": ["body-sweep-path"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 1,
+        "sketchCount": 2,
+        "featureTypes": ["sweep"],
+        "parameterNames": ["path_bend_height", "path_height", "path_offset", "sweep_scale"],
+        "bodyIds": ["body-sweep-path"],
+        "kernelBodies": [
+          { "bodyId": "body-sweep-path", "minTriangles": 12, "minFaces": 6, "minEdges": 12, "minNamedFaces": 6, "minNamedEdges": 12, "minNamedVertices": 8, "maxTopologyDiagnostics": 0, "topologyDiagnosticCodes": [], "stableTopologyNames": true }
+        ]
+      }
+    },
+    {
+      "id": "named-checkpoint",
+      "file": "named-checkpoint.partmode.json",
+      "mutations": [
+        {
+          "id": "larger-named-fillet",
+          "set": [
+            { "scope": "project", "name": "named_radius", "value": 2.25 }
+          ],
+          "mustEvaluateBodyIds": ["body-named-checkpoint"],
+          "mustEvaluateFeatureIds": ["feature-named-fillet"],
+          "mustReuseFeatureIds": ["feature-named-stock"]
+        },
+        {
+          "id": "taller-named-stock",
+          "set": [
+            { "scope": "project", "name": "named_height", "value": 14 }
+          ],
+          "mustEvaluateBodyIds": ["body-named-checkpoint"],
+          "mustEvaluateFeatureIds": ["feature-named-stock", "feature-named-fillet"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 0,
+        "sketchCount": 0,
+        "featureTypes": ["extrude", "fillet"],
+        "parameterNames": ["named_height", "named_radius"],
+        "bodyIds": ["body-named-checkpoint"],
+        "kernelBodies": [
+          {
+            "bodyId": "body-named-checkpoint",
+            "minTriangles": 12,
+            "minFaces": 7,
+            "minEdges": 12,
+            "minVertices": 10,
+            "minNamedFaces": 7,
+            "minNamedEdges": 15,
+            "minNamedVertices": 10,
+            "maxTopologyDiagnostics": 0,
+            "topologyDiagnosticCodes": [],
+            "stableTopologyNames": true,
+            "requiredFaceNames": [
+              "Ffeature-named-stock:cap:start",
+              "Ffeature-named-fillet:blend:E(Ffeature-named-stock:cap:end|Ffeature-named-stock:side:profile-line-2)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "profile-pattern",
+      "file": "profile-pattern.partmode.json",
+      "mutations": [
+        {
+          "id": "closer-slots",
+          "set": [
+            { "scope": "project", "name": "pattern_spacing", "value": 14 }
+          ],
+          "mustEvaluateBodyIds": ["body-profile-pattern"],
+          "mustEvaluateFeatureIds": ["feature-pattern-cut"],
+          "mustReuseFeatureIds": ["feature-pattern-stock"]
+        },
+        {
+          "id": "taller-plate",
+          "set": [
+            { "scope": "project", "name": "pattern_height", "value": 13 }
+          ],
+          "mustEvaluateBodyIds": ["body-profile-pattern"]
+        }
+      ],
+      "expected": {
+        "rootKind": "part",
+        "partCount": 1,
+        "assemblyCount": 0,
+        "datumCount": 0,
+        "sketchCount": 0,
+        "featureTypes": ["extrude", "cut"],
+        "parameterNames": ["pattern_height", "pattern_spacing"],
+        "bodyIds": ["body-profile-pattern"],
+        "kernelBodies": [
+          {
+            "bodyId": "body-profile-pattern",
+            "minTriangles": 12,
+            "minFaces": 18,
+            "minEdges": 48,
+            "minVertices": 32,
+            "minNamedFaces": 18,
+            "minNamedEdges": 48,
+            "minNamedVertices": 32,
+            "maxTopologyDiagnostics": 0,
+            "topologyDiagnosticCodes": [],
+            "stableTopologyNames": true
+          }
+        ]
+      }
+    }
+  ]
+}

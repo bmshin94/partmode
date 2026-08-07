@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 5,
+  "projectId": "runtime-body-patterns",
+  "name": "Runtime body pattern topology",
+  "units": "mm",
+  "parameters": [
+    { "id": "parameter-source-height", "name": "source_height", "value": 8 },
+    { "id": "parameter-linked-spacing", "name": "linked_spacing", "value": 30 },
+    { "id": "parameter-union-spacing", "name": "union_spacing", "value": 8 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-runtime-body-patterns",
+      "name": "Runtime body patterns",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-pattern-direction",
+          "name": "Pattern direction",
+          "kind": "axis",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "direction": [1, 0, 0]
+          }
+        }
+      ],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-pattern-source",
+          "name": "Pattern source",
+          "kind": "solid",
+          "createdByFeatureId": "feature-pattern-source",
+          "featureIds": ["feature-pattern-source"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [
+        {
+          "id": "pattern-linked",
+          "name": "Linked pattern",
+          "kind": "linear",
+          "sourceBodyId": "body-pattern-source",
+          "references": [
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-pattern-direction",
+              "semanticPath": { "role": "direction" },
+              "signature": { "role": "direction" }
+            }
+          ],
+          "definition": {
+            "count": 3,
+            "distribution": "spacing",
+            "symmetric": false,
+            "orientation": "preserve",
+            "spacing": "linked_spacing",
+            "extent": "linked_spacing * 2",
+            "positions": [],
+            "alternating": false
+          },
+          "outputMode": "linked",
+          "skippedIndices": [],
+          "suppressed": false,
+          "visible": true
+        },
+        {
+          "id": "pattern-union",
+          "name": "Union pattern",
+          "kind": "linear",
+          "sourceBodyId": "body-pattern-source",
+          "references": [
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-pattern-direction",
+              "semanticPath": { "role": "direction" },
+              "signature": { "role": "direction" }
+            }
+          ],
+          "definition": {
+            "count": 3,
+            "distribution": "spacing",
+            "symmetric": false,
+            "orientation": "preserve",
+            "spacing": "union_spacing",
+            "extent": "union_spacing * 2",
+            "positions": [],
+            "alternating": false
+          },
+          "outputMode": "union",
+          "skippedIndices": [],
+          "suppressed": false,
+          "visible": true
+        }
+      ],
+      "features": [
+        {
+          "id": "feature-pattern-source",
+          "name": "Exact pattern source",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-pattern-source",
+            "name": "Pattern source profile",
+            "entities": [
+              { "id": "source-bottom", "kind": "line", "a": [-6, -4], "b": [6, -4] },
+              { "id": "source-right", "kind": "line", "a": [6, -4], "b": [6, 4] },
+              { "id": "source-top", "kind": "line", "a": [6, 4], "b": [-6, 4] },
+              { "id": "source-left", "kind": "line", "a": [-6, 4], "b": [-6, -4] }
+            ],
+            "groups": [],
+            "shapes": [
+              { "kind": "rect", "x": 0, "y": 0, "w": 12, "h": 8 }
+            ],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "source_height",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Pattern source" },
+          "createdBodyId": "body-pattern-source",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        }
+      ],
+      "featureOrder": ["feature-pattern-source"],
+      "metadata": { "activeBodyId": "body-pattern-source" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-runtime-body-patterns" },
+  "resources": [],
+  "metadata": { "corpus": "runtime-body-patterns" }
+}

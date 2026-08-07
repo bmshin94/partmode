@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-sweep-path",
+  "name": "CAD corpus sweep path",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-path-bend-height", "name": "path_bend_height", "value": 18 },
+    { "id": "param-path-height", "name": "path_height", "value": 36 },
+    { "id": "param-path-offset", "name": "path_offset", "value": 12 },
+    { "id": "param-sweep-scale", "name": "sweep_scale", "value": 0.8 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-sweep-path",
+      "name": "Bent-path sweep",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-sweep-profile",
+          "name": "Sweep profile plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        }
+      ],
+      "sketches": [
+        {
+          "id": "sketch-sweep-profile",
+          "name": "Sweep profile",
+          "support": {
+            "ownerKind": "datum",
+            "ownerId": "datum-sweep-profile",
+            "semanticPath": { "role": "support" },
+            "signature": { "role": "support" }
+          },
+          "entities": [
+            {
+              "id": "entity-sweep-profile",
+              "kind": "polyline",
+              "points": [[-3, -2], [3, -2], [3, 2], [-3, 2]]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "profile" }
+        },
+        {
+          "id": "sketch-sweep-path",
+          "name": "Sweep path",
+          "entities": [
+            {
+              "id": "entity-sweep-path",
+              "kind": "spline",
+              "points": [
+                [0, 0, 0],
+                [0, 0, "path_bend_height / 2"],
+                [0, 0, "path_bend_height"],
+                ["path_offset / 3", 0, "path_bend_height + (path_height - path_bend_height) / 3"],
+                ["path_offset", 0, "path_height"]
+              ]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "path" }
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body-sweep-path",
+          "name": "Swept body",
+          "kind": "solid",
+          "createdByFeatureId": "feature-sweep-path",
+          "featureIds": ["feature-sweep-path"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-sweep-path",
+          "name": "Bent-path sweep",
+          "type": "sweep",
+          "profileSketchId": "sketch-sweep-profile",
+          "pathSketchId": "sketch-sweep-path",
+          "orientation": "minimum-twist",
+          "referenceDirection": [0, 0, 1],
+          "twistAngle": 0,
+          "scaleEnd": "sweep_scale",
+          "transition": "round",
+          "resultPolicy": { "kind": "new-body", "bodyName": "Swept body" },
+          "createdBodyId": "body-sweep-path",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-sweep-profile",
+              "semanticPath": { "role": "profile" },
+              "signature": { "role": "profile" }
+            },
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-sweep-path",
+              "semanticPath": { "role": "path" },
+              "signature": { "role": "path" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": ["feature-sweep-path"],
+      "metadata": { "activeBodyId": "body-sweep-path" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-sweep-path" },
+  "resources": [],
+  "metadata": { "corpus": "sweep-path" }
+}

@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-fillet-shell",
+  "name": "CAD corpus fillet and shell",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-fillet-r", "name": "fillet_r", "value": 2 },
+    { "id": "param-shell-t", "name": "shell_t", "value": 1.5 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-fillet-shell",
+      "name": "Fillet and shell",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-fillet-box",
+          "name": "Filleted box",
+          "kind": "solid",
+          "createdByFeatureId": "feature-fillet-box",
+          "featureIds": ["feature-fillet-box", "feature-edge-fillet"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-shell-box",
+          "name": "Shelled box",
+          "kind": "solid",
+          "createdByFeatureId": "feature-shell-box",
+          "featureIds": ["feature-shell-box", "feature-open-shell"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-fillet-box",
+          "name": "Fillet stock",
+          "type": "extrude",
+          "sketch": {
+            "entities": [
+              { "id": "fillet-stock-bottom", "kind": "line", "a": [-42, -9], "b": [-18, -9] },
+              { "id": "fillet-stock-right", "kind": "line", "a": [-18, -9], "b": [-18, 9] },
+              { "id": "fillet-stock-top", "kind": "line", "a": [-18, 9], "b": [-42, 9] },
+              { "id": "fillet-stock-left", "kind": "line", "a": [-42, 9], "b": [-42, -9] }
+            ],
+            "shapes": [
+              { "kind": "rect", "x": -30, "y": 0, "w": 24, "h": 18 }
+            ],
+            "z": 0
+          },
+          "extensions": { "exactSketchEntities": true },
+          "h": 14,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Filleted box" },
+          "createdBodyId": "body-fillet-box",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-edge-fillet",
+          "name": "Topology edge fillet",
+          "type": "fillet",
+          "r": "fillet_r",
+          "edges": [
+            { "p": [-42, -9, 7], "l": 14, "curveType": "LINE" }
+          ],
+          "resultPolicy": { "kind": "add", "targetBodyIds": ["body-fillet-box"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-fillet-box",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ]
+        },
+        {
+          "id": "feature-shell-box",
+          "name": "Shell stock",
+          "type": "extrude",
+          "sketch": {
+            "entities": [
+              { "id": "shell-stock-bottom", "kind": "line", "a": [18, -9], "b": [42, -9] },
+              { "id": "shell-stock-right", "kind": "line", "a": [42, -9], "b": [42, 9] },
+              { "id": "shell-stock-top", "kind": "line", "a": [42, 9], "b": [18, 9] },
+              { "id": "shell-stock-left", "kind": "line", "a": [18, 9], "b": [18, -9] }
+            ],
+            "shapes": [
+              { "kind": "rect", "x": 30, "y": 0, "w": 24, "h": 18 }
+            ],
+            "z": 0
+          },
+          "extensions": { "exactSketchEntities": true },
+          "h": 14,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Shelled box" },
+          "createdBodyId": "body-shell-box",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-open-shell",
+          "name": "Topology face shell",
+          "type": "shell",
+          "t": "shell_t",
+          "faces": [
+            { "p": [30, 0, 14], "n": [0, 0, 1] }
+          ],
+          "resultPolicy": { "kind": "add", "targetBodyIds": ["body-shell-box"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-shell-box",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": ["feature-fillet-box", "feature-edge-fillet", "feature-shell-box", "feature-open-shell"],
+      "metadata": { "activeBodyId": "body-fillet-box" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-fillet-shell" },
+  "resources": [],
+  "metadata": { "corpus": "fillet-shell" }
+}

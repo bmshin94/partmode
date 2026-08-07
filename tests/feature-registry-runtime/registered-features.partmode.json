@@ -1,0 +1,615 @@
+{
+  "schemaVersion": 5,
+  "projectId": "runtime-registered-features",
+  "name": "Registered feature runtime coverage",
+  "units": "mm",
+  "parameters": [
+    { "id": "parameter-chamfer-size", "name": "chamfer_size", "value": 1.5 },
+    { "id": "parameter-draft-angle", "name": "draft_angle", "value": 4 },
+    { "id": "parameter-revolve-angle", "name": "revolve_angle", "value": 270 },
+    { "id": "parameter-thicken-distance", "name": "thicken_distance", "value": 2 },
+    { "id": "parameter-transform-dx", "name": "transform_dx", "value": 32 },
+    { "id": "parameter-split-target-height", "name": "split_target_height", "value": 12 },
+    { "id": "parameter-face-stock-height", "name": "face_stock_height", "value": 10 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-registered-features",
+      "name": "Registered feature runtime coverage",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-draft-neutral",
+          "name": "Draft neutral plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        },
+        {
+          "id": "datum-revolve-profile",
+          "name": "Revolve profile plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        },
+        {
+          "id": "datum-revolve-axis",
+          "name": "Revolve axis",
+          "kind": "axis",
+          "suppressed": false,
+          "definition": {
+            "origin": [0, 0, 0],
+            "direction": [0, 1, 0]
+          }
+        }
+      ],
+      "sketches": [
+        {
+          "id": "sketch-revolve-profile",
+          "name": "Revolve profile",
+          "support": {
+            "ownerKind": "datum",
+            "ownerId": "datum-revolve-profile",
+            "semanticPath": { "role": "support" },
+            "signature": { "role": "support" }
+          },
+          "entities": [
+            {
+              "id": "entity-revolve-profile",
+              "kind": "polyline",
+              "points": [[6, -5], [12, -5], [12, 5], [6, 5]]
+            }
+          ],
+          "groups": [],
+          "constraints": [],
+          "extensions": { "studioRole": "profile" }
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body-chamfer",
+          "name": "Chamfered stock",
+          "kind": "solid",
+          "createdByFeatureId": "feature-chamfer-stock",
+          "featureIds": ["feature-chamfer-stock", "feature-chamfer"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-draft",
+          "name": "Drafted stock",
+          "kind": "solid",
+          "createdByFeatureId": "feature-draft-stock",
+          "featureIds": ["feature-draft-stock", "feature-draft"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-revolve",
+          "name": "Revolved ring sector",
+          "kind": "solid",
+          "createdByFeatureId": "feature-revolve",
+          "featureIds": ["feature-revolve"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-thicken-source",
+          "name": "Thicken source",
+          "kind": "solid",
+          "createdByFeatureId": "feature-thicken-source",
+          "featureIds": ["feature-thicken-source"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-thickened",
+          "name": "Thickened face",
+          "kind": "solid",
+          "createdByFeatureId": "feature-thicken",
+          "featureIds": ["feature-thicken"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-transform-source",
+          "name": "Transform source",
+          "kind": "solid",
+          "createdByFeatureId": "feature-transform-source",
+          "featureIds": ["feature-transform-source"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-transform-copy",
+          "name": "Translated copy",
+          "kind": "solid",
+          "createdByFeatureId": "feature-transform-copy",
+          "featureIds": ["feature-transform-copy"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-face-attached",
+          "name": "Named support face pocket",
+          "kind": "solid",
+          "createdByFeatureId": "feature-face-stock",
+          "featureIds": ["feature-face-stock", "feature-face-cut"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-split-target",
+          "name": "Split target",
+          "kind": "solid",
+          "createdByFeatureId": "feature-split-target",
+          "featureIds": ["feature-split-target"],
+          "visible": false,
+          "suppressed": false
+        },
+        {
+          "id": "body-split-tool",
+          "name": "Split tool",
+          "kind": "solid",
+          "createdByFeatureId": "feature-split-tool",
+          "featureIds": ["feature-split-tool"],
+          "visible": false,
+          "suppressed": false
+        },
+        {
+          "id": "body-split-outside",
+          "name": "Outside split",
+          "kind": "solid",
+          "createdByFeatureId": "feature-split-outside",
+          "featureIds": ["feature-split-outside"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-split-inside",
+          "name": "Inside split",
+          "kind": "solid",
+          "createdByFeatureId": "feature-split-inside",
+          "featureIds": ["feature-split-inside"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-chamfer-stock",
+          "name": "Chamfer stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-chamfer-stock",
+            "name": "Chamfer stock profile",
+            "entities": [
+              { "id": "chamfer-stock-bottom", "kind": "line", "a": [-10, -5], "b": [10, -5] },
+              { "id": "chamfer-stock-right", "kind": "line", "a": [10, -5], "b": [10, 5] },
+              { "id": "chamfer-stock-top", "kind": "line", "a": [10, 5], "b": [-10, 5] },
+              { "id": "chamfer-stock-left", "kind": "line", "a": [-10, 5], "b": [-10, -5] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 20, "h": 10 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 12,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Chamfered stock" },
+          "createdBodyId": "body-chamfer",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-chamfer",
+          "name": "Named edge chamfer",
+          "type": "chamfer",
+          "r": "chamfer_size",
+          "edges": [
+            {
+              "name": "E(Ffeature-chamfer-stock:cap:end|Ffeature-chamfer-stock:side:chamfer-stock-right)",
+              "sig": { "p": [10, 0, 12], "l": 10, "curveType": "LINE" }
+            }
+          ],
+          "resultPolicy": { "kind": "add", "targetBodyIds": ["body-chamfer"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-chamfer",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ]
+        },
+        {
+          "id": "feature-draft-stock",
+          "name": "Draft stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-draft-stock",
+            "name": "Draft stock profile",
+            "entities": [
+              { "id": "draft-stock-bottom", "kind": "line", "a": [-9, -6], "b": [9, -6] },
+              { "id": "draft-stock-right", "kind": "line", "a": [9, -6], "b": [9, 6] },
+              { "id": "draft-stock-top", "kind": "line", "a": [9, 6], "b": [-9, 6] },
+              { "id": "draft-stock-left", "kind": "line", "a": [-9, 6], "b": [-9, -6] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 18, "h": 12 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 16,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Drafted stock" },
+          "createdBodyId": "body-draft",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-draft",
+          "name": "Named face draft",
+          "type": "draft",
+          "faces": [
+            {
+              "name": "Ffeature-draft-stock:side:draft-stock-right",
+              "sig": { "p": [9, 0, 8], "n": [1, 0, 0] }
+            }
+          ],
+          "neutralPlaneDatumId": "datum-draft-neutral",
+          "angle": "draft_angle",
+          "flip": false,
+          "tangentPropagation": false,
+          "resultPolicy": { "kind": "add", "targetBodyIds": ["body-draft"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-draft",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            },
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-draft-neutral",
+              "semanticPath": { "role": "neutral-plane" },
+              "signature": { "role": "neutral-plane" }
+            }
+          ]
+        },
+        {
+          "id": "feature-revolve",
+          "name": "Exact partial revolve",
+          "type": "revolve",
+          "profileSketchId": "sketch-revolve-profile",
+          "axisDatumId": "datum-revolve-axis",
+          "angle": "revolve_angle",
+          "startAngle": 0,
+          "symmetric": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Revolved ring sector" },
+          "createdBodyId": "body-revolve",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "sketch",
+              "ownerId": "sketch-revolve-profile",
+              "semanticPath": { "role": "profile" },
+              "signature": { "role": "profile" }
+            },
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-revolve-axis",
+              "semanticPath": { "role": "axis" },
+              "signature": { "role": "axis" }
+            }
+          ]
+        },
+        {
+          "id": "feature-thicken-source",
+          "name": "Thicken source stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-thicken-source",
+            "name": "Thicken source profile",
+            "entities": [
+              { "id": "thicken-source-bottom", "kind": "line", "a": [-8, -5], "b": [8, -5] },
+              { "id": "thicken-source-right", "kind": "line", "a": [8, -5], "b": [8, 5] },
+              { "id": "thicken-source-top", "kind": "line", "a": [8, 5], "b": [-8, 5] },
+              { "id": "thicken-source-left", "kind": "line", "a": [-8, 5], "b": [-8, -5] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 16, "h": 10 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 8,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Thicken source" },
+          "createdBodyId": "body-thicken-source",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-thicken",
+          "name": "Named face thicken",
+          "type": "thicken",
+          "sourceBodyId": "body-thicken-source",
+          "toolBodyIds": ["body-thicken-source"],
+          "linked": true,
+          "faces": [
+            {
+              "name": "Ffeature-thicken-source:cap:end",
+              "sig": { "p": [0, 0, 8], "n": [0, 0, 1] }
+            }
+          ],
+          "thickness": "thicken_distance",
+          "symmetric": false,
+          "flip": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Thickened face" },
+          "createdBodyId": "body-thickened",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-thicken-source",
+              "semanticPath": { "role": "source" },
+              "signature": { "role": "source" }
+            }
+          ]
+        },
+        {
+          "id": "feature-transform-source",
+          "name": "Transform source stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-transform-source",
+            "name": "Transform source profile",
+            "entities": [
+              { "id": "transform-source-bottom", "kind": "line", "a": [-7, -4], "b": [7, -4] },
+              { "id": "transform-source-right", "kind": "line", "a": [7, -4], "b": [7, 4] },
+              { "id": "transform-source-top", "kind": "line", "a": [7, 4], "b": [-7, 4] },
+              { "id": "transform-source-left", "kind": "line", "a": [-7, 4], "b": [-7, -4] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 14, "h": 8 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 9,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Transform source" },
+          "createdBodyId": "body-transform-source",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-transform-copy",
+          "name": "Translated copy",
+          "type": "transform",
+          "operation": "copy",
+          "transform": { "mode": "copy", "translation": ["transform_dx", 0, 0] },
+          "sourceBodyId": "body-transform-source",
+          "toolBodyIds": ["body-transform-source"],
+          "linked": true,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Translated copy" },
+          "createdBodyId": "body-transform-copy",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-transform-source",
+              "semanticPath": { "role": "source" },
+              "signature": { "role": "source" }
+            }
+          ]
+        },
+        {
+          "id": "feature-face-stock",
+          "name": "Named support stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-face-stock",
+            "name": "Named support stock profile",
+            "entities": [
+              { "id": "face-stock-bottom", "kind": "line", "a": [-10, -8], "b": [10, -8] },
+              { "id": "face-stock-right", "kind": "line", "a": [10, -8], "b": [10, 8] },
+              { "id": "face-stock-top", "kind": "line", "a": [10, 8], "b": [-10, 8] },
+              { "id": "face-stock-left", "kind": "line", "a": [-10, 8], "b": [-10, -8] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 20, "h": 16 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "face_stock_height",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Named support face pocket" },
+          "createdBodyId": "body-face-attached",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-face-cut",
+          "name": "Named support face pocket",
+          "type": "cut",
+          "sketch": {
+            "id": "sketch-face-cut",
+            "name": "Pocket profile",
+            "entities": [
+              { "id": "face-cut-bottom", "kind": "line", "a": [-3, -2], "b": [3, -2] },
+              { "id": "face-cut-right", "kind": "line", "a": [3, -2], "b": [3, 2] },
+              { "id": "face-cut-top", "kind": "line", "a": [3, 2], "b": [-3, 2] },
+              { "id": "face-cut-left", "kind": "line", "a": [-3, 2], "b": [-3, -2] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 6, "h": 4 }],
+            "z": 0
+          },
+          "onFace": {
+            "name": "Ffeature-face-stock:cap:end",
+            "sig": { "p": [0, 0, 10], "n": [0, 0, 1] }
+          },
+          "h": 4,
+          "through": false,
+          "reversed": false,
+          "resultPolicy": { "kind": "subtract", "targetBodyIds": ["body-face-attached"], "keepTools": false },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-face-attached",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-split-target",
+          "name": "Split target stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-split-target",
+            "name": "Split target profile",
+            "entities": [
+              { "id": "split-target-bottom", "kind": "line", "a": [-10, -8], "b": [10, -8] },
+              { "id": "split-target-right", "kind": "line", "a": [10, -8], "b": [10, 8] },
+              { "id": "split-target-top", "kind": "line", "a": [10, 8], "b": [-10, 8] },
+              { "id": "split-target-left", "kind": "line", "a": [-10, 8], "b": [-10, -8] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 0, "y": 0, "w": 20, "h": 16 }],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "split_target_height",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Split target" },
+          "createdBodyId": "body-split-target",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-split-tool",
+          "name": "Split tool stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-split-tool",
+            "name": "Split tool profile",
+            "entities": [
+              { "id": "split-tool-bottom", "kind": "line", "a": [3, -12], "b": [14, -12] },
+              { "id": "split-tool-right", "kind": "line", "a": [14, -12], "b": [14, 12] },
+              { "id": "split-tool-top", "kind": "line", "a": [14, 12], "b": [3, 12] },
+              { "id": "split-tool-left", "kind": "line", "a": [3, 12], "b": [3, -12] }
+            ],
+            "groups": [],
+            "shapes": [{ "kind": "rect", "x": 8.5, "y": 0, "w": 11, "h": 24 }],
+            "z": -4
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 20,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Split tool" },
+          "createdBodyId": "body-split-tool",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-split-outside",
+          "name": "Boolean split outside",
+          "type": "boolean-split-side",
+          "operationId": "operation-split",
+          "side": "outside",
+          "sourceBodyId": "body-split-target",
+          "toolBodyIds": ["body-split-target", "body-split-tool"],
+          "keepTools": true,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Outside split" },
+          "createdBodyId": "body-split-outside",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-split-target",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            },
+            {
+              "ownerKind": "body",
+              "ownerId": "body-split-tool",
+              "semanticPath": { "role": "tool" },
+              "signature": { "role": "tool" }
+            }
+          ]
+        },
+        {
+          "id": "feature-split-inside",
+          "name": "Boolean split inside",
+          "type": "boolean-split-side",
+          "operationId": "operation-split",
+          "side": "inside",
+          "sourceBodyId": "body-split-target",
+          "toolBodyIds": ["body-split-target", "body-split-tool"],
+          "keepTools": true,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Inside split" },
+          "createdBodyId": "body-split-inside",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-split-target",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            },
+            {
+              "ownerKind": "body",
+              "ownerId": "body-split-tool",
+              "semanticPath": { "role": "tool" },
+              "signature": { "role": "tool" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": [
+        "feature-chamfer-stock",
+        "feature-chamfer",
+        "feature-draft-stock",
+        "feature-draft",
+        "feature-revolve",
+        "feature-thicken-source",
+        "feature-thicken",
+        "feature-transform-source",
+        "feature-transform-copy",
+        "feature-face-stock",
+        "feature-face-cut",
+        "feature-split-target",
+        "feature-split-tool",
+        "feature-split-outside",
+        "feature-split-inside"
+      ],
+      "metadata": { "activeBodyId": "body-chamfer" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-registered-features" },
+  "resources": [],
+  "metadata": { "corpus": "registered-feature-runtime" }
+}

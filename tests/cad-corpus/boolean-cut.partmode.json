@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 5,
+  "projectId": "cad-corpus-boolean-cut",
+  "name": "CAD corpus boolean cut",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-base-w", "name": "base_w", "value": 40 },
+    { "id": "param-base-d", "name": "base_d", "value": 30 },
+    { "id": "param-base-h", "name": "base_h", "value": 20 },
+    { "id": "param-tool-r", "name": "tool_r", "value": 6 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-boolean-cut",
+      "name": "Boolean cut",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-boolean-target",
+          "name": "Target",
+          "kind": "solid",
+          "createdByFeatureId": "feature-target-extrude",
+          "featureIds": ["feature-target-extrude", "feature-tool-subtract"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-boolean-tool",
+          "name": "Tool",
+          "kind": "solid",
+          "createdByFeatureId": "feature-tool-extrude",
+          "featureIds": ["feature-tool-extrude"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-target-extrude",
+          "name": "Target extrude",
+          "type": "extrude",
+          "sketch": {
+            "shapes": [
+              { "id": "target-profile", "kind": "rect", "x": 0, "y": 0, "w": "base_w", "h": "base_d" }
+            ],
+            "z": 0
+          },
+          "h": "base_h",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Target" },
+          "createdBodyId": "body-boolean-target",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-tool-extrude",
+          "name": "Tool extrude",
+          "type": "extrude",
+          "sketch": {
+            "shapes": [
+              { "id": "tool-profile", "kind": "circle", "x": 0, "y": 0, "r": "tool_r" }
+            ],
+            "z": 0
+          },
+          "h": "base_h",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Tool" },
+          "createdBodyId": "body-boolean-tool",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-tool-subtract",
+          "name": "Subtract tool",
+          "type": "boolean",
+          "operation": "subtract",
+          "toolBodyIds": ["body-boolean-tool"],
+          "resultPolicy": {
+            "kind": "subtract",
+            "targetBodyIds": ["body-boolean-target"],
+            "keepTools": true
+          },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-boolean-target",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            },
+            {
+              "ownerKind": "body",
+              "ownerId": "body-boolean-tool",
+              "semanticPath": { "role": "tool" },
+              "signature": { "role": "tool" }
+            }
+          ]
+        }
+      ],
+      "featureOrder": ["feature-target-extrude", "feature-tool-extrude", "feature-tool-subtract"],
+      "metadata": { "activeBodyId": "body-boolean-target" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-boolean-cut" },
+  "resources": [],
+  "metadata": { "corpus": "boolean-cut" }
+}

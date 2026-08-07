@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 5,
+  "projectId": "through-all-large-runtime",
+  "name": "Target-bounds Through All runtime corpus",
+  "units": "mm",
+  "parameters": [
+    { "id": "param-through-offset", "name": "stock_offset", "value": 20000 },
+    { "id": "param-through-span", "name": "stock_span", "value": 25000 }
+  ],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-through-all-large",
+      "name": "Large Through All targets",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-through-exact",
+          "name": "Exact base-plane target",
+          "kind": "solid",
+          "createdByFeatureId": "feature-through-exact-stock",
+          "featureIds": ["feature-through-exact-stock", "feature-through-exact-cut"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-through-classic",
+          "name": "Classic inline target",
+          "kind": "solid",
+          "createdByFeatureId": "feature-through-classic-stock",
+          "featureIds": ["feature-through-classic-stock", "feature-through-classic-cut"],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-through-face",
+          "name": "Face-attached target",
+          "kind": "solid",
+          "createdByFeatureId": "feature-through-face-stock",
+          "featureIds": ["feature-through-face-stock", "feature-through-face-cut"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-through-exact-stock",
+          "name": "Exact far-offset stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-through-exact-stock",
+            "name": "Exact stock profile",
+            "entities": [
+              { "id": "exact-stock-bottom", "kind": "line", "a": [-20, -15], "b": [20, -15] },
+              { "id": "exact-stock-right", "kind": "line", "a": [20, -15], "b": [20, 15] },
+              { "id": "exact-stock-top", "kind": "line", "a": [20, 15], "b": [-20, 15] },
+              { "id": "exact-stock-left", "kind": "line", "a": [-20, 15], "b": [-20, -15] }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "exact-stock-shape", "kind": "rect", "x": 0, "y": 0, "w": 40, "h": 30 }],
+            "z": "stock_offset"
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "stock_span",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Exact base-plane target" },
+          "createdBodyId": "body-through-exact",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-through-exact-cut",
+          "name": "Exact target-bounds hole",
+          "type": "cut",
+          "sketch": {
+            "id": "sketch-through-exact-cut",
+            "name": "Exact hole profile",
+            "entities": [
+              { "id": "exact-cut-circle", "kind": "circle", "center": [0, 0], "radius": 5 }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "exact-cut-shape", "kind": "circle", "x": 0, "y": 0, "r": 5 }],
+            "z": -60000
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "through": true,
+          "reversed": false,
+          "symmetric": false,
+          "resultPolicy": { "kind": "subtract", "targetBodyIds": ["body-through-exact"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-through-exact",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-through-classic-stock",
+          "name": "Classic far-offset stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-through-classic-stock",
+            "name": "Classic stock profile",
+            "shapes": [{ "id": "classic-stock-shape", "kind": "rect", "x": 0, "y": 0, "w": 32, "h": 24 }],
+            "z": "stock_offset"
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "stock_span",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Classic inline target" },
+          "createdBodyId": "body-through-classic",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-through-classic-cut",
+          "name": "Classic target-bounds slot",
+          "type": "cut",
+          "sketch": {
+            "id": "sketch-through-classic-cut",
+            "name": "Classic slot profile",
+            "shapes": [{ "id": "classic-cut-shape", "kind": "rect", "x": 0, "y": 0, "w": 4, "h": 4 }],
+            "z": 90000
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "through": true,
+          "reversed": false,
+          "symmetric": false,
+          "resultPolicy": { "kind": "subtract", "targetBodyIds": ["body-through-classic"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-through-classic",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ]
+        },
+        {
+          "id": "feature-through-face-stock",
+          "name": "Face-attached far-offset stock",
+          "type": "extrude",
+          "sketch": {
+            "id": "sketch-through-face-stock",
+            "name": "Face stock profile",
+            "entities": [
+              { "id": "face-stock-bottom", "kind": "line", "a": [-18, -12], "b": [18, -12] },
+              { "id": "face-stock-right", "kind": "line", "a": [18, -12], "b": [18, 12] },
+              { "id": "face-stock-top", "kind": "line", "a": [18, 12], "b": [-18, 12] },
+              { "id": "face-stock-left", "kind": "line", "a": [-18, 12], "b": [-18, -12] }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "face-stock-shape", "kind": "rect", "x": 0, "y": 0, "w": 36, "h": 24 }],
+            "z": "stock_offset"
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": "stock_span",
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Face-attached target" },
+          "createdBodyId": "body-through-face",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        },
+        {
+          "id": "feature-through-face-cut",
+          "name": "Face-attached target-bounds slot",
+          "type": "cut",
+          "sketch": {
+            "id": "sketch-through-face-cut",
+            "name": "Face slot profile",
+            "entities": [
+              { "id": "face-cut-bottom", "kind": "line", "a": [15, 10], "b": [21, 10] },
+              { "id": "face-cut-right", "kind": "line", "a": [21, 10], "b": [21, 14] },
+              { "id": "face-cut-top", "kind": "line", "a": [21, 14], "b": [15, 14] },
+              { "id": "face-cut-left", "kind": "line", "a": [15, 14], "b": [15, 10] }
+            ],
+            "groups": [],
+            "shapes": [{ "id": "face-cut-shape", "kind": "rect", "x": 18, "y": 12, "w": 6, "h": 4 }],
+            "z": 0
+          },
+          "onFace": {
+            "name": "Ffeature-through-face-stock:cap:end",
+            "sig": { "p": [0, 0, 45000], "n": [0, 0, 1] }
+          },
+          "through": true,
+          "reversed": false,
+          "symmetric": false,
+          "resultPolicy": { "kind": "subtract", "targetBodyIds": ["body-through-face"] },
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-through-face",
+              "semanticPath": { "role": "target" },
+              "signature": { "role": "target" }
+            }
+          ],
+          "extensions": { "exactSketchEntities": true }
+        }
+      ],
+      "featureOrder": [
+        "feature-through-exact-stock",
+        "feature-through-exact-cut",
+        "feature-through-classic-stock",
+        "feature-through-classic-cut",
+        "feature-through-face-stock",
+        "feature-through-face-cut"
+      ],
+      "metadata": { "activeBodyId": "body-through-exact" }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": { "kind": "part", "partId": "part-through-all-large" },
+  "resources": [],
+  "metadata": { "corpus": "through-all-target-bounds" }
+}

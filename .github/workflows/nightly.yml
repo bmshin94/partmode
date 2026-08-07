@@ -1,0 +1,26 @@
+name: CAD regression
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 18 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cad-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.1
+          cache: npm
+      - run: npm ci
+      - run: npm run professional-core:gate

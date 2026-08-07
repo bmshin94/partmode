@@ -1,0 +1,506 @@
+:root {
+  color-scheme: dark;
+}
+
+body.pm-account-route {
+  min-height: 100vh;
+  margin: 0;
+  color: #dce5ec;
+  background: #161e26;
+  font: 15px/1.55 "Segoe UI", Arial, ui-sans-serif, sans-serif;
+}
+
+#pm-account-app {
+  --pm-account-canvas: #161e26;
+  --pm-account-panel: #202a34;
+  --pm-account-panel-raised: #27333e;
+  --pm-account-line: #43515e;
+  --pm-account-line-strong: #627486;
+  --pm-account-text: #dce5ec;
+  --pm-account-muted: #97a6b4;
+  --pm-account-blue: #7db9df;
+  --pm-account-blue-strong: #a7d8f5;
+  --pm-account-danger: #ef9b96;
+  --pm-account-danger-panel: #3a282c;
+  --pm-account-good: #8bc5ae;
+  box-sizing: border-box;
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: clamp(32px, 7vw, 76px) 0 72px;
+  color: var(--pm-account-text);
+}
+
+#pm-account-app *,
+#pm-account-app *::before,
+#pm-account-app *::after {
+  box-sizing: border-box;
+}
+
+#pm-account-app [hidden] {
+  display: none !important;
+}
+
+#pm-account-app a {
+  color: var(--pm-account-blue-strong);
+  text-underline-offset: 3px;
+}
+
+#pm-account-app > header,
+#pm-account-app .pm-account-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--pm-account-line);
+}
+
+#pm-account-app .pm-account-kicker {
+  margin: 0 0 7px;
+  color: var(--pm-account-blue);
+  font: 700 11px/1.2 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+#pm-account-app h1,
+#pm-account-app h2,
+#pm-account-app h3,
+#pm-account-app p {
+  margin-top: 0;
+}
+
+#pm-account-app h1 {
+  margin-bottom: 8px;
+  color: #f1f6f9;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+#pm-account-app h2 {
+  margin-bottom: 8px;
+  color: #edf4f8;
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+#pm-account-app h3 {
+  margin-bottom: 5px;
+  color: #e8f0f5;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+#pm-account-app .pm-account-lede,
+#pm-account-app .pm-account-note,
+#pm-account-app .pm-account-meta {
+  color: var(--pm-account-muted);
+}
+
+#pm-account-app .pm-account-lede {
+  max-width: 680px;
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+#pm-account-status {
+  min-height: 22px;
+  margin: 0 0 16px;
+  padding: 0;
+  color: var(--pm-account-muted);
+  font-size: 13px;
+}
+
+#pm-account-status:empty {
+  min-height: 0;
+  margin: 0;
+}
+
+#pm-account-status[data-state="error"] {
+  padding: 10px 12px;
+  color: #ffd4d0;
+  background: var(--pm-account-danger-panel);
+  border-left: 3px solid var(--pm-account-danger);
+}
+
+#pm-account-status[data-state="success"] {
+  padding: 10px 12px;
+  color: #d7f3e7;
+  background: #20342f;
+  border-left: 3px solid var(--pm-account-good);
+}
+
+#pm-account-status[data-state="busy"] {
+  padding-left: 14px;
+  color: var(--pm-account-blue-strong);
+  border-left: 3px solid var(--pm-account-blue);
+}
+
+#pm-auth-view {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+#pm-auth-view .pm-google-auth {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#pm-auth-view .pm-google-auth .pm-account-note {
+  max-width: 680px;
+  margin-bottom: 0;
+}
+
+#pm-account-app .pm-google-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 9px 18px;
+  align-items: center;
+  justify-content: center;
+  color: #0d1b24;
+  background: var(--pm-account-blue-strong);
+  border: 1px solid var(--pm-account-blue-strong);
+  border-radius: 3px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#pm-account-app .pm-google-button:hover {
+  color: #09151d;
+  background: #c0e5fa;
+  border-color: #c0e5fa;
+}
+
+#pm-auth-view > section,
+#pm-auth-view > article,
+#pm-signup-form,
+#pm-login-form,
+#pm-dashboard > section,
+#pm-dashboard > article,
+#pm-dashboard .pm-account-panel {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 28px);
+  background: var(--pm-account-panel);
+  border: 1px solid var(--pm-account-line);
+  box-shadow: 0 14px 32px rgb(5 10 14 / 20%);
+}
+
+#pm-auth-view > form,
+#pm-signup-form,
+#pm-login-form,
+#pm-key-form {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+#pm-account-app label {
+  display: grid;
+  gap: 6px;
+  color: #c7d2da;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#pm-account-app input,
+#pm-account-app select,
+#pm-account-app button {
+  min-height: 42px;
+  border: 1px solid var(--pm-account-line-strong);
+  border-radius: 3px;
+  font: inherit;
+}
+
+#pm-account-app input,
+#pm-account-app select {
+  width: 100%;
+  padding: 9px 11px;
+  color: #f2f6f8;
+  background: #141c23;
+}
+
+#pm-account-app input::placeholder {
+  color: #71818f;
+}
+
+#pm-account-app select {
+  color-scheme: dark;
+}
+
+#pm-account-app button {
+  padding: 9px 15px;
+  color: #eaf1f5;
+  background: #2a3742;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+#pm-account-app button:hover:not(:disabled) {
+  border-color: #7890a3;
+  background: #33434f;
+}
+
+#pm-account-app button[type="submit"],
+#pm-key-copy {
+  color: #0d1b24;
+  background: var(--pm-account-blue-strong);
+  border-color: var(--pm-account-blue-strong);
+}
+
+#pm-account-app button[type="submit"]:hover:not(:disabled),
+#pm-key-copy:hover:not(:disabled) {
+  color: #09151d;
+  background: #c0e5fa;
+  border-color: #c0e5fa;
+}
+
+#pm-account-app button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+#pm-account-app input:focus-visible,
+#pm-account-app select:focus-visible,
+#pm-account-app button:focus-visible,
+#pm-account-app a:focus-visible {
+  outline: 2px solid #c9eaff;
+  outline-offset: 3px;
+}
+
+#pm-dashboard {
+  display: grid;
+  gap: 18px;
+}
+
+#pm-dashboard .pm-account-summary,
+#pm-dashboard .pm-account-actions,
+#pm-dashboard .pm-key-actions,
+#pm-dashboard .pm-secret-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#pm-dashboard .pm-account-summary {
+  justify-content: space-between;
+}
+
+#pm-dashboard .pm-auth-method-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#pm-dashboard .pm-auth-method-row p {
+  margin-bottom: 0;
+}
+
+#pm-account-name {
+  color: #f1f6f9;
+  font-weight: 700;
+}
+
+#pm-key-form {
+  grid-template-columns: minmax(180px, 1fr) minmax(150px, 220px) auto;
+  align-items: end;
+  margin-top: 18px;
+}
+
+#pm-key-list {
+  display: grid;
+  gap: 1px;
+  margin: 20px 0 0;
+  padding: 1px;
+  list-style: none;
+  background: var(--pm-account-line);
+  border: 1px solid var(--pm-account-line);
+}
+
+#pm-key-list .pm-key-row,
+#pm-key-list .pm-key-empty {
+  min-width: 0;
+  padding: 15px 16px;
+  background: var(--pm-account-panel-raised);
+}
+
+#pm-key-list .pm-key-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+#pm-key-list .pm-key-title {
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+#pm-key-list .pm-key-access {
+  padding: 2px 7px;
+  color: #bcd5e5;
+  border: 1px solid #4f687a;
+  font: 700 10px/1.45 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#pm-key-list .pm-key-meta {
+  margin: 6px 0 0;
+  color: var(--pm-account-muted);
+  font-size: 12px;
+}
+
+#pm-key-list .pm-key-prefix {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+#pm-key-list .pm-key-revoke,
+#pm-delete-account {
+  color: #ffc5c1;
+  border-color: #8d5c5c;
+  background: transparent;
+}
+
+#pm-key-list .pm-key-revoke:hover:not(:disabled),
+#pm-delete-account:hover:not(:disabled),
+#pm-delete-account[data-confirming="true"] {
+  color: #ffe1df;
+  border-color: var(--pm-account-danger);
+  background: var(--pm-account-danger-panel);
+}
+
+#pm-key-secret {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(20px, 4vw, 32px);
+  background: #172630;
+  border: 1px solid #668297;
+  box-shadow: 0 16px 40px rgb(3 9 13 / 32%);
+}
+
+#pm-key-secret::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: var(--pm-account-blue-strong);
+  content: "";
+}
+
+#pm-key-secret .pm-secret-warning {
+  color: #c7d6df;
+}
+
+#pm-key-secret-value {
+  display: block;
+  width: 100%;
+  margin: 16px 0;
+  padding: 14px 16px;
+  overflow-wrap: anywhere;
+  color: #e8f7ff;
+  background: #0d161c;
+  border: 1px solid #587488;
+  font: 600 13px/1.55 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  user-select: all;
+}
+
+#pm-key-dismiss {
+  background: transparent;
+}
+
+#pm-account-app .pm-agent-config {
+  margin: 14px 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  color: #e8f7ff;
+  background: #0d161c;
+  border: 1px solid #587488;
+  font: 600 12px/1.6 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+#pm-logout {
+  background: transparent;
+}
+
+@media (max-width: 760px) {
+  #pm-account-app {
+    width: min(100% - 22px, 620px);
+    padding-top: 24px;
+  }
+
+  #pm-account-app > header,
+  #pm-account-app .pm-account-header,
+  #pm-auth-view {
+    grid-template-columns: 1fr;
+  }
+
+  #pm-auth-view .pm-google-auth,
+  #pm-dashboard .pm-auth-method-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #pm-key-form {
+    grid-template-columns: 1fr;
+  }
+
+  #pm-key-form button[type="submit"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  #pm-account-app h1 {
+    font-size: 30px;
+  }
+
+  #pm-auth-view > section,
+  #pm-auth-view > article,
+  #pm-signup-form,
+  #pm-login-form,
+  #pm-dashboard > section,
+  #pm-dashboard > article,
+  #pm-dashboard .pm-account-panel {
+    padding: 18px;
+  }
+
+  #pm-key-list .pm-key-row {
+    grid-template-columns: 1fr;
+  }
+
+  #pm-key-list .pm-key-revoke {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #pm-key-secret:not([hidden]) {
+    animation: pm-secret-reveal 180ms ease-out;
+  }
+
+  @keyframes pm-secret-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

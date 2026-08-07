@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 5,
+  "projectId": "assembly-runtime-two-part-constrained",
+  "name": "Two-part constrained assembly",
+  "units": "mm",
+  "parameters": [],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-base-block",
+      "name": "Base block",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-base-x",
+          "name": "Base corner X plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [10, -5, 0],
+            "normal": [1, 0, 0],
+            "xDirection": [0, 1, 0]
+          }
+        },
+        {
+          "id": "datum-base-y",
+          "name": "Base corner Y plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [10, -5, 0],
+            "normal": [0, 1, 0],
+            "xDirection": [1, 0, 0]
+          }
+        },
+        {
+          "id": "datum-base-z",
+          "name": "Base corner Z plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [10, -5, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        }
+      ],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-base-block",
+          "name": "Base block solid",
+          "kind": "solid",
+          "createdByFeatureId": "feature-base-extrude",
+          "featureIds": ["feature-base-extrude"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-base-extrude",
+          "name": "Base block extrude",
+          "type": "extrude",
+          "sketch": {
+            "id": "profile-base-block",
+            "name": "Base block profile",
+            "entities": [
+              { "id": "base-edge-bottom", "kind": "line", "a": [-10, -5], "b": [10, -5] },
+              { "id": "base-edge-right", "kind": "line", "a": [10, -5], "b": [10, 5] },
+              { "id": "base-edge-top", "kind": "line", "a": [10, 5], "b": [-10, 5] },
+              { "id": "base-edge-left", "kind": "line", "a": [-10, 5], "b": [-10, -5] }
+            ],
+            "groups": [],
+            "shapes": [
+              { "kind": "rect", "x": 0, "y": 0, "w": 20, "h": 10 }
+            ],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 8,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Base block solid" },
+          "createdBodyId": "body-base-block",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        }
+      ],
+      "featureOrder": ["feature-base-extrude"],
+      "metadata": {
+        "activeBodyId": "body-base-block",
+        "partNumber": "PM-BASE-100",
+        "revision": "A",
+        "description": "Machined base block"
+      }
+    },
+    {
+      "id": "part-moving-block",
+      "name": "Moving block",
+      "parameters": [],
+      "referenceGeometry": [
+        {
+          "id": "datum-moving-x",
+          "name": "Moving corner X plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [-6, -4, 0],
+            "normal": [1, 0, 0],
+            "xDirection": [0, 1, 0]
+          }
+        },
+        {
+          "id": "datum-moving-y",
+          "name": "Moving corner Y plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [-6, -4, 0],
+            "normal": [0, 1, 0],
+            "xDirection": [1, 0, 0]
+          }
+        },
+        {
+          "id": "datum-moving-z",
+          "name": "Moving corner Z plane",
+          "kind": "plane",
+          "suppressed": false,
+          "definition": {
+            "origin": [-6, -4, 0],
+            "normal": [0, 0, 1],
+            "xDirection": [1, 0, 0]
+          }
+        }
+      ],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-moving-block",
+          "name": "Moving block solid",
+          "kind": "solid",
+          "createdByFeatureId": "feature-moving-extrude",
+          "featureIds": ["feature-moving-extrude"],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-moving-extrude",
+          "name": "Moving block extrude",
+          "type": "extrude",
+          "sketch": {
+            "id": "profile-moving-block",
+            "name": "Moving block profile",
+            "entities": [
+              { "id": "moving-edge-bottom", "kind": "line", "a": [-6, -4], "b": [6, -4] },
+              { "id": "moving-edge-right", "kind": "line", "a": [6, -4], "b": [6, 4] },
+              { "id": "moving-edge-top", "kind": "line", "a": [6, 4], "b": [-6, 4] },
+              { "id": "moving-edge-left", "kind": "line", "a": [-6, 4], "b": [-6, -4] }
+            ],
+            "groups": [],
+            "shapes": [
+              { "kind": "rect", "x": 0, "y": 0, "w": 12, "h": 8 }
+            ],
+            "z": 0
+          },
+          "plane": { "kind": "base", "plane": "XY" },
+          "h": 14,
+          "through": false,
+          "resultPolicy": { "kind": "new-body", "bodyName": "Moving block solid" },
+          "createdBodyId": "body-moving-block",
+          "suppressed": false,
+          "inputRefs": [],
+          "extensions": { "exactSketchEntities": true }
+        }
+      ],
+      "featureOrder": ["feature-moving-extrude"],
+      "metadata": {
+        "activeBodyId": "body-moving-block",
+        "partNumber": "PM-MOVING-200",
+        "revision": "B",
+        "description": "Tall moving block"
+      }
+    }
+  ],
+  "assemblyDefinitions": [
+    {
+      "id": "assembly-two-blocks",
+      "name": "Two-block constrained assembly",
+      "parameters": [],
+      "occurrences": [
+        {
+          "id": "occurrence-base",
+          "name": "Base block",
+          "definition": { "kind": "part", "partId": "part-base-block" },
+          "baseTransform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "fixed": true,
+          "suppressed": false,
+          "visible": true
+        },
+        {
+          "id": "occurrence-moving",
+          "name": "Moving block",
+          "definition": { "kind": "part", "partId": "part-moving-block" },
+          "baseTransform": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 7, -4, 9, 1],
+          "fixed": false,
+          "suppressed": false,
+          "visible": true
+        }
+      ],
+      "mates": [
+        {
+          "id": "mate-corner-x",
+          "name": "Corner X planes",
+          "kind": "coincident",
+          "occurrenceIds": ["occurrence-base", "occurrence-moving"],
+          "references": [
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-base-x",
+              "occurrencePath": ["occurrence-base"],
+              "semanticPath": { "role": "base-x-plane" },
+              "signature": { "role": "plane", "normal": [1, 0, 0] }
+            },
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-moving-x",
+              "occurrencePath": ["occurrence-moving"],
+              "semanticPath": { "role": "moving-x-plane" },
+              "signature": { "role": "plane", "normal": [1, 0, 0] }
+            }
+          ],
+          "suppressed": false
+        },
+        {
+          "id": "mate-corner-y",
+          "name": "Corner Y planes",
+          "kind": "coincident",
+          "occurrenceIds": ["occurrence-base", "occurrence-moving"],
+          "references": [
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-base-y",
+              "occurrencePath": ["occurrence-base"],
+              "semanticPath": { "role": "base-y-plane" },
+              "signature": { "role": "plane", "normal": [0, 1, 0] }
+            },
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-moving-y",
+              "occurrencePath": ["occurrence-moving"],
+              "semanticPath": { "role": "moving-y-plane" },
+              "signature": { "role": "plane", "normal": [0, 1, 0] }
+            }
+          ],
+          "suppressed": false
+        },
+        {
+          "id": "mate-corner-z",
+          "name": "Corner Z planes",
+          "kind": "coincident",
+          "occurrenceIds": ["occurrence-base", "occurrence-moving"],
+          "references": [
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-base-z",
+              "occurrencePath": ["occurrence-base"],
+              "semanticPath": { "role": "base-z-plane" },
+              "signature": { "role": "plane", "normal": [0, 0, 1] }
+            },
+            {
+              "ownerKind": "datum",
+              "ownerId": "datum-moving-z",
+              "occurrencePath": ["occurrence-moving"],
+              "semanticPath": { "role": "moving-z-plane" },
+              "signature": { "role": "plane", "normal": [0, 0, 1] }
+            }
+          ],
+          "suppressed": false
+        }
+      ],
+      "occurrencePatterns": [],
+      "explodedViews": [],
+      "sectionViews": [],
+      "metadata": {}
+    }
+  ],
+  "rootDocument": { "kind": "assembly", "assemblyId": "assembly-two-blocks" },
+  "resources": [],
+  "metadata": { "acceptance": "assembly-runtime" }
+}

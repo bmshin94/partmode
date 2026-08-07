@@ -1,0 +1,27 @@
+Vendored component notice
+
+replicad 0.23.1
+replicad-opencascadejs 0.23.0
+
+Copyright 2023 QuaroTech Sàrl.
+Author and npm maintainer: Steve Genoud.
+
+Vendored files:
+
+- replicad.module.js, from replicad dist/replicad.js, unmodified.
+- replicad-oc.module.js, from replicad-opencascadejs
+  src/replicad_single.js, unmodified.
+- replicad_single.wasm, from replicad-opencascadejs
+  src/replicad_single.wasm, unmodified.
+
+The replicad and replicad-opencascadejs JavaScript packaging is distributed
+under the MIT License in LICENSE-replicad.txt. The WebAssembly binary contains
+Open CASCADE Technology and is additionally governed by GNU LGPL version 2.1
+and the Open CASCADE exception in LICENSE-LGPL-2.1.txt and
+LICENSE-OCCT-exception.txt.
+
+Upstream sources and metadata:
+
+- https://github.com/sgenoud/replicad/tree/v0.23.1
+- https://www.npmjs.com/package/replicad-opencascadejs/v/0.23.0
+- https://github.com/Open-Cascade-SAS/OCCT

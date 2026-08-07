@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 5,
+  "projectId": "partmode-release-three-body",
+  "name": "Slice 5A runtime fixture",
+  "units": "mm",
+  "parameters": [],
+  "materials": [],
+  "partDefinitions": [
+    {
+      "id": "part-new-0fhc8gq",
+      "name": "Slice 5A runtime fixture",
+      "parameters": [],
+      "referenceGeometry": [],
+      "sketches": [],
+      "bodies": [
+        {
+          "id": "body-feature-housing",
+          "name": "Housing",
+          "kind": "solid",
+          "createdByFeatureId": "feature-housing",
+          "featureIds": [
+            "feature-housing",
+            "feature-housing-tool-subtract"
+          ],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-feature-shaft",
+          "name": "Shaft",
+          "kind": "solid",
+          "createdByFeatureId": "feature-shaft",
+          "featureIds": [
+            "feature-shaft"
+          ],
+          "visible": true,
+          "suppressed": false
+        },
+        {
+          "id": "body-feature-tool",
+          "name": "Tool",
+          "kind": "solid",
+          "createdByFeatureId": "feature-tool",
+          "featureIds": [
+            "feature-tool"
+          ],
+          "visible": true,
+          "suppressed": false
+        }
+      ],
+      "bodyPatterns": [],
+      "features": [
+        {
+          "id": "feature-housing",
+          "name": "Housing extrude",
+          "type": "extrude",
+          "sketch": {
+            "shapes": [
+              {
+                "id": "profile-housing-stock",
+                "kind": "rect",
+                "x": 0,
+                "y": 0,
+                "w": 40,
+                "h": 40
+              }
+            ],
+            "z": 0
+          },
+          "h": 20,
+          "through": false,
+          "resultPolicy": {
+            "kind": "new-body",
+            "bodyName": "Housing"
+          },
+          "createdBodyId": "body-feature-housing",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-shaft",
+          "name": "Shaft extrude",
+          "type": "extrude",
+          "sketch": {
+            "shapes": [
+              {
+                "id": "profile-shaft-stock",
+                "kind": "rect",
+                "x": 60,
+                "y": 0,
+                "w": 10,
+                "h": 10
+              }
+            ],
+            "z": 0
+          },
+          "h": 20,
+          "through": false,
+          "resultPolicy": {
+            "kind": "new-body",
+            "bodyName": "Shaft"
+          },
+          "createdBodyId": "body-feature-shaft",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-tool",
+          "name": "Tool extrude",
+          "type": "extrude",
+          "sketch": {
+            "shapes": [
+              {
+                "id": "profile-tool-stock",
+                "kind": "circle",
+                "x": 0,
+                "y": 0,
+                "r": 5
+              }
+            ],
+            "z": 0
+          },
+          "h": 20,
+          "through": false,
+          "resultPolicy": {
+            "kind": "new-body",
+            "bodyName": "Tool"
+          },
+          "createdBodyId": "body-feature-tool",
+          "suppressed": false,
+          "inputRefs": []
+        },
+        {
+          "id": "feature-housing-tool-subtract",
+          "name": "Subtract Tool from Housing",
+          "type": "boolean",
+          "operation": "subtract",
+          "suppressed": false,
+          "inputRefs": [
+            {
+              "ownerKind": "body",
+              "ownerId": "body-feature-housing",
+              "signature": {
+                "role": "target"
+              }
+            },
+            {
+              "ownerKind": "body",
+              "ownerId": "body-feature-tool",
+              "signature": {
+                "role": "tool"
+              }
+            }
+          ],
+          "toolBodyIds": [
+            "body-feature-tool"
+          ],
+          "resultPolicy": {
+            "kind": "subtract",
+            "targetBodyIds": [
+              "body-feature-housing"
+            ],
+            "keepTools": true
+          }
+        }
+      ],
+      "featureOrder": [
+        "feature-housing",
+        "feature-shaft",
+        "feature-tool",
+        "feature-housing-tool-subtract"
+      ],
+      "metadata": {
+        "activeBodyId": "body-feature-housing"
+      }
+    }
+  ],
+  "assemblyDefinitions": [],
+  "rootDocument": {
+    "kind": "part",
+    "partId": "part-new-0fhc8gq"
+  },
+  "resources": [],
+  "metadata": {}
+}
