@@ -1,0 +1,82 @@
+name: Contribution proposal
+description: Propose a scoped user workflow or technical improvement before implementation.
+title: "[Proposal] "
+labels:
+  - proposal
+  - triage
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: User workflow or problem
+      description: Describe the concrete workflow and who is blocked today.
+    validations:
+      required: true
+  - type: dropdown
+    id: actor
+    attributes:
+      label: Primary workflow
+      options:
+        - Human browser workflow
+        - Typed agent workflow
+        - Shared human and agent workflow
+        - Contributor or maintainer workflow
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Proposed outcome
+      description: Describe observable behavior, not only an implementation approach.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Affected boundaries
+      options:
+        - label: Browser UI or accessibility
+        - label: Saved-project schema or compatibility
+        - label: Exact kernel or persistent topology
+        - label: Agent protocol, permissions, or preview and commit
+        - label: Server-headless storage or execution
+        - label: Import, export, or drawings
+        - label: Tests, documentation, or build tooling
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Acceptance evidence
+      description: Name the document, runtime, kernel, artifact, and browser evidence that would prove completion.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Saved-project and protocol compatibility
+      description: Explain whether old projects, extensions, agent clients, or artifacts are affected.
+  - type: textarea
+    id: non-goals
+    attributes:
+      label: Scope and non-goals
+      description: Keep the first contribution reviewable and explicit.
+    validations:
+      required: true
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Contribution intent
+      options:
+        - I want to implement this
+        - I can provide fixtures or testing
+        - I am requesting maintainer feedback only
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched existing issues and the contribution roadmap.
+          required: true
+        - label: I will open a focused change and add the narrowest relevant regression if the boundary is accepted.
+          required: true

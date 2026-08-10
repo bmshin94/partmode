@@ -1,0 +1,102 @@
+name: Bug report
+description: Report a reproducible PartMode defect with the evidence needed to investigate it.
+title: "[Bug] "
+labels:
+  - bug
+  - triage
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Sketch and constraints
+        - Part features and topology
+        - Assemblies and mates
+        - Drawings and export
+        - Agents, MCP, or headless
+        - Browser UI or accessibility
+        - Server or accounts
+        - Build or documentation
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Product mode
+      options:
+        - Browser-local CAD
+        - Browser-approved agent session
+        - Server-headless agent session
+        - Server, account, or build tooling
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release SHA or source commit
+      placeholder: Full commit SHA or the value shown by the running build
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Minimal project, template, or fixture
+      description: Name a built-in template, attach the smallest project fixture that reproduces the problem, or write "Not applicable" for non-CAD reports.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Open ...
+        2. Choose ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result and diagnostics
+      description: Include typed error codes and bounded logs. Do not include credentials, private data, or proprietary project content.
+    validations:
+      required: true
+  - type: textarea
+    id: exact-evidence
+    attributes:
+      label: Exact or runtime evidence
+      description: Include the document revision or hash, B-rep or topology result, export manifest, or browser settlement evidence that applies.
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and operating system
+      placeholder: Chrome 140 on macOS 15, if relevant
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands already run
+      placeholder: npm run ci:gate; npm run smoke:...
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Would you like to work on a fix?
+      options:
+        - "Yes"
+        - I can test a fix
+        - Not at this time
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched existing issues for the same problem.
+          required: true
+        - label: Any attached fixture contains no credentials, private data, or standards content without redistribution rights.
+          required: true
